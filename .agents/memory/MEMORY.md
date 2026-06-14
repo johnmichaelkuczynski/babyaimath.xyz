@@ -9,4 +9,5 @@
 - [Orval request-body naming](orval-request-body-naming.md) — name OpenAPI requestBody component schemas `*Input`, never `<OperationId>Body`, or the zod barrel collides with orval's generated operation-body symbol.
 - [Reasoning instrument label](reasoning-instrument-label.md) — instrument enum stays `"ethical"` internally (db/openapi/codegen stability); ALWAYS map it to display label "Professional Judgment" at every render point, never print the raw enum.
 - [Course design mandates](course-design-mandates.md) — math keyboard required on ALL inputs incl. tutor (even no-math course); every question (incl. adaptive drill) must be scenario-reasoning, never one-word/recitation.
+- [Diagnostic answer-format versions](diagnostic-format-versions.md) — 3 formats (mcq/hybrid/written) per (instrument,phase) are ALTERNATIVES; grade by group (any-format-pass), never per 12 rows.
 - [Subject conversion blind spots](subject-conversion-blindspots.md) — when rebranding the course subject, video artifacts also hide subject copy in index.html OG/Twitter meta + a per-artifact YOUTUBE_DESCRIPTION.md, not just scene .tsx files.

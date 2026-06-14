@@ -5,31 +5,14 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-import type { ReasoningItemType } from './reasoningItemType';
 
 export interface ReasoningItem {
   id: number;
   position: number;
-  type: ReasoningItemType;
   prompt: string;
   /**
-     * For mcq items — the answer choices.
+     * The answer choices, for the mcq and hybrid formats. Null for the written format, where no options are shown.
      * @nullable
      */
   options?: string[] | null;
-  /**
-     * For dilemma items — the possible decisions on the scenario.
-     * @nullable
-     */
-  decisionOptions?: string[] | null;
-  /**
-     * For dilemma items — statements to rate by importance and rank.
-     * @nullable
-     */
-  considerations?: string[] | null;
-  /**
-     * For dilemma items — how many top considerations to rank.
-     * @nullable
-     */
-  rankCount?: number | null;
 }

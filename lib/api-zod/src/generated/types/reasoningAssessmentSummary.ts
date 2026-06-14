@@ -5,6 +5,7 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { ReasoningAssessmentSummaryFormat } from './reasoningAssessmentSummaryFormat';
 import type { ReasoningAssessmentSummaryInstrument } from './reasoningAssessmentSummaryInstrument';
 import type { ReasoningAssessmentSummaryPhase } from './reasoningAssessmentSummaryPhase';
 import type { ReasoningAssessmentSummaryStatus } from './reasoningAssessmentSummaryStatus';
@@ -13,6 +14,8 @@ export interface ReasoningAssessmentSummary {
   id: number;
   instrument: ReasoningAssessmentSummaryInstrument;
   phase: ReasoningAssessmentSummaryPhase;
+  /** The answer format of this version of the test: mcq (options only), hybrid (options + a short written justification), or written (a short written answer, no options). */
+  format: ReasoningAssessmentSummaryFormat;
   title: string;
   /** @nullable */
   subtitle?: string | null;

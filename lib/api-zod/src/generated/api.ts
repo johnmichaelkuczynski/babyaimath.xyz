@@ -596,6 +596,7 @@ export const ListReasoningAssessmentsResponseItem = zod.object({
   "id": zod.number(),
   "instrument": zod.enum(['ethical', 'critical']),
   "phase": zod.enum(['baseline', 'unit1', 'unit2', 'unit3', 'unit4']),
+  "format": zod.enum(['mcq', 'hybrid', 'written']).describe('The answer format of this version of the test: mcq (options only), hybrid (options + a short written justification), or written (a short written answer, no options).'),
   "title": zod.string(),
   "subtitle": zod.string().nullish(),
   "itemCount": zod.number(),
@@ -616,18 +617,15 @@ export const GetReasoningAssessmentResponse = zod.object({
   "id": zod.number(),
   "instrument": zod.enum(['ethical', 'critical']),
   "phase": zod.enum(['baseline', 'unit1', 'unit2', 'unit3', 'unit4']),
+  "format": zod.enum(['mcq', 'hybrid', 'written']),
   "title": zod.string(),
   "subtitle": zod.string().nullish(),
   "instructions": zod.string(),
   "items": zod.array(zod.object({
   "id": zod.number(),
   "position": zod.number(),
-  "type": zod.enum(['dilemma', 'mcq']),
   "prompt": zod.string(),
-  "options": zod.array(zod.string()).nullish().describe('For mcq items — the answer choices.'),
-  "decisionOptions": zod.array(zod.string()).nullish().describe('For dilemma items — the possible decisions on the scenario.'),
-  "considerations": zod.array(zod.string()).nullish().describe('For dilemma items — statements to rate by importance and rank.'),
-  "rankCount": zod.number().nullish().describe('For dilemma items — how many top considerations to rank.')
+  "options": zod.array(zod.string()).nullish().describe('The answer choices, for the mcq and hybrid formats. Null for the written format, where no options are shown.')
 }))
 })
 
@@ -659,26 +657,20 @@ export const StartReasoningAttemptResponse = zod.object({
 })).nullish().describe('For a submitted attempt being reviewed — the score metrics.'),
   "review": zod.array(zod.object({
   "itemId": zod.number(),
-  "type": zod.enum(['dilemma', 'mcq']),
   "prompt": zod.string(),
-  "options": zod.array(zod.string()).nullish().describe('mcq — the answer choices shown.'),
-  "selectedIndex": zod.number().nullish().describe('mcq — the option index the student chose.'),
-  "correctIndex": zod.number().nullish().describe('mcq — the correct option index.'),
-  "isCorrect": zod.boolean().nullish().describe('mcq — whether the student\'s choice was correct.'),
-  "decisionOptions": zod.array(zod.string()).nullish().describe('dilemma — the possible decisions.'),
-  "decisionIndex": zod.number().nullish().describe('dilemma — the decision the student chose.'),
-  "considerations": zod.array(zod.string()).nullish().describe('dilemma — the considerations presented.'),
-  "ranking": zod.array(zod.number()).nullish().describe('dilemma — consideration indices the student ranked most-important first.')
+  "options": zod.array(zod.string()).nullish().describe('mcq \/ hybrid — the answer choices shown.'),
+  "selectedIndex": zod.number().nullish().describe('mcq \/ hybrid — the option index the student chose.'),
+  "correctIndex": zod.number().nullish().describe('mcq \/ hybrid — the correct option index.'),
+  "isCorrect": zod.boolean().nullish().describe('Whether the student\'s answer was judged correct.'),
+  "writtenAnswer": zod.string().nullish().describe('written \/ hybrid — the student\'s short written answer.'),
+  "modelAnswer": zod.string().nullish().describe('written \/ hybrid — the reference model answer the response was graded against.'),
+  "rationale": zod.string().nullish().describe('written — a short note on why the answer was or wasn\'t judged correct.')
 })).nullish().describe('For a submitted attempt being reviewed — per-question review with the student\'s answer and the correct answer.'),
   "items": zod.array(zod.object({
   "id": zod.number(),
   "position": zod.number(),
-  "type": zod.enum(['dilemma', 'mcq']),
   "prompt": zod.string(),
-  "options": zod.array(zod.string()).nullish().describe('For mcq items — the answer choices.'),
-  "decisionOptions": zod.array(zod.string()).nullish().describe('For dilemma items — the possible decisions on the scenario.'),
-  "considerations": zod.array(zod.string()).nullish().describe('For dilemma items — statements to rate by importance and rank.'),
-  "rankCount": zod.number().nullish().describe('For dilemma items — how many top considerations to rank.')
+  "options": zod.array(zod.string()).nullish().describe('The answer choices, for the mcq and hybrid formats. Null for the written format, where no options are shown.')
 })).describe('The exact items to present for THIS attempt. The first take uses the seeded template; each retake returns freshly generated questions of the same kind (same instrument, skill areas, and structure).')
 })
 
@@ -693,10 +685,8 @@ export const SubmitReasoningAttemptParams = zod.object({
 export const SubmitReasoningAttemptBody = zod.object({
   "responses": zod.array(zod.object({
   "itemId": zod.number(),
-  "selectedIndex": zod.number().nullish().describe('mcq — chosen option index.'),
-  "decisionIndex": zod.number().nullish().describe('dilemma — chosen decision index.'),
-  "ratings": zod.array(zod.number()).nullish().describe('dilemma — importance rating (0-4) per consideration, by index.'),
-  "ranking": zod.array(zod.number()).nullish().describe('dilemma — consideration indices ranked most-important first.')
+  "selectedIndex": zod.number().nullish().describe('mcq \/ hybrid — chosen option index.'),
+  "writtenAnswer": zod.string().nullish().describe('written \/ hybrid — the student\'s short written answer.')
 }))
 })
 
@@ -712,16 +702,14 @@ export const SubmitReasoningAttemptResponse = zod.object({
 })),
   "review": zod.array(zod.object({
   "itemId": zod.number(),
-  "type": zod.enum(['dilemma', 'mcq']),
   "prompt": zod.string(),
-  "options": zod.array(zod.string()).nullish().describe('mcq — the answer choices shown.'),
-  "selectedIndex": zod.number().nullish().describe('mcq — the option index the student chose.'),
-  "correctIndex": zod.number().nullish().describe('mcq — the correct option index.'),
-  "isCorrect": zod.boolean().nullish().describe('mcq — whether the student\'s choice was correct.'),
-  "decisionOptions": zod.array(zod.string()).nullish().describe('dilemma — the possible decisions.'),
-  "decisionIndex": zod.number().nullish().describe('dilemma — the decision the student chose.'),
-  "considerations": zod.array(zod.string()).nullish().describe('dilemma — the considerations presented.'),
-  "ranking": zod.array(zod.number()).nullish().describe('dilemma — consideration indices the student ranked most-important first.')
+  "options": zod.array(zod.string()).nullish().describe('mcq \/ hybrid — the answer choices shown.'),
+  "selectedIndex": zod.number().nullish().describe('mcq \/ hybrid — the option index the student chose.'),
+  "correctIndex": zod.number().nullish().describe('mcq \/ hybrid — the correct option index.'),
+  "isCorrect": zod.boolean().nullish().describe('Whether the student\'s answer was judged correct.'),
+  "writtenAnswer": zod.string().nullish().describe('written \/ hybrid — the student\'s short written answer.'),
+  "modelAnswer": zod.string().nullish().describe('written \/ hybrid — the reference model answer the response was graded against.'),
+  "rationale": zod.string().nullish().describe('written — a short note on why the answer was or wasn\'t judged correct.')
 })).describe('Per-question review — each item with the student\'s answer and the correct answer.')
 })
 

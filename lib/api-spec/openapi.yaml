@@ -1050,7 +1050,7 @@ components:
 
     ReasoningAssessmentSummary:
       type: object
-      required: [id, instrument, phase, title, itemCount, status]
+      required: [id, instrument, phase, format, title, itemCount, status]
       properties:
         id: { type: integer }
         instrument:
@@ -1059,6 +1059,13 @@ components:
         phase:
           type: string
           enum: [baseline, unit1, unit2, unit3, unit4]
+        format:
+          type: string
+          enum: [mcq, hybrid, written]
+          description: >-
+            The answer format of this version of the test: mcq (options only),
+            hybrid (options + a short written justification), or written (a
+            short written answer, no options).
         title: { type: string }
         subtitle: { type: ["string", "null"] }
         itemCount: { type: integer }
@@ -1069,33 +1076,21 @@ components:
 
     ReasoningItem:
       type: object
-      required: [id, position, type, prompt]
+      required: [id, position, prompt]
       properties:
         id: { type: integer }
         position: { type: integer }
-        type:
-          type: string
-          enum: [dilemma, mcq]
         prompt: { type: string }
         options:
           type: ["array", "null"]
           items: { type: string }
-          description: For mcq items — the answer choices.
-        decisionOptions:
-          type: ["array", "null"]
-          items: { type: string }
-          description: For dilemma items — the possible decisions on the scenario.
-        considerations:
-          type: ["array", "null"]
-          items: { type: string }
-          description: For dilemma items — statements to rate by importance and rank.
-        rankCount:
-          type: ["integer", "null"]
-          description: For dilemma items — how many top considerations to rank.
+          description: >-
+            The answer choices, for the mcq and hybrid formats. Null for the
+            written format, where no options are shown.
 
     ReasoningAssessment:
       type: object
-      required: [id, instrument, phase, title, instructions, items]
+      required: [id, instrument, phase, format, title, instructions, items]
       properties:
         id: { type: integer }
         instrument:
@@ -1104,6 +1099,9 @@ components:
         phase:
           type: string
           enum: [baseline, unit1, unit2, unit3, unit4]
+        format:
+          type: string
+          enum: [mcq, hybrid, written]
         title: { type: string }
         subtitle: { type: ["string", "null"] }
         instructions: { type: string }
@@ -1154,18 +1152,10 @@ components:
         itemId: { type: integer }
         selectedIndex:
           type: ["integer", "null"]
-          description: mcq — chosen option index.
-        decisionIndex:
-          type: ["integer", "null"]
-          description: dilemma — chosen decision index.
-        ratings:
-          type: ["array", "null"]
-          items: { type: integer }
-          description: dilemma — importance rating (0-4) per consideration, by index.
-        ranking:
-          type: ["array", "null"]
-          items: { type: integer }
-          description: dilemma — consideration indices ranked most-important first.
+          description: mcq / hybrid — chosen option index.
+        writtenAnswer:
+          type: ["string", "null"]
+          description: written / hybrid — the student's short written answer.
 
     RewriteLectureInput:
       type: object
@@ -1209,41 +1199,32 @@ components:
 
     ReasoningReviewItem:
       type: object
-      required: [itemId, type, prompt]
+      required: [itemId, prompt]
       properties:
         itemId: { type: integer }
-        type:
-          type: string
-          enum: [dilemma, mcq]
         prompt: { type: string }
         options:
           type: ["array", "null"]
           items: { type: string }
-          description: mcq — the answer choices shown.
+          description: mcq / hybrid — the answer choices shown.
         selectedIndex:
           type: ["integer", "null"]
-          description: mcq — the option index the student chose.
+          description: mcq / hybrid — the option index the student chose.
         correctIndex:
           type: ["integer", "null"]
-          description: mcq — the correct option index.
+          description: mcq / hybrid — the correct option index.
         isCorrect:
           type: ["boolean", "null"]
-          description: mcq — whether the student's choice was correct.
-        decisionOptions:
-          type: ["array", "null"]
-          items: { type: string }
-          description: dilemma — the possible decisions.
-        decisionIndex:
-          type: ["integer", "null"]
-          description: dilemma — the decision the student chose.
-        considerations:
-          type: ["array", "null"]
-          items: { type: string }
-          description: dilemma — the considerations presented.
-        ranking:
-          type: ["array", "null"]
-          items: { type: integer }
-          description: dilemma — consideration indices the student ranked most-important first.
+          description: Whether the student's answer was judged correct.
+        writtenAnswer:
+          type: ["string", "null"]
+          description: written / hybrid — the student's short written answer.
+        modelAnswer:
+          type: ["string", "null"]
+          description: written / hybrid — the reference model answer the response was graded against.
+        rationale:
+          type: ["string", "null"]
+          description: written — a short note on why the answer was or wasn't judged correct.
 
     ReasoningResult:
       type: object

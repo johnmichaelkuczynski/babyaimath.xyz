@@ -105,7 +105,7 @@ export default function Grades() {
               </h2>
               <div className="flex flex-col divide-y border rounded-md">
                 {gb.reasoning.map((r) => (
-                  <Link key={r.id} href={`/reasoning/${r.id}`}>
+                  <Link key={r.id} href="/reasoning">
                     <div className="p-4 flex items-center justify-between hover:bg-secondary/50 cursor-pointer">
                       <div className="flex flex-col">
                         <span className="font-medium">{r.title}</span>

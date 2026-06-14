@@ -15,6 +15,22 @@ const PHASE_LABELS: Record<string, string> = {
 
 const PHASE_ORDER = ["baseline", "unit1"];
 
+type Format = "mcq" | "hybrid" | "written";
+
+const FORMAT_ORDER: Format[] = ["mcq", "hybrid", "written"];
+
+const FORMAT_LABELS: Record<Format, string> = {
+  mcq: "Multiple Choice",
+  hybrid: "Hybrid",
+  written: "Written",
+};
+
+const FORMAT_BLURBS: Record<Format, string> = {
+  mcq: "Pick the single best option.",
+  hybrid: "Pick the best option and explain your reasoning.",
+  written: "Write a short answer in your own words — no options.",
+};
+
 function statusBadge(status: string) {
   const cls =
     status === "passed"
@@ -29,36 +45,71 @@ function statusBadge(status: string) {
   );
 }
 
-function InstrumentCard({ a }: { a: ReasoningAssessmentSummary }) {
-  const isEthical = a.instrument === "ethical";
+function InstrumentCard({
+  instrument,
+  versions,
+}: {
+  instrument: "ethical" | "critical";
+  versions: ReasoningAssessmentSummary[];
+}) {
+  const isEthical = instrument === "ethical";
   const Icon = isEthical ? Compass : Brain;
+  const byFormat = new Map<Format, ReasoningAssessmentSummary>();
+  for (const v of versions) byFormat.set(v.format as Format, v);
+
   return (
-    <Card className="flex flex-col justify-between" data-testid={`card-reasoning-${a.id}`}>
+    <Card className="flex flex-col" data-testid={`card-reasoning-${instrument}`}>
       <CardHeader>
-        <div className="flex justify-between items-start mb-2">
-          <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-            <Icon className="w-3.5 h-3.5" />
-            {isEthical ? "Professional Judgment" : "Critical Reasoning"}
-          </span>
-          {statusBadge(a.status)}
-        </div>
-        <CardTitle className="text-base leading-snug">{a.title}</CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        <p className="text-sm text-muted-foreground">
+        <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+          <Icon className="w-3.5 h-3.5" />
+          {isEthical ? "Professional Judgment" : "Critical Reasoning"}
+        </span>
+        <CardTitle className="text-base leading-snug">
           {isEthical
-            ? "Work through a realistic everyday-judgment scenario, then rate and rank the considerations behind your decision."
-            : `${a.itemCount} multiple-choice questions across five reasoning skills.`}
+            ? "A realistic everyday-judgment scenario"
+            : "Reasoning across analysis, inference, evaluation, deduction, and induction"}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-3">
+        <p className="text-sm text-muted-foreground">
+          Choose how you'd like to answer this assessment:
         </p>
-        <Link href={`/reasoning/${a.id}`}>
-          <Button
-            className="w-full"
-            variant={a.status === "passed" ? "outline" : "default"}
-            data-testid={`button-open-reasoning-${a.id}`}
-          >
-            {a.status === "passed" ? "Review" : a.status === "in_progress" ? "Resume" : "Begin"}
-          </Button>
-        </Link>
+        <div className="flex flex-col gap-2">
+          {FORMAT_ORDER.map((fmt) => {
+            const a = byFormat.get(fmt);
+            if (!a) return null;
+            const cta =
+              a.status === "passed"
+                ? "Review"
+                : a.status === "in_progress"
+                ? "Resume"
+                : "Begin";
+            return (
+              <Link key={fmt} href={`/reasoning/${a.id}`}>
+                <button
+                  type="button"
+                  className="w-full text-left rounded-md border border-border hover:bg-secondary transition-colors p-3 flex items-center justify-between gap-3"
+                  data-testid={`button-open-reasoning-${a.id}`}
+                >
+                  <span className="min-w-0">
+                    <span className="flex items-center gap-2">
+                      <span className="font-medium text-sm">
+                        {FORMAT_LABELS[fmt]}
+                      </span>
+                      {statusBadge(a.status)}
+                    </span>
+                    <span className="block text-xs text-muted-foreground mt-0.5">
+                      {FORMAT_BLURBS[fmt]}
+                    </span>
+                  </span>
+                  <span className="text-sm font-medium text-primary shrink-0">
+                    {cta}
+                  </span>
+                </button>
+              </Link>
+            );
+          })}
+        </div>
       </CardContent>
     </Card>
   );
@@ -67,10 +118,14 @@ function InstrumentCard({ a }: { a: ReasoningAssessmentSummary }) {
 export default function Reasoning() {
   const { data: assessments, isLoading } = useListReasoningAssessments();
 
+  // phase -> instrument -> versions (one per format)
   const byPhase = (assessments ?? []).reduce((acc, a) => {
-    (acc[a.phase] ||= []).push(a);
+    (acc[a.phase] ||= {} as Record<string, ReasoningAssessmentSummary[]>);
+    (acc[a.phase]![a.instrument] ||= []).push(a);
     return acc;
-  }, {} as Record<string, ReasoningAssessmentSummary[]>);
+  }, {} as Record<string, Record<string, ReasoningAssessmentSummary[]>>);
+
+  const instrumentOrder: ("ethical" | "critical")[] = ["ethical", "critical"];
 
   return (
     <Layout>
@@ -81,8 +136,9 @@ export default function Reasoning() {
           </h1>
           <p className="text-muted-foreground">
             Two short instruments — Professional Judgment and Critical Reasoning — taken
-            once at the start and again after the unit. Submitting an assessment
-            earns a pass; together they count for 20% of your course grade.
+            once at the start and again after the unit. Each is offered in three
+            answer formats; pick the one you prefer before you begin. Submitting an
+            assessment earns a pass; together they count for 20% of your course grade.
           </p>
         </div>
 
@@ -94,17 +150,20 @@ export default function Reasoning() {
           </div>
         ) : (
           <div className="flex flex-col gap-10">
-            {PHASE_ORDER.filter((p) => byPhase[p]?.length).map((phase) => (
+            {PHASE_ORDER.filter((p) => byPhase[p]).map((phase) => (
               <div key={phase} className="flex flex-col gap-4">
                 <h2 className="text-xl font-serif font-semibold border-b pb-2">
                   {PHASE_LABELS[phase] ?? phase}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {byPhase[phase]!
-                    .slice()
-                    .sort((x, y) => (x.instrument === "ethical" ? -1 : 1) - (y.instrument === "ethical" ? -1 : 1))
-                    .map((a) => (
-                      <InstrumentCard key={a.id} a={a} />
+                  {instrumentOrder
+                    .filter((inst) => byPhase[phase]![inst]?.length)
+                    .map((inst) => (
+                      <InstrumentCard
+                        key={inst}
+                        instrument={inst}
+                        versions={byPhase[phase]![inst]!}
+                      />
                     ))}
                 </div>
               </div>

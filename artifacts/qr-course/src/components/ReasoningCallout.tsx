@@ -19,15 +19,25 @@ const BLURBS: Record<Phase, string> = {
   unit1: "Take both diagnostics one last time to capture your end-of-course growth.",
 };
 
-function Row({ a }: { a: ReasoningAssessmentSummary }) {
-  const isEthical = a.instrument === "ethical";
+// One row per instrument. Each instrument now has three format versions; the
+// row links to the chooser (/reasoning) where the student picks a format, and
+// shows "Passed" once ANY version of that instrument has been submitted.
+function Row({
+  instrument,
+  versions,
+}: {
+  instrument: "ethical" | "critical";
+  versions: ReasoningAssessmentSummary[];
+}) {
+  const isEthical = instrument === "ethical";
   const Icon = isEthical ? Compass : Brain;
-  const passed = a.status === "passed";
+  const passed = versions.some((v) => v.status === "passed");
+  const inProgress = versions.some((v) => v.status === "in_progress");
   return (
-    <Link href={`/reasoning/${a.id}`}>
+    <Link href="/reasoning">
       <div
         className="flex items-center justify-between gap-4 p-3 rounded-md border border-border bg-background hover:bg-secondary/50 cursor-pointer"
-        data-testid={`callout-reasoning-${a.id}`}
+        data-testid={`callout-reasoning-${instrument}`}
       >
         <div className="flex items-center gap-3 min-w-0">
           <Icon className="w-4 h-4 text-primary shrink-0" />
@@ -41,7 +51,7 @@ function Row({ a }: { a: ReasoningAssessmentSummary }) {
           </span>
         ) : (
           <Button size="sm" variant="default" className="shrink-0">
-            {a.status === "in_progress" ? "Resume" : "Begin"}
+            {inProgress ? "Resume" : "Begin"}
           </Button>
         )}
       </div>
@@ -54,8 +64,13 @@ export function ReasoningCallout({ phase }: { phase: Phase }) {
   const items = (data ?? []).filter((a) => a.phase === phase);
   if (items.length === 0) return null;
 
-  const rank = (a: ReasoningAssessmentSummary) => (a.instrument === "ethical" ? 0 : 1);
-  const sorted = items.slice().sort((x, y) => rank(x) - rank(y));
+  const instruments: ("ethical" | "critical")[] = ["ethical", "critical"];
+  const grouped = instruments
+    .map((inst) => ({
+      instrument: inst,
+      versions: items.filter((a) => a.instrument === inst),
+    }))
+    .filter((g) => g.versions.length > 0);
 
   return (
     <Card className="border-primary/30 bg-primary/5">
@@ -68,8 +83,8 @@ export function ReasoningCallout({ phase }: { phase: Phase }) {
         </div>
         <p className="text-sm text-muted-foreground">{BLURBS[phase]}</p>
         <div className="flex flex-col gap-2">
-          {sorted.map((a) => (
-            <Row key={a.id} a={a} />
+          {grouped.map((g) => (
+            <Row key={g.instrument} instrument={g.instrument} versions={g.versions} />
           ))}
         </div>
       </CardContent>

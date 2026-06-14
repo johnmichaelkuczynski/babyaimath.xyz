@@ -5,50 +5,43 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-import type { ReasoningReviewItemType } from './reasoningReviewItemType';
 
 export interface ReasoningReviewItem {
   itemId: number;
-  type: ReasoningReviewItemType;
   prompt: string;
   /**
-     * mcq — the answer choices shown.
+     * mcq / hybrid — the answer choices shown.
      * @nullable
      */
   options?: string[] | null;
   /**
-     * mcq — the option index the student chose.
+     * mcq / hybrid — the option index the student chose.
      * @nullable
      */
   selectedIndex?: number | null;
   /**
-     * mcq — the correct option index.
+     * mcq / hybrid — the correct option index.
      * @nullable
      */
   correctIndex?: number | null;
   /**
-     * mcq — whether the student's choice was correct.
+     * Whether the student's answer was judged correct.
      * @nullable
      */
   isCorrect?: boolean | null;
   /**
-     * dilemma — the possible decisions.
+     * written / hybrid — the student's short written answer.
      * @nullable
      */
-  decisionOptions?: string[] | null;
+  writtenAnswer?: string | null;
   /**
-     * dilemma — the decision the student chose.
+     * written / hybrid — the reference model answer the response was graded against.
      * @nullable
      */
-  decisionIndex?: number | null;
+  modelAnswer?: string | null;
   /**
-     * dilemma — the considerations presented.
+     * written — a short note on why the answer was or wasn't judged correct.
      * @nullable
      */
-  considerations?: string[] | null;
-  /**
-     * dilemma — consideration indices the student ranked most-important first.
-     * @nullable
-     */
-  ranking?: number[] | null;
+  rationale?: string | null;
 }

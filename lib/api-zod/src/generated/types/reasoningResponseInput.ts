@@ -9,23 +9,13 @@
 export interface ReasoningResponseInput {
   itemId: number;
   /**
-     * mcq — chosen option index.
+     * mcq / hybrid — chosen option index.
      * @nullable
      */
   selectedIndex?: number | null;
   /**
-     * dilemma — chosen decision index.
+     * written / hybrid — the student's short written answer.
      * @nullable
      */
-  decisionIndex?: number | null;
-  /**
-     * dilemma — importance rating (0-4) per consideration, by index.
-     * @nullable
-     */
-  ratings?: number[] | null;
-  /**
-     * dilemma — consideration indices ranked most-important first.
-     * @nullable
-     */
-  ranking?: number[] | null;
+  writtenAnswer?: string | null;
 }

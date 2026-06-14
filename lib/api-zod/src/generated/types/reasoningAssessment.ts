@@ -5,6 +5,7 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { ReasoningAssessmentFormat } from './reasoningAssessmentFormat';
 import type { ReasoningAssessmentInstrument } from './reasoningAssessmentInstrument';
 import type { ReasoningAssessmentPhase } from './reasoningAssessmentPhase';
 import type { ReasoningItem } from './reasoningItem';
@@ -13,6 +14,7 @@ export interface ReasoningAssessment {
   id: number;
   instrument: ReasoningAssessmentInstrument;
   phase: ReasoningAssessmentPhase;
+  format: ReasoningAssessmentFormat;
   title: string;
   /** @nullable */
   subtitle?: string | null;

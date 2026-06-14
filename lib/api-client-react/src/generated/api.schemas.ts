@@ -457,6 +457,18 @@ export const ReasoningAssessmentSummaryPhase = {
   unit4: 'unit4',
 } as const;
 
+/**
+ * The answer format of this version of the test: mcq (options only), hybrid (options + a short written justification), or written (a short written answer, no options).
+ */
+export type ReasoningAssessmentSummaryFormat = typeof ReasoningAssessmentSummaryFormat[keyof typeof ReasoningAssessmentSummaryFormat];
+
+
+export const ReasoningAssessmentSummaryFormat = {
+  mcq: 'mcq',
+  hybrid: 'hybrid',
+  written: 'written',
+} as const;
+
 export type ReasoningAssessmentSummaryStatus = typeof ReasoningAssessmentSummaryStatus[keyof typeof ReasoningAssessmentSummaryStatus];
 
 
@@ -470,6 +482,8 @@ export interface ReasoningAssessmentSummary {
   id: number;
   instrument: ReasoningAssessmentSummaryInstrument;
   phase: ReasoningAssessmentSummaryPhase;
+  /** The answer format of this version of the test: mcq (options only), hybrid (options + a short written justification), or written (a short written answer, no options). */
+  format: ReasoningAssessmentSummaryFormat;
   title: string;
   /** @nullable */
   subtitle?: string | null;
@@ -479,39 +493,15 @@ export interface ReasoningAssessmentSummary {
   lastAttemptId?: number | null;
 }
 
-export type ReasoningItemType = typeof ReasoningItemType[keyof typeof ReasoningItemType];
-
-
-export const ReasoningItemType = {
-  dilemma: 'dilemma',
-  mcq: 'mcq',
-} as const;
-
 export interface ReasoningItem {
   id: number;
   position: number;
-  type: ReasoningItemType;
   prompt: string;
   /**
-     * For mcq items — the answer choices.
+     * The answer choices, for the mcq and hybrid formats. Null for the written format, where no options are shown.
      * @nullable
      */
   options?: string[] | null;
-  /**
-     * For dilemma items — the possible decisions on the scenario.
-     * @nullable
-     */
-  decisionOptions?: string[] | null;
-  /**
-     * For dilemma items — statements to rate by importance and rank.
-     * @nullable
-     */
-  considerations?: string[] | null;
-  /**
-     * For dilemma items — how many top considerations to rank.
-     * @nullable
-     */
-  rankCount?: number | null;
 }
 
 export type ReasoningAssessmentInstrument = typeof ReasoningAssessmentInstrument[keyof typeof ReasoningAssessmentInstrument];
@@ -533,10 +523,20 @@ export const ReasoningAssessmentPhase = {
   unit4: 'unit4',
 } as const;
 
+export type ReasoningAssessmentFormat = typeof ReasoningAssessmentFormat[keyof typeof ReasoningAssessmentFormat];
+
+
+export const ReasoningAssessmentFormat = {
+  mcq: 'mcq',
+  hybrid: 'hybrid',
+  written: 'written',
+} as const;
+
 export interface ReasoningAssessment {
   id: number;
   instrument: ReasoningAssessmentInstrument;
   phase: ReasoningAssessmentPhase;
+  format: ReasoningAssessmentFormat;
   title: string;
   /** @nullable */
   subtitle?: string | null;
@@ -559,58 +559,44 @@ export interface ReasoningMetric {
   detail?: string | null;
 }
 
-export type ReasoningReviewItemType = typeof ReasoningReviewItemType[keyof typeof ReasoningReviewItemType];
-
-
-export const ReasoningReviewItemType = {
-  dilemma: 'dilemma',
-  mcq: 'mcq',
-} as const;
-
 export interface ReasoningReviewItem {
   itemId: number;
-  type: ReasoningReviewItemType;
   prompt: string;
   /**
-     * mcq — the answer choices shown.
+     * mcq / hybrid — the answer choices shown.
      * @nullable
      */
   options?: string[] | null;
   /**
-     * mcq — the option index the student chose.
+     * mcq / hybrid — the option index the student chose.
      * @nullable
      */
   selectedIndex?: number | null;
   /**
-     * mcq — the correct option index.
+     * mcq / hybrid — the correct option index.
      * @nullable
      */
   correctIndex?: number | null;
   /**
-     * mcq — whether the student's choice was correct.
+     * Whether the student's answer was judged correct.
      * @nullable
      */
   isCorrect?: boolean | null;
   /**
-     * dilemma — the possible decisions.
+     * written / hybrid — the student's short written answer.
      * @nullable
      */
-  decisionOptions?: string[] | null;
+  writtenAnswer?: string | null;
   /**
-     * dilemma — the decision the student chose.
+     * written / hybrid — the reference model answer the response was graded against.
      * @nullable
      */
-  decisionIndex?: number | null;
+  modelAnswer?: string | null;
   /**
-     * dilemma — the considerations presented.
+     * written — a short note on why the answer was or wasn't judged correct.
      * @nullable
      */
-  considerations?: string[] | null;
-  /**
-     * dilemma — consideration indices the student ranked most-important first.
-     * @nullable
-     */
-  ranking?: number[] | null;
+  rationale?: string | null;
 }
 
 export interface ReasoningAttemptState {
@@ -646,25 +632,15 @@ export interface ReasoningAttemptState {
 export interface ReasoningResponseInput {
   itemId: number;
   /**
-     * mcq — chosen option index.
+     * mcq / hybrid — chosen option index.
      * @nullable
      */
   selectedIndex?: number | null;
   /**
-     * dilemma — chosen decision index.
+     * written / hybrid — the student's short written answer.
      * @nullable
      */
-  decisionIndex?: number | null;
-  /**
-     * dilemma — importance rating (0-4) per consideration, by index.
-     * @nullable
-     */
-  ratings?: number[] | null;
-  /**
-     * dilemma — consideration indices ranked most-important first.
-     * @nullable
-     */
-  ranking?: number[] | null;
+  writtenAnswer?: string | null;
 }
 
 /**

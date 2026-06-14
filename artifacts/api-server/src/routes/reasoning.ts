@@ -19,17 +19,18 @@ import {
   GetGradebookResponse,
 } from "@workspace/api-zod";
 import {
-  scoreAssessment,
-  judgeCritical,
+  gradeAssessment,
   generateFeedback,
   generateVariantItems,
   buildReview,
   publicItem,
+  gradesFromSummary,
   type DiagnosticItemRow,
   type GeneratedItemContent,
   type ResponseInput,
   type ReasoningMetric,
   type ScoreSummary,
+  type DiagFormat,
 } from "../lib/reasoning";
 
 const router: IRouter = Router();
@@ -51,7 +52,7 @@ function mapItemRows(rows: ItemRowRaw[]): DiagnosticItemRow[] {
   return rows.map((r) => ({
     id: r.id,
     position: r.position,
-    type: r.type as "dilemma" | "mcq",
+    type: r.type,
     prompt: r.prompt,
     payload: r.payload,
     scoring: r.scoring,
@@ -143,6 +144,7 @@ router.get("/reasoning/assessments", async (_req, res) => {
         id: a.id,
         instrument: a.instrument as Instrument,
         phase: a.phase as Phase,
+        format: a.format as DiagFormat,
         title: a.title,
         subtitle: a.subtitle,
         itemCount: items.length,
@@ -168,16 +170,18 @@ router.get("/reasoning/assessments/:assessmentId", async (req, res): Promise<voi
     res.status(404).json({ error: "not found" });
     return;
   }
+  const format = a.format as DiagFormat;
   const items = await loadTemplateItems(id);
   res.json(
     GetReasoningAssessmentResponse.parse({
       id: a.id,
       instrument: a.instrument as Instrument,
       phase: a.phase as Phase,
+      format,
       title: a.title,
       subtitle: a.subtitle,
       instructions: a.instructions,
-      items: items.map(publicItem),
+      items: items.map((it) => publicItem(it, format)),
     }),
   );
 });
@@ -203,6 +207,7 @@ router.post("/reasoning/assessments/:assessmentId/start", async (req, res): Prom
     res.status(404).json({ error: "assessment not found" });
     return;
   }
+  const format = a.format as DiagFormat;
 
   // Resume an in-progress attempt if one exists (so a refresh mid-assessment
   // never loses progress). Otherwise, on a normal open we surface the
@@ -226,14 +231,9 @@ router.post("/reasoning/assessments/:assessmentId/start", async (req, res): Prom
     const storedResponses = reviewed
       ? ((reusable.responses as ResponseInput[] | null) ?? [])
       : [];
-    // Reuse the model-judged correct answers persisted at submit time so the
-    // review shows the same answers it was graded against (no re-judging).
-    const judged = new Map<number, number>(
-      Object.entries(summary?.correctByItem ?? {}).map(([k, v]) => [
-        Number(k),
-        v as number,
-      ]),
-    );
+    // Reuse the per-item grades persisted at submit time so the review shows the
+    // exact answers/feedback it was graded against (no re-grading).
+    const grades = gradesFromSummary(summary);
     res.json(
       StartReasoningAttemptResponse.parse({
         id: reusable.id,
@@ -245,8 +245,10 @@ router.post("/reasoning/assessments/:assessmentId/start", async (req, res): Prom
         feedback: reusable.feedback,
         headline: summary?.headline ?? null,
         metrics: (summary?.metrics as ReasoningMetric[] | undefined) ?? null,
-        review: reviewed ? buildReview(items, storedResponses, judged) : null,
-        items: items.map(publicItem),
+        review: reviewed
+          ? buildReview(format, items, storedResponses, grades)
+          : null,
+        items: items.map((it) => publicItem(it, format)),
       }),
     );
     return;
@@ -279,7 +281,7 @@ router.post("/reasoning/assessments/:assessmentId/start", async (req, res): Prom
       submittedAt: null,
       passed: null,
       feedback: null,
-      items: items.map(publicItem),
+      items: items.map((it) => publicItem(it, format)),
     }),
   );
 });
@@ -324,12 +326,17 @@ router.post("/reasoning/assessments/:assessmentId/submit", async (req, res): Pro
     ? await loadItemsForAttempt(id, target.id)
     : await loadTemplateItems(id);
   const instrument = a.instrument as Instrument;
-  // For MCQ (critical) assessments, judge the genuinely correct option with the
-  // model rather than trusting the stored answer key. Both scoring and the
-  // per-question review use these judged answers.
-  const judged =
-    instrument === "critical" ? await judgeCritical(items) : new Map<number, number>();
-  const summary = scoreAssessment(instrument, items, responses, judged);
+  const format = a.format as DiagFormat;
+  // Grade the attempt format-aware: mcq/hybrid by chosen option (critical uses
+  // a model judge for the genuinely correct option), written by AI semantic
+  // equivalence against each item's model answer. The per-item grades are
+  // persisted on the summary so a later review needs no re-grading.
+  const { summary, grades } = await gradeAssessment(
+    instrument,
+    format,
+    items,
+    responses,
+  );
   const feedback = await generateFeedback(instrument, a.title, summary);
 
   // Pass/Fail policy: submitting the assessment is a pass.
@@ -370,31 +377,21 @@ router.post("/reasoning/assessments/:assessmentId/submit", async (req, res): Pro
   }
 
   // Persist one normalized row per answered item (replacing any prior rows for
-  // this attempt). isCorrect is set for mcq items, left null for dilemmas.
+  // this attempt). isCorrect/writtenAnswer come from the format-aware grading.
   await db
     .delete(diagnosticResponsesTable)
     .where(eq(diagnosticResponsesTable.attemptId, attemptId));
   const byItem = new Map(responses.map((r) => [r.itemId, r]));
   const rows = items.map((item) => {
     const resp = byItem.get(item.id);
-    let isCorrect: boolean | null = null;
-    if (item.type === "mcq") {
-      const sc = item.scoring as { correctIndex?: number };
-      // Grade against the model-judged correct option (same source as scoring
-      // and review), falling back to the stored key only if unjudged.
-      const correctIndex = judged.get(item.id) ?? sc.correctIndex;
-      isCorrect =
-        typeof resp?.selectedIndex === "number" &&
-        resp.selectedIndex === correctIndex;
-    }
+    const grade = grades.get(item.id);
     return {
       attemptId,
       itemId: item.id,
-      selectedIndex: resp?.selectedIndex ?? null,
-      decisionIndex: resp?.decisionIndex ?? null,
-      ratings: resp?.ratings ?? null,
-      ranking: resp?.ranking ?? null,
-      isCorrect,
+      selectedIndex: format === "written" ? null : resp?.selectedIndex ?? null,
+      writtenAnswer:
+        format === "mcq" ? null : resp?.writtenAnswer?.trim() || null,
+      isCorrect: grade?.isCorrect ?? null,
     };
   });
   if (rows.length > 0) {
@@ -408,7 +405,7 @@ router.post("/reasoning/assessments/:assessmentId/submit", async (req, res): Pro
       feedback,
       headline: summary.headline,
       metrics: summary.metrics,
-      review: buildReview(items, responses, judged),
+      review: buildReview(format, items, responses, grades),
     }),
   );
 });
@@ -449,32 +446,74 @@ router.get("/reasoning/grades", async (_req, res) => {
       : coursework.reduce((s, c) => s + (c.bestScore ?? 0), 0) / coursework.length;
 
   // ---- Diagnostics (20%) ----
+  // Each logical test is one (instrument, phase) group offered in three
+  // selectable answer formats. The formats are ALTERNATIVES, not extra required
+  // work: completing any one format counts the whole group as done. So progress
+  // is measured per group (expected 4 groups), not per assessment row (12).
   const assessments = await db
     .select()
     .from(diagnosticAssessmentsTable)
     .orderBy(asc(diagnosticAssessmentsTable.position));
-  const reasoning = await Promise.all(
-    assessments.map(async (a) => {
-      const attempts = await db
-        .select()
-        .from(diagnosticAttemptsTable)
-        .where(eq(diagnosticAttemptsTable.assessmentId, a.id));
-      const passed = attempts.some((x) => x.status === "submitted" && x.passed);
-      const inProgress = attempts.some((x) => x.status === "in_progress");
-      const status: "not_started" | "in_progress" | "passed" = passed
+
+  type GroupAcc = {
+    repId: number;
+    repPosition: number;
+    instrument: Instrument;
+    phase: Phase;
+    title: string;
+    passed: boolean;
+    inProgress: boolean;
+  };
+  const groups = new Map<string, GroupAcc>();
+  for (const a of assessments) {
+    const attempts = await db
+      .select()
+      .from(diagnosticAttemptsTable)
+      .where(eq(diagnosticAttemptsTable.assessmentId, a.id));
+    const passed = attempts.some((x) => x.status === "submitted" && x.passed);
+    const inProgress = attempts.some((x) => x.status === "in_progress");
+    const key = `${a.instrument}:${a.phase}`;
+    const existing = groups.get(key);
+    // Strip the trailing " · <format>" suffix so the group row carries the
+    // shared base title regardless of which format was authored first.
+    const baseTitle = a.title.split(" · ")[0]!;
+    if (!existing) {
+      groups.set(key, {
+        repId: a.id,
+        repPosition: a.position,
+        instrument: a.instrument as Instrument,
+        phase: a.phase as Phase,
+        title: baseTitle,
+        passed,
+        inProgress,
+      });
+    } else {
+      existing.passed = existing.passed || passed;
+      existing.inProgress = existing.inProgress || inProgress;
+      // Keep the earliest-positioned assessment as the group representative.
+      if (a.position < existing.repPosition) {
+        existing.repId = a.id;
+        existing.repPosition = a.position;
+      }
+    }
+  }
+
+  const reasoning = Array.from(groups.values())
+    .sort((x, y) => x.repPosition - y.repPosition)
+    .map((g) => {
+      const status: "not_started" | "in_progress" | "passed" = g.passed
         ? "passed"
-        : inProgress
+        : g.inProgress
         ? "in_progress"
         : "not_started";
       return {
-        id: a.id,
-        instrument: a.instrument as Instrument,
-        phase: a.phase as Phase,
-        title: a.title,
+        id: g.repId,
+        instrument: g.instrument,
+        phase: g.phase,
+        title: g.title,
         status,
       };
-    }),
-  );
+    });
   const passedCount = reasoning.filter((r) => r.status === "passed").length;
   const reasoningPct =
     reasoning.length === 0 ? 0 : (passedCount / reasoning.length) * 100;
