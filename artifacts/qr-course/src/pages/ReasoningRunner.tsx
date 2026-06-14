@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { useParams, Link } from "wouter";
+import { useParams, useSearch, useLocation, Link } from "wouter";
 import {
   useGetReasoningAssessment,
   useStartReasoningAttempt,
@@ -39,6 +39,17 @@ const LENGTH_LABELS: Record<TestLength, string> = {
 export default function ReasoningRunner() {
   const params = useParams();
   const assessmentId = Number(params.id);
+  const search = useSearch();
+  const [, setLocation] = useLocation();
+  // A length deep-link from the chooser (e.g. /reasoning/12?length=short) starts
+  // the test immediately at that length, skipping the in-page picker.
+  const rawLength = new URLSearchParams(search).get("length");
+  const lengthParam = (["short", "medium", "long"] as const).includes(
+    rawLength as never,
+  )
+    ? (rawLength as TestLength)
+    : null;
+  const autoStartedRef = useRef(false);
 
   const { data: assessment, isLoading } = useGetReasoningAssessment(assessmentId);
   const startAttempt = useStartReasoningAttempt();
@@ -104,17 +115,33 @@ export default function ReasoningRunner() {
     );
   }
 
-  // Auto-load a passed attempt for review without asking for a length. A
-  // brand-new ("not_started") test and an unfinished ("in_progress") one both
-  // show the length picker first — in_progress offers a "continue" shortcut so
-  // the student can resume the same questions instead of restarting.
+  // Drive the initial screen once the assessment loads:
+  // - A length deep-link (?length=) starts immediately at that length. For a
+  //   test that's already underway or passed this means a fresh restart, so we
+  //   send retake=true; then we strip the query so a refresh resumes (doesn't
+  //   restart) and the picker stays available later.
+  // - Otherwise a passed attempt auto-loads its review; not_started and
+  //   in_progress fall through to the length picker.
   useEffect(() => {
     if (!assessment || began || result || forcePicker || alreadyPassed) return;
-    if (assessment.status === "passed") {
+    if (lengthParam && !autoStartedRef.current) {
+      autoStartedRef.current = true;
+      const retake = assessment.status !== "not_started";
+      beginAttempt(lengthParam, retake);
+      setLocation(`/reasoning/${assessmentId}`, { replace: true });
+      return;
+    }
+    if (!lengthParam && assessment.status === "passed") {
       beginAttempt();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [assessment?.id, assessment?.status]);
+  }, [assessment?.id, assessment?.status, lengthParam]);
+
+  // wouter keeps this component mounted when only the :id param changes, so the
+  // one-shot guard must reset per assessment or a second deep-link wouldn't start.
+  useEffect(() => {
+    autoStartedRef.current = false;
+  }, [assessmentId]);
 
   function buildResponses(list: ReasoningItem[]): ReasoningResponseInput[] {
     return list.map((item) => {
