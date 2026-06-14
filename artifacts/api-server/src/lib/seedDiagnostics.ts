@@ -29,7 +29,7 @@ function rotateOptions(options: string[]): {
 // already-populated database holds the CURRENT structure or an older one.
 function expectedSignature(): string {
   return DIAGNOSTIC_SEED.map(
-    (a) => `${a.instrument}:${a.phase}:${a.format}:${a.title}`,
+    (a) => `${a.instrument}:${a.phase}:${a.format}:${a.title}:${a.instructions}`,
   )
     .sort()
     .join("|");
@@ -42,10 +42,14 @@ async function actualSignature(): Promise<string> {
       phase: diagnosticAssessmentsTable.phase,
       format: diagnosticAssessmentsTable.format,
       title: diagnosticAssessmentsTable.title,
+      instructions: diagnosticAssessmentsTable.instructions,
     })
     .from(diagnosticAssessmentsTable);
   return rows
-    .map((r) => `${r.instrument}:${r.phase}:${r.format}:${r.title}`)
+    .map(
+      (r) =>
+        `${r.instrument}:${r.phase}:${r.format}:${r.title}:${r.instructions}`,
+    )
     .sort()
     .join("|");
 }

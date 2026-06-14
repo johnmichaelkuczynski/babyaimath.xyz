@@ -8,9 +8,13 @@ interface AnswerInputProps {
   onChange: (val: string, trace: KeystrokeTrace) => void;
   placeholder?: string;
   disabled?: boolean;
+  /** Use a shorter textarea for brief answers (a sentence or two). */
+  compact?: boolean;
+  /** Allow pasting (used where there is no authorship detection, e.g. diagnostics). */
+  allowPaste?: boolean;
 }
 
-export function AnswerInput({ value, onChange, placeholder, disabled }: AnswerInputProps) {
+export function AnswerInput({ value, onChange, placeholder, disabled, compact, allowPaste }: AnswerInputProps) {
   const [adminMode] = useAdminMode();
   const [sessionValue, setSessionValue] = useState(value);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -72,11 +76,12 @@ export function AnswerInput({ value, onChange, placeholder, disabled }: AnswerIn
     }
   };
 
+  const pasteAllowed = adminMode || allowPaste;
   const handlePaste = (e: React.ClipboardEvent) => {
-    if (!adminMode) e.preventDefault();
+    if (!pasteAllowed) e.preventDefault();
   };
   const handleDrop = (e: React.DragEvent) => {
-    if (!adminMode) e.preventDefault();
+    if (!pasteAllowed) e.preventDefault();
   };
 
   // Inserting a symbol from the math keyboard counts as genuine typing, so it
@@ -107,12 +112,21 @@ export function AnswerInput({ value, onChange, placeholder, disabled }: AnswerIn
         onDrop={handleDrop}
         placeholder={placeholder || "Type your answer here..."}
         disabled={disabled}
-        className="w-full min-h-[180px] p-5 bg-card border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-lg leading-relaxed resize-y"
+        className={`w-full ${
+          compact ? "min-h-[80px] p-3 text-base" : "min-h-[180px] p-5 text-lg"
+        } bg-card border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary leading-relaxed resize-y`}
       />
       {!disabled && <MathKeyboard onInsert={handleMathInsert} />}
-      <span className="text-xs text-muted-foreground px-1">
-        {adminMode ? "Administrator mode — pasting enabled." : "Pasting is disabled."}
-      </span>
+      {!pasteAllowed && (
+        <span className="text-xs text-muted-foreground px-1">
+          Pasting is disabled.
+        </span>
+      )}
+      {pasteAllowed && adminMode && (
+        <span className="text-xs text-muted-foreground px-1">
+          Administrator mode — pasting enabled.
+        </span>
+      )}
     </div>
   );
 }

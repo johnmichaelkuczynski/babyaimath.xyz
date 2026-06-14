@@ -73,8 +73,8 @@ function instructionsFor(
     format === "mcq"
       ? `${subject} by selecting the single best option.`
       : format === "hybrid"
-        ? `${subject} by selecting the best option, then write a sentence or two explaining your reasoning.`
-        : `${subject}. No answer options are shown — write a short answer in your own words, a sentence or two, explaining your thinking.`;
+        ? `${subject} by selecting the best option. You can add a quick note on your reasoning if you like — it's optional and a few words is plenty.`
+        : `${subject}. No answer options are shown — just jot a brief answer in your own words. One sentence is plenty; there's no need to write a lot.`;
   return `${body} Submitting completes the assessment and you'll receive written feedback${
     instrument === "ethical" ? " on your reasoning" : " on your performance"
   }.`;

@@ -89,8 +89,11 @@ export default function ReasoningRunner() {
       if (format !== "written" && mcqAnswers[item.id] === undefined) {
         return "Please choose an option for every question before submitting.";
       }
-      if (format !== "mcq" && !(writtenAnswers[item.id] ?? "").trim()) {
-        return "Please write an answer for every question before submitting.";
+      // Only the pure Written format requires text (there's nothing else to
+      // grade). Hybrid is graded on the chosen option, so its short
+      // justification is optional — never block submission for a missing one.
+      if (format === "written" && !(writtenAnswers[item.id] ?? "").trim()) {
+        return "Please write a brief answer for every question before submitting.";
       }
     }
     return null;
@@ -302,15 +305,21 @@ function Question({
 
       {format !== "mcq" && (
         <div className="flex flex-col gap-1.5">
-          {format === "hybrid" && (
-            <p className="text-sm font-medium text-muted-foreground">
-              Explain your reasoning in a sentence or two:
-            </p>
-          )}
+          <p className="text-sm font-medium text-muted-foreground">
+            {format === "hybrid"
+              ? "Add a quick note on your reasoning (optional):"
+              : "Your answer — a sentence is plenty:"}
+          </p>
           <AnswerInput
             value={written}
             onChange={(val) => onWrite(val)}
-            placeholder="Write your answer in your own words…"
+            compact
+            allowPaste
+            placeholder={
+              format === "hybrid"
+                ? "Optional — a few words on why…"
+                : "A sentence in your own words…"
+            }
           />
         </div>
       )}
