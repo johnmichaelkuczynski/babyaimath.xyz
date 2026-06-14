@@ -5,7 +5,6 @@ import { Layout } from "@/components/layout/Layout";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
 import { Compass, Brain } from "lucide-react";
 
 const PHASE_LABELS: Record<string, string> = {
@@ -30,21 +29,6 @@ const FORMAT_BLURBS: Record<Format, string> = {
   hybrid: "Pick the best option and explain your reasoning.",
   written: "Write a short answer in your own words — no options.",
 };
-
-type TestLength = "short" | "medium" | "long";
-const LENGTH_ORDER: TestLength[] = ["short", "medium", "long"];
-const LENGTH_LABELS: Record<TestLength, string> = {
-  short: "Short",
-  medium: "Medium",
-  long: "Long",
-};
-// Question count per length, per instrument. Mirrors LENGTH_COUNTS in
-// api-server/src/lib/reasoning.ts and ReasoningRunner.tsx — keep in lockstep.
-const LENGTH_COUNTS: Record<"ethical" | "critical", Record<TestLength, number>> =
-  {
-    critical: { short: 5, medium: 10, long: 15 },
-    ethical: { short: 3, medium: 6, long: 10 },
-  };
 
 function statusBadge(status: string) {
   const cls =
@@ -89,18 +73,23 @@ function InstrumentCard({
         <p className="text-sm text-muted-foreground">
           Choose how you'd like to answer this assessment:
         </p>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           {FORMAT_ORDER.map((fmt) => {
             const a = byFormat.get(fmt);
             if (!a) return null;
-            const counts = LENGTH_COUNTS[instrument];
+            const cta =
+              a.status === "passed"
+                ? "Review"
+                : a.status === "in_progress"
+                ? "Resume"
+                : "Begin";
             return (
-              <div
-                key={fmt}
-                className="rounded-md border border-border p-3 flex flex-col gap-2.5"
-                data-testid={`format-block-reasoning-${a.id}`}
-              >
-                <div className="flex items-start justify-between gap-2">
+              <Link key={fmt} href={`/reasoning/${a.id}`}>
+                <button
+                  type="button"
+                  className="w-full text-left rounded-md border border-border hover:border-primary hover:bg-secondary transition-colors p-3 flex items-center justify-between gap-3"
+                  data-testid={`button-open-reasoning-${a.id}`}
+                >
                   <span className="min-w-0">
                     <span className="flex items-center gap-2">
                       <span className="font-medium text-sm">
@@ -111,57 +100,17 @@ function InstrumentCard({
                     <span className="block text-xs text-muted-foreground mt-0.5">
                       {FORMAT_BLURBS[fmt]}
                     </span>
-                  </span>
-                  {a.status === "passed" ? (
-                    <Link href={`/reasoning/${a.id}`}>
-                      <span
-                        className="text-xs font-medium text-primary shrink-0 hover:underline cursor-pointer"
-                        data-testid={`link-review-reasoning-${a.id}`}
-                      >
-                        Review
+                    {a.status !== "passed" && (
+                      <span className="block text-xs text-primary/80 mt-1">
+                        Then choose length: Short · Medium · Long
                       </span>
-                    </Link>
-                  ) : a.status === "in_progress" ? (
-                    <Link href={`/reasoning/${a.id}`}>
-                      <span
-                        className="text-xs font-medium text-primary shrink-0 hover:underline cursor-pointer"
-                        data-testid={`link-resume-reasoning-${a.id}`}
-                      >
-                        Resume
-                      </span>
-                    </Link>
-                  ) : null}
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {a.status === "not_started"
-                      ? "Choose a length to begin"
-                      : "Or start fresh at a length"}
+                    )}
                   </span>
-                  <div className="flex gap-2">
-                    {LENGTH_ORDER.map((len) => (
-                      <Link
-                        key={len}
-                        href={`/reasoning/${a.id}?length=${len}`}
-                        className="flex-1"
-                      >
-                        <button
-                          type="button"
-                          className="w-full rounded-md border border-border hover:border-primary hover:bg-secondary transition-colors px-2 py-1.5 text-center"
-                          data-testid={`button-length-${a.id}-${len}`}
-                        >
-                          <span className="block text-xs font-medium">
-                            {LENGTH_LABELS[len]}
-                          </span>
-                          <span className="block text-[11px] text-muted-foreground">
-                            {counts[len]} {counts[len] === 1 ? "question" : "questions"}
-                          </span>
-                        </button>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                  <span className="text-sm font-medium text-primary shrink-0">
+                    {cta}
+                  </span>
+                </button>
+              </Link>
             );
           })}
         </div>
