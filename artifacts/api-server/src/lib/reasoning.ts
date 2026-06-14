@@ -32,7 +32,7 @@ export type TestLength = "short" | "medium" | "long";
 
 const LENGTH_COUNTS: Record<Instrument, Record<TestLength, number>> = {
   critical: { short: 5, medium: 10, long: 15 },
-  ethical: { short: 1, medium: 2, long: 3 },
+  ethical: { short: 3, medium: 6, long: 10 },
 };
 
 export function itemCountFor(

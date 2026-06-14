@@ -26,7 +26,7 @@ type TestLength = "short" | "medium" | "long";
 // the question count before the student commits.
 const LENGTH_COUNTS: Record<"ethical" | "critical", Record<TestLength, number>> = {
   critical: { short: 5, medium: 10, long: 15 },
-  ethical: { short: 1, medium: 2, long: 3 },
+  ethical: { short: 3, medium: 6, long: 10 },
 };
 
 const LENGTH_ORDER: TestLength[] = ["short", "medium", "long"];
@@ -104,12 +104,13 @@ export default function ReasoningRunner() {
     );
   }
 
-  // Resume an in-progress attempt or surface a passed one for review without
-  // asking for a length. A brand-new ("not_started") test waits for the student
-  // to pick a length first.
+  // Auto-load a passed attempt for review without asking for a length. A
+  // brand-new ("not_started") test and an unfinished ("in_progress") one both
+  // show the length picker first — in_progress offers a "continue" shortcut so
+  // the student can resume the same questions instead of restarting.
   useEffect(() => {
     if (!assessment || began || result || forcePicker) return;
-    if (assessment.status === "not_started") return;
+    if (assessment.status !== "passed") return;
     beginAttempt();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assessment?.id, assessment?.status]);
@@ -180,15 +181,22 @@ export default function ReasoningRunner() {
     );
   }
 
-  // Length picker — shown before a brand-new attempt (and on retake). Resuming
-  // or reviewing an existing attempt skips this and keeps the original length.
+  // Length picker — shown before a brand-new attempt, on retake, and for an
+  // unfinished attempt (which also gets a "continue" shortcut). Only a passed
+  // attempt being reviewed skips this.
   const showPicker =
-    (assessment.status === "not_started" || forcePicker) &&
+    (assessment.status === "not_started" ||
+      assessment.status === "in_progress" ||
+      forcePicker) &&
     !began &&
     !result &&
     !alreadyPassed;
   if (showPicker) {
     const counts = LENGTH_COUNTS[instrument];
+    const isResumable = assessment.status === "in_progress";
+    // Picking a length starts a fresh attempt. When one is already underway (or
+    // after a pass) that means discarding it, so send retake=true.
+    const retakeOnPick = forcePicker || isResumable;
     return (
       <Layout>
         <div className="p-8 max-w-2xl mx-auto w-full flex flex-col gap-8">
@@ -202,9 +210,27 @@ export default function ReasoningRunner() {
               </p>
             )}
           </div>
+          {isResumable && (
+            <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 flex flex-col gap-2">
+              <p className="text-sm">
+                You have an unfinished attempt at this test.
+              </p>
+              <div>
+                <Button
+                  onClick={() => beginAttempt()}
+                  disabled={startAttempt.isPending}
+                  data-testid="button-continue-attempt"
+                >
+                  Continue where I left off
+                </Button>
+              </div>
+            </div>
+          )}
           <div className="flex flex-col gap-2">
             <h2 className="font-serif text-lg font-semibold">
-              How long would you like this test?
+              {isResumable
+                ? "…or start over at a new length"
+                : "How long would you like this test?"}
             </h2>
             <p className="text-sm text-muted-foreground">
               Pick a length — fewer questions for a quick check, more for a
@@ -218,7 +244,7 @@ export default function ReasoningRunner() {
                 <button
                   key={len}
                   type="button"
-                  onClick={() => beginAttempt(len, forcePicker)}
+                  onClick={() => beginAttempt(len, retakeOnPick)}
                   disabled={startAttempt.isPending}
                   className="text-left rounded-lg border border-border hover:border-primary hover:bg-secondary transition-colors p-4 flex flex-col gap-1 disabled:opacity-50"
                   data-testid={`button-length-${len}`}

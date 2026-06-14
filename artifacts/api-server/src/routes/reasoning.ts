@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { and, asc, eq, isNull } from "drizzle-orm";
+import { and, asc, desc, eq, isNull } from "drizzle-orm";
 import {
   db,
   assignmentsTable,
@@ -223,17 +223,28 @@ router.post("/reasoning/assessments/:assessmentId/start", async (req, res): Prom
   }
   const format = a.format as DiagFormat;
 
-  // Resume an in-progress attempt if one exists (so a refresh mid-assessment
-  // never loses progress). Otherwise, on a normal open we surface the
-  // already-passed attempt for review; on a retake we fall through and start a
-  // brand-new attempt so the student can take it again.
+  // On a normal open we resume an in-progress attempt (so a refresh mid-test
+  // never loses progress) or surface an already-passed attempt for review.
+  // On a retake the student explicitly restarted: discard any unfinished
+  // attempt so a brand-new set of questions is generated at the chosen length.
   const existing = await db
     .select()
     .from(diagnosticAttemptsTable)
     .where(eq(diagnosticAttemptsTable.assessmentId, id))
     .orderBy(asc(diagnosticAttemptsTable.id));
+  if (retake) {
+    const unfinished = existing.filter((x) => x.status === "in_progress");
+    for (const att of unfinished) {
+      await db
+        .delete(diagnosticItemsTable)
+        .where(eq(diagnosticItemsTable.attemptId, att.id));
+      await db
+        .delete(diagnosticAttemptsTable)
+        .where(eq(diagnosticAttemptsTable.id, att.id));
+    }
+  }
   const reusable = retake
-    ? existing.find((x) => x.status === "in_progress")
+    ? undefined
     : existing.find((x) => x.status === "in_progress") ??
       existing.find((x) => x.status === "submitted");
   if (reusable) {
@@ -330,14 +341,17 @@ router.post("/reasoning/assessments/:assessmentId/submit", async (req, res): Pro
   // if none (e.g. a resubmit), fall back to the most recent attempt for this
   // assessment. The seeded template is used only when the assessment has never
   // been attempted (in which case the client has no generated item IDs anyway).
+  // Order DESC so we always target the NEWEST attempt: a length restart deletes
+  // the prior in-progress attempt, but if a race ever leaves more than one, the
+  // student is answering the most recently generated items, so grade against
+  // those (matching item IDs) rather than a stale older attempt.
   const attempts = await db
     .select()
     .from(diagnosticAttemptsTable)
     .where(eq(diagnosticAttemptsTable.assessmentId, id))
-    .orderBy(asc(diagnosticAttemptsTable.id));
+    .orderBy(desc(diagnosticAttemptsTable.id));
   const target =
-    attempts.find((x) => x.status === "in_progress") ??
-    attempts[attempts.length - 1];
+    attempts.find((x) => x.status === "in_progress") ?? attempts[0];
 
   const items = target
     ? await loadItemsForAttempt(id, target.id)
