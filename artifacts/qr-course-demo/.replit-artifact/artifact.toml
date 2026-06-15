@@ -1,6 +1,6 @@
 kind = "video"
 previewPath = "/qr-course-demo/"
-title = "Criminal Psychology Demo Video"
+title = "Developmental Psychology Demo Video"
 version = "1.0.0"
 id = "artifacts/qr-course-demo"
 router = "path"
