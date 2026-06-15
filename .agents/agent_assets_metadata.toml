@@ -46,7 +46,7 @@ title = "QuantReason — App Blueprint"
 id = "gBlmXbiu3K5FNCNv2fX9f"
 uri = "file://README.md"
 type = "text"
-title = "README — Evolutionary Psychology for Children"
+title = "README — Developmental Psychology for Children"
 
 [[outputs]]
 id = "FqMnfCzm6r7Jw0r0ejNvV"
@@ -65,3 +65,9 @@ id = "xwqMN58ueq6FTNmUIZXDo"
 uri = "file://artifacts/course-promo/YOUTUBE_DESCRIPTION.md"
 type = "text"
 title = "YouTube Description — Evolutionary Psychology for Children"
+
+[[outputs]]
+id = "IhlBFpvwhqNicclr5C_QR"
+uri = "file://youtube-description.md"
+type = "text"
+title = "YouTube title, description & tags"
