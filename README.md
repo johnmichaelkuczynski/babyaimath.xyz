@@ -1,20 +1,20 @@
-# 🔎 Criminal Psychology for Children
+# 🔎 Developmental Psychology for Children
 
-**A friendly, one-unit intro to criminal psychology that teaches, tutors, drills, and grades itself — for curious students and adults alike.**
+**A friendly, one-unit intro to developmental psychology that teaches, tutors, drills, and grades itself — for curious students and adults alike.**
 
-Criminal Psychology for Children is a self-paced, single-user web course that delivers a plain-language introduction to criminal psychology — taught, tutored, drilled, and graded entirely by AI, with built-in academic-integrity enforcement. No math, coding, or statistics required. The material is kept tasteful and age-appropriate: it explains the *science* of why people offend and how the justice system reasons, never anything graphic or sensational.
+Developmental Psychology for Children is a self-paced, single-user web course that delivers a plain-language introduction to developmental psychology — taught, tutored, drilled, and graded entirely by AI, with built-in academic-integrity enforcement. No math, coding, or statistics required. The material is kept tasteful and age-appropriate: it explains the *science* of how people grow and change across the whole lifespan, from before birth to old age.
 
 ---
 
 ## ✨ Features
 
-- **One unit, 8 topics** — a complete plain-language syllabus: what criminal psychology is · why people offend · inside the psychopath · profiling the offender · eyewitnesses and memory · interrogation and false confessions · madness and the law · predicting danger.
+- **One unit, 8 topics** — a complete plain-language syllabus: what developmental psychology is · nature vs. nurture · the infant mind · attachment · how children think (Piaget) · language development · the teenage brain · aging and the lifespan.
 - **Three-depth lessons** — every lesson reads at **Short / Medium / Long** length, AI-rewritten while keeping the same examples and learning objectives.
 - **Section-scoped AI tutor** — ask about the exact paragraph you're reading; answers stream back token-by-token, grounded in that lecture section.
 - **Adaptive practice** — generated problem sets that get harder on a streak and ease off after a miss; per-session difficulty persists.
 - **AI-graded assignments** — two homework sets, a timed unit test, and a cumulative final, each scored for semantic equivalence with a written rationale and a rolled-up percent score.
 - **Two-layer AI-authorship detection** — every submission is screened by a static text classifier (GPTZero) **and** a diachronic keystroke-pattern detector, each with a human-readable verdict.
-- **Diagnostic reasoning assessments** — two original instruments (Professional Judgment and Critical Reasoning) run at baseline and after the unit, counting for 20% of the final grade.
+- **Diagnostic reasoning checks** — two ungraded instruments (Developmental Psychology subject reasoning and General Reasoning), each offered in three formats and three lengths, at four points in the journey (before, one-third, two-thirds, and after the course). They are unlimited practice with fresh questions every attempt and never affect the grade (coursework is 100%).
 - **Live analytics** — dashboard KPIs (attempts, accuracy, streak), per-topic mastery, and a recent-activity feed.
 - **Operator diagnostics** — one-click self-tests that verify the entire stack (database, OpenAI, GPTZero, detection, and the practice/grade loop) before you trust a session.
 
@@ -102,4 +102,4 @@ Open the **Diagnostics** page in the app (or hit the API directly) to run:
 
 ---
 
-*Criminal Psychology for Children — where the curriculum, the tutor, the grader, and the integrity check all live in one room.*
+*Developmental Psychology for Children — where the curriculum, the tutor, the grader, and the integrity check all live in one room.*

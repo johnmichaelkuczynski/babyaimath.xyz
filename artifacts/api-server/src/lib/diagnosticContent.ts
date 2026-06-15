@@ -3,7 +3,7 @@
 //
 // Two instruments, each offered at FOUR time-points (phases) so a student can
 // gauge themselves before, during, and after the course:
-//   - subject  — Criminal Psychology subject-specific reasoning. Realistic
+//   - subject  — Developmental Psychology subject-specific reasoning. Realistic
 //     short cases about the course material; the best-supported answer is keyed
 //     first.
 //   - general  — General Reasoning. Genuine reasoning items spanning analysis,
@@ -88,25 +88,25 @@ const SUBJECT_SPECS: Record<Phase, GenSpec> = {
     level:
       "Intro level: answerable by a thoughtful newcomer reasoning carefully, BEFORE any lessons. Do not assume prior course knowledge or technical terms.",
     topicFocus:
-      "What criminal psychology is and how it thinks about crime: that offending has multiple interacting causes (personal, social, situational) rather than a single 'born evil' cause, and that the field studies behavior scientifically rather than by intuition or moral judgement.",
+      "What developmental psychology is and how it thinks about people: that development is lifelong change (from before birth to old age) studied scientifically, that it spans physical, cognitive, and social-emotional growth, and that who a person becomes grows out of nature and nurture working together rather than a single 'it's all genes' or 'it's all upbringing' cause.",
   },
   third: {
     level:
       "Early course level: covers roughly the first third of the unit. Plain language, short realistic cases.",
     topicFocus:
-      "Topics 1.1-1.3: what criminal psychology is; why people offend (interacting biological, psychological, and social/situational factors, opportunity, and the limits of single-cause explanations); and traits associated with psychopathy (superficial charm, manipulation, lack of remorse) and how they differ from everyday wrongdoing.",
+      "Topics 1.1-1.3: what developmental psychology is (lifelong change across physical, cognitive, and social-emotional domains); nature vs. nurture (genes set a range, environment shapes it, and the two interact rather than competing); and the infant mind (babies are not blank — they prefer faces and voices and already expect objects to be solid/permanent, studied via looking time and surprise).",
   },
   twothirds: {
     level:
       "Mid course level: covers roughly the first two-thirds of the unit. Realistic short cases requiring a step of reasoning.",
     topicFocus:
-      "Topics 1.1-1.6: causes of offending and psychopathy, PLUS offender profiling and its limits, eyewitness memory (memory is reconstructive and confident witnesses can be wrong), and interrogation and false confessions (coercive or high-pressure tactics can lead even innocent people to confess).",
+      "Topics 1.1-1.6: lifelong development, nature/nurture interaction, and the infant mind, PLUS attachment (the bond rests on comfort/contact not just food, and works as a secure base for exploration), how children think (Piaget — children reason by different rules that change in stages, e.g. conservation and egocentrism), and language development (children learn rules, shown by overregularization like 'goed'/'foots', within a sensitive period).",
   },
   after: {
     level:
       "End-of-course level: covers the whole unit. Integrative short cases that apply more than one idea.",
     topicFocus:
-      "The full unit, topics 1.1-1.8: causes of offending, psychopathy, profiling, eyewitness memory, interrogation/false confessions, PLUS madness and the law (legal insanity and competence are about understanding/responsibility at the time, not merely having a diagnosis) and predicting danger (risk assessment gives probabilities, not certainties, and can err).",
+      "The full unit, topics 1.1-1.8: lifelong development, nature/nurture, the infant mind, attachment, Piagetian thinking, and language, PLUS the teenage brain (an early-maturing reward system and late-maturing prefrontal control, with risk heightened by peers) and aging and the lifespan (development never stops; aging brings losses AND gains, with crystallized knowledge holding/growing and often steady or higher well-being).",
   },
 };
 
@@ -152,7 +152,7 @@ const FORMAT_LABEL: Record<DiagFormat, string> = {
 function instructionsFor(instrument: Instrument, format: DiagFormat): string {
   const subject =
     instrument === "subject"
-      ? "Answer each question about criminal psychology — these reward careful reasoning about realistic cases, not memorized facts"
+      ? "Answer each question about developmental psychology — these reward careful reasoning about realistic cases, not memorized facts"
       : "Answer each reasoning question — these measure how you think, not what you recall";
   const body =
     format === "mcq"
@@ -164,86 +164,86 @@ function instructionsFor(instrument: Instrument, format: DiagFormat): string {
 }
 
 // ===========================================================================
-// SUBJECT — Criminal Psychology blueprint cases (best answer keyed FIRST)
+// SUBJECT — Developmental Psychology blueprint cases (best answer keyed FIRST)
 // ===========================================================================
 
 const SUBJECT_BEFORE: DiagItem[] = [
   {
     prompt:
-      "A reporter asks a criminal psychologist why a particular teenager shoplifted. The psychologist would most likely explain the behavior in terms of:",
+      "A reporter asks a developmental psychologist why a particular toddler is unusually shy. The psychologist would most likely explain the behavior in terms of:",
     options: [
-      "a mix of personal, social, and situational pressures acting on the teenager",
-      "the teenager's astrological sign",
-      "whether the store happened to be busy that day",
-      "the reporter's personal opinion of teenagers",
+      "an inborn temperament and the child's experiences working together",
+      "the toddler's astrological sign",
+      "whether the room happened to be noisy that day",
+      "the reporter's personal opinion of toddlers",
     ],
     modelAnswer:
-      "Criminal psychology explains offending through interacting personal, social, and situational factors, not luck, intuition, or unrelated traits.",
+      "Developmental psychology explains behavior through nature and nurture working together (e.g. temperament plus experience), not luck, intuition, or unrelated traits.",
   },
   {
     prompt:
-      "A headline claims 'most people who break the law are simply born evil.' How would a criminal psychologist most likely treat this claim?",
+      "A headline claims 'people are simply born exactly who they'll be — genes decide everything.' How would a developmental psychologist most likely treat this claim?",
     options: [
-      "As an oversimplification, since behavior usually has many interacting causes",
+      "As an oversimplification, since development comes from nature and nurture together",
       "As obviously true and needing no evidence",
       "As something that cannot be studied at all",
       "As true only for certain personality types",
     ],
     modelAnswer:
-      "It is an oversimplification; the field rejects single-cause 'born evil' explanations because offending arises from many interacting causes.",
+      "It is an oversimplification; the field rejects 'genes decide everything' because development arises from nature and nurture interacting.",
   },
   {
     prompt:
-      "Which question is most central to what criminal psychology actually studies?",
+      "Which question is most central to what developmental psychology actually studies?",
     options: [
-      "Why people commit crimes and how the justice system responds to them",
-      "Which lawyer charges the lowest fees",
-      "How to design a more comfortable courtroom chair",
-      "Which crimes make the most dramatic movies",
+      "How and why people change across their lives, from before birth to old age",
+      "Which baby stroller is the cheapest to buy",
+      "How to design a more comfortable nursery chair",
+      "Which childhood stories make the most dramatic movies",
     ],
     modelAnswer:
-      "Criminal psychology studies the causes of offending and how the justice system thinks about and responds to it.",
+      "Developmental psychology studies how and why people change across the whole lifespan, from before birth to old age.",
   },
 ];
 
 const SUBJECT_THIRD: DiagItem[] = [
   {
     prompt:
-      "Over years, Dana is repeatedly charming on first meeting, lies easily to get what she wants, and shows no remorse after hurting others. These patterns are most associated with:",
+      "A newborn turns toward her mother's voice and stares longer at a human face than at a scrambled pattern. These behaviors are best understood as showing that:",
     options: [
-      "traits linked to psychopathy",
-      "ordinary shyness",
-      "a temporary bad mood",
-      "simple forgetfulness",
+      "babies arrive already prepared for people, not as blank slates",
+      "the baby is simply bored",
+      "newborns cannot tell anything apart",
+      "the baby dislikes faces",
     ],
     modelAnswer:
-      "Superficial charm, manipulative lying, and lack of remorse are traits associated with psychopathy, not ordinary mood or memory.",
+      "Newborns already prefer faces and familiar voices, showing the infant mind is prepared for people rather than blank.",
     skillArea: "analysis",
   },
   {
     prompt:
-      "Two neighborhoods are alike except that one has far more unsupervised places for teens to gather, and it also has more youth crime. This best illustrates that offending is shaped by:",
+      "Two children are raised by the same parents, but one is naturally bold and the other cautious, and they end up with quite different experiences at home. This best illustrates that:",
     options: [
-      "situational and social opportunity, not just individual character",
-      "nothing but the weather",
-      "the age of the buildings alone",
-      "pure random chance",
+      "a child's inborn temperament and environment interact, each shaping the other",
+      "parents have no effect on children at all",
+      "only the weather shapes behavior",
+      "the outcome is pure random chance",
     ],
     modelAnswer:
-      "It shows offending is influenced by situational and social opportunity, not by individual character alone.",
+      "It shows nature and nurture interact: an inborn temperament shapes the experiences a child has, so the same parents create different environments.",
     skillArea: "inference",
   },
   {
     prompt:
-      "A student says 'people offend for exactly one reason: bad parents.' Why would a criminal psychologist push back?",
+      "A student says 'how a person turns out is decided entirely by how they're raised — genes don't matter.' Why would a developmental psychologist push back?",
     options: [
-      "Because offending typically results from several interacting causes, not a single one",
-      "Because parents never influence behavior at all",
-      "Because only adults can ever offend",
-      "Because crime cannot be explained in any way",
+      "Because development comes from genes and environment working together, not nurture alone",
+      "Because upbringing never influences anyone",
+      "Because only adults ever change",
+      "Because development cannot be explained in any way",
     ],
     modelAnswer:
-      "Single-cause explanations are too simple; offending usually results from interacting biological, psychological, and social factors.",
+      "Single-cause explanations are too simple; development results from nature and nurture interacting, so 'all upbringing' is as wrong as 'all genes.'",
     skillArea: "evaluation",
   },
 ];
@@ -251,41 +251,41 @@ const SUBJECT_THIRD: DiagItem[] = [
 const SUBJECT_TWOTHIRDS: DiagItem[] = [
   {
     prompt:
-      "A witness very confidently identifies a suspect, but later evidence shows the identification was wrong. What does this best illustrate about memory?",
+      "You pour juice from a wide glass into a tall, thin one while a preschooler watches, and they insist the tall glass now has more. What does this best illustrate about young children's thinking?",
     options: [
-      "Memory is reconstructive, so a confident witness can still be mistaken",
-      "Confident witnesses are always correct",
-      "Memory works like a perfect video recording",
-      "Witnesses never make identification errors",
+      "Children reason by different rules and can center on one feature (height) while missing that the amount is unchanged",
+      "The child is simply not paying attention",
+      "Preschoolers think exactly like adults",
+      "The amount of juice really did change",
     ],
     modelAnswer:
-      "Memory is reconstructive and fallible; high confidence does not guarantee accuracy, so confident witnesses can be wrong.",
+      "It shows the conservation error: young children reason by different rules, focusing on one feature (height) and missing that quantity stayed the same.",
     skillArea: "evaluation",
   },
   {
     prompt:
-      "An innocent, exhausted suspect is questioned for hours with repeated pressure and promises of leniency, and finally confesses. What does this scenario best demonstrate?",
+      "A toddler who once said 'went' starts saying 'goed,' a word no adult ever taught her. What does this scenario best demonstrate?",
     options: [
-      "Coercive, high-pressure interrogation can produce false confessions even from innocent people",
-      "Anyone who confesses must be guilty",
-      "Long interrogations always uncover the truth",
-      "Pressure has no effect on what people say",
+      "Children learn grammar rules and over-apply them, rather than only imitating what they hear",
+      "The child has forgotten how to talk",
+      "Adults must have taught her the word 'goed'",
+      "Language is learned purely by copying phrases",
     ],
     modelAnswer:
-      "Coercive or high-pressure interrogation can lead even innocent people to confess falsely, so a confession is not proof of guilt.",
+      "Overregularization shows children learn rules (add '-ed') and over-apply them to irregular words, proving rule-learning rather than imitation.",
     skillArea: "inference",
   },
   {
     prompt:
-      "An investigator treats an offender profile as if it names one exact guilty person. Why is that a mistake?",
+      "A frightened baby monkey chooses to cling to a soft cloth 'mother' that gives no milk rather than a bare wire one that does. Why is that important for understanding attachment?",
     options: [
-      "A profile describes likely characteristics, not a guaranteed identity",
-      "Profiles are always completely accurate",
-      "Profiles can only ever be wrong",
-      "Profiles replace the need for any evidence",
+      "It shows the bond rests on comfort and contact, not just on being fed",
+      "It proves babies don't need food at all",
+      "It shows attachment is only about feeding",
+      "It means babies prefer whoever is nearest",
     ],
     modelAnswer:
-      "Profiling suggests probable characteristics to narrow a search; it is not a certain identification of a specific person.",
+      "Attachment rests on comfort and contact, not just food; the baby seeks the comforting figure even when it provides no milk.",
     skillArea: "analysis",
   },
 ];
@@ -293,41 +293,41 @@ const SUBJECT_TWOTHIRDS: DiagItem[] = [
 const SUBJECT_AFTER: DiagItem[] = [
   {
     prompt:
-      "A defendant has a diagnosed mental illness. A court is deciding a legal-insanity claim. Which consideration matters most for that legal question?",
+      "A teenager drives carefully when alone but takes far more risks when friends are in the car. Which explanation fits what the course shows about the teenage brain?",
     options: [
-      "Whether, at the time of the act, the person could understand what they did or that it was wrong",
-      "Only whether a diagnosis exists on paper",
-      "How the public feels about the crime",
-      "Whether the trial is expensive to run",
+      "The reward system matures early while impulse-control matures later, and peers heighten the pull of risky choices",
+      "Teenagers simply choose to misbehave for no reason",
+      "The teenage brain is fully mature and identical to an adult's",
+      "Friends have no effect on a teenager's choices",
     ],
     modelAnswer:
-      "Legal insanity turns on the person's understanding and responsibility at the time of the act, not merely on having a diagnosis.",
+      "The early-maturing reward system, late-maturing prefrontal control, and the heightened reward of peer presence explain more risk-taking with friends.",
     skillArea: "evaluation",
   },
   {
     prompt:
-      "A risk-assessment tool labels someone 'high risk' of reoffending. How should that result be understood?",
+      "An older adult is slower at learning a brand-new phone app but has a far richer vocabulary and steadier judgment than a young adult. How should this be understood?",
     options: [
-      "As a probability that can be wrong, not a certainty about the future",
-      "As a guarantee the person will reoffend",
-      "As proof the person already committed a new crime",
-      "As a fixed fact that can never change",
+      "As aging bringing losses and gains: fluid speed declines while crystallized knowledge holds or grows",
+      "As proof that aging is only decline",
+      "As a sign the older adult is not really thinking",
+      "As meaning age never changes the mind at all",
     ],
     modelAnswer:
-      "Risk assessment gives probabilities, not certainties; a 'high risk' label can be mistaken and does not guarantee future behavior.",
+      "Aging brings losses and gains: raw speed (fluid) declines while accumulated knowledge and judgment (crystallized) hold steady or grow.",
     skillArea: "inference",
   },
   {
     prompt:
-      "Reviewing a case, an analyst relies only on a single confident eyewitness and a 'high risk' score to declare guilt certain. Drawing on the unit, the strongest criticism is that:",
+      "A commentator says, 'After childhood, development is over — it's all genes early on and then pure decline.' Drawing on the unit, the strongest criticism is that:",
     options: [
-      "Both eyewitness confidence and risk scores are fallible, so neither makes guilt certain",
-      "Eyewitnesses are always reliable, so the conclusion is fine",
-      "Risk scores are certainties, so the conclusion is fine",
-      "Cases can never be reviewed after the fact",
+      "Development is lifelong and shaped by nature and nurture together, with real gains even in later life",
+      "Development really does stop at childhood, so the claim is fine",
+      "Genes truly decide everything early, so the claim is fine",
+      "Nothing about people can ever be studied",
     ],
     modelAnswer:
-      "Eyewitness memory is reconstructive and risk scores are probabilistic; both can err, so together they cannot make guilt certain.",
+      "Development is lifelong and arises from nature and nurture interacting; later life brings real gains (e.g. crystallized knowledge, well-being), so the claim fails twice.",
     skillArea: "evaluation",
   },
 ];
@@ -440,7 +440,7 @@ const BASE_CONTENT: BaseContent[] = PHASE_ORDER.flatMap((phase) => {
     {
       instrument: "subject" as const,
       phase,
-      baseTitle: `Criminal Psychology Check — ${PHASE_LABEL[phase]}`,
+      baseTitle: `Developmental Psychology Check — ${PHASE_LABEL[phase]}`,
       items: subjectItems[phase],
     },
     {

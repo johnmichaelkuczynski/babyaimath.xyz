@@ -64,7 +64,7 @@ export function Scene2({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
       {/* Left Pane: Lecture Content */}
       <div className="w-1/2 h-full border-r border-border p-12 overflow-hidden flex flex-col relative">
         <div className="text-xs font-bold tracking-widest text-muted-foreground mb-4">UNIT 1</div>
-        <h1 className="text-3xl font-serif text-primary mb-8">1.1 What criminal psychology is</h1>
+        <h1 className="text-3xl font-serif text-primary mb-8">1.1 What developmental psychology is</h1>
         
         <div className="flex bg-muted/50 rounded-lg p-1 w-fit mb-10 border border-border">
           <div className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${phase < 1 ? 'bg-white shadow-sm text-primary' : 'text-muted-foreground'}`}>Short</div>
@@ -73,12 +73,12 @@ export function Scene2({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
         </div>
 
         <div className="prose prose-sm max-w-none text-foreground/80 space-y-6">
-          <h2 className="font-serif text-2xl text-primary">What criminal psychology is</h2>
+          <h2 className="font-serif text-2xl text-primary">What developmental psychology is</h2>
           <p>
-            Criminal psychology is the study of why people break the law — what pushes someone to offend, how investigators think, and how courts decide what someone deserves.
+            Developmental psychology is the study of how people grow and change — from the first moments of infancy, through childhood and the teenage years, all the way into old age.
           </p>
           <p>
-            Crime isn't random or senseless. There are patterns behind who offends and why. Understanding those patterns helps us prevent harm and judge people more fairly.
+            Change isn't random. There are patterns to how minds and bodies develop across the lifespan. Understanding those patterns helps us care for children and make sense of our own growth.
           </p>
           
           <AnimatePresence>
@@ -90,10 +90,10 @@ export function Scene2({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                 className="space-y-6"
               >
                 <p>
-                  Offending is rarely about a single "bad" choice. A person's situation, the people around them, and the pressure of the moment all push on the decision — sometimes a little, sometimes a lot.
+                  Growth is rarely about a single cause. Our genes, the people around us, and the experiences we have all shape who we become — sometimes a little, sometimes a lot.
                 </p>
                 <p>
-                  For example, the same person might act very differently in a calm classroom than in a tense, angry crowd. Criminal psychology asks why — and uses the answer to keep people safer and trials fairer.
+                  For example, two children raised in the same home can turn out very differently. Developmental psychology asks why — and uses the answer to help children thrive at every stage of life.
                 </p>
               </motion.div>
             )}
@@ -120,9 +120,9 @@ export function Scene2({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
               >
                 <div className="mb-4 text-xs font-semibold text-muted-foreground uppercase tracking-widest">Starter questions for this section</div>
                 <div className="flex flex-wrap gap-2 mb-6">
-                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">A teen shoplifts once but never again — what might explain that?</div>
-                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">Two people grow up on the same street; one offends and one doesn't. Why?</div>
-                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">Why might a calm person act out of character in an angry crowd?</div>
+                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">Why do babies cry when a parent leaves the room?</div>
+                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">Two children grow up in the same home but turn out differently. Why?</div>
+                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">What is object permanence, and when do babies learn it?</div>
                 </div>
                 <div className="w-full h-24 border border-border rounded-lg bg-muted/20 p-3 text-muted-foreground text-sm flex items-end shadow-inner">
                   <div className="w-full flex justify-between">
@@ -157,7 +157,7 @@ export function Scene2({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                     className="p-6 border border-border rounded-xl shadow-sm bg-white"
                   >
                     <p className="text-foreground font-medium mb-6">
-                      A student who is calm at home gets into a fight only when with one particular group of friends. What does this suggest about why people offend?
+                      A baby happily plays with a toy, but cries the moment a parent hides it under a blanket. What does this suggest about how the infant mind develops?
                     </p>
                     <div className="w-full h-12 border border-border rounded-md bg-muted/10 mb-4 px-3 flex items-center text-muted-foreground">Type your answer...</div>
                     <div className="px-4 py-2 bg-primary text-white rounded-md text-sm font-medium w-fit ml-auto">Submit</div>

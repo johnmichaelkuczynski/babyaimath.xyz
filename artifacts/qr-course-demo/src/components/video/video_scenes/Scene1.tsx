@@ -64,7 +64,7 @@ export function Scene1({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
             exit={{ opacity: 0, filter: 'blur(4px)' }}
             transition={{ duration: 0.4 }}
           >
-            <h1 className="text-4xl font-serif text-primary mb-8 tracking-tight">Criminal Psychology</h1>
+            <h1 className="text-4xl font-serif text-primary mb-8 tracking-tight">Developmental Psychology</h1>
             
             <div className="grid grid-cols-3 gap-6 mb-12">
               <div className="col-span-2 flex space-x-6">
@@ -108,7 +108,7 @@ export function Scene1({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                     transition={{ duration: 0.2 }}
                   >
                     <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">Unit 1</div>
-                    <h4 className="font-serif text-lg mb-2">The Criminal Mind</h4>
+                    <h4 className="font-serif text-lg mb-2">The Growing Mind</h4>
                     <p className="text-sm text-muted-foreground">6 Lectures · 2 Assignments</p>
                   </motion.div>
                   <div className="bg-white/60 border border-border p-5 rounded-xl opacity-70">
@@ -134,7 +134,7 @@ export function Scene1({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
               <span className="text-primary font-medium">Unit 1</span>
             </div>
             
-            <h1 className="text-4xl font-serif text-primary mb-8 tracking-tight">Unit 1 — The Criminal Mind</h1>
+            <h1 className="text-4xl font-serif text-primary mb-8 tracking-tight">Unit 1 — The Growing Mind</h1>
             
             <div className="bg-white border border-border rounded-xl shadow-sm overflow-hidden w-2/3">
               <div className="px-6 py-4 bg-muted/30 border-b border-border text-xs font-semibold text-muted-foreground uppercase tracking-wider">Lectures</div>
@@ -146,7 +146,7 @@ export function Scene1({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                 >
                   <div className="flex items-center space-x-4">
                     <div className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-medium">1</div>
-                    <span className="font-medium">1.1 What criminal psychology is</span>
+                    <span className="font-medium">1.1 What developmental psychology is</span>
                   </div>
                   <span className="text-xs text-muted-foreground">12 min</span>
                 </motion.div>
@@ -154,7 +154,7 @@ export function Scene1({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                 <div className="px-6 py-4 flex items-center justify-between opacity-80">
                   <div className="flex items-center space-x-4">
                     <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-medium text-muted-foreground">2</div>
-                    <span>1.2 Why people offend</span>
+                    <span>1.2 Nature vs. nurture</span>
                   </div>
                   <span className="text-xs text-muted-foreground">15 min</span>
                 </div>
@@ -162,7 +162,7 @@ export function Scene1({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                 <div className="px-6 py-4 flex items-center justify-between opacity-80">
                   <div className="flex items-center space-x-4">
                     <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-medium text-muted-foreground">3</div>
-                    <span>1.3 Inside the psychopath</span>
+                    <span>1.3 The infant mind</span>
                   </div>
                   <span className="text-xs text-muted-foreground">18 min</span>
                 </div>
@@ -170,14 +170,14 @@ export function Scene1({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                 <div className="px-6 py-4 flex items-center justify-between opacity-80">
                   <div className="flex items-center space-x-4">
                     <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-medium text-muted-foreground">4</div>
-                    <span>1.4 Profiling the offender</span>
+                    <span>1.4 Attachment — the first bond</span>
                   </div>
                   <span className="text-xs text-muted-foreground">14 min</span>
                 </div>
                 <div className="px-6 py-4 flex items-center justify-between opacity-80">
                   <div className="flex items-center space-x-4">
                     <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-medium text-muted-foreground">5</div>
-                    <span>1.5 Eyewitnesses and memory</span>
+                    <span>1.5 How children think (Piaget)</span>
                   </div>
                   <span className="text-xs text-muted-foreground">10 min</span>
                 </div>

@@ -13,7 +13,7 @@ const PHASE_SHORT: Record<string, string> = {
 };
 
 const INSTRUMENT_SHORT: Record<string, string> = {
-  subject: "Criminal Psychology",
+  subject: "Developmental Psychology",
   general: "General Reasoning",
 };
 

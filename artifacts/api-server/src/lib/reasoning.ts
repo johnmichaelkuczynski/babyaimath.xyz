@@ -285,7 +285,7 @@ function deterministicFeedback(
         : " Your reasoning was solid across the items.";
     return `Thanks for working through this reasoning check.${overall?.value ? ` You scored ${overall.value}.` : ""}${weakLine} Remember that a strong answer follows only from the reasons given — distinguish what is stated, what is assumed, and what is merely plausible.`;
   }
-  return `Thanks for working through these criminal-psychology cases.${overall?.value ? ` You scored ${overall.value}.` : ""} Strong answers here come from reasoning about the case — looking for multiple interacting causes, weighing how reliable the evidence is, and resisting single-cause or 'obvious' explanations.`;
+  return `Thanks for working through these developmental-psychology cases.${overall?.value ? ` You scored ${overall.value}.` : ""} Strong answers here come from reasoning about the case — looking for multiple interacting causes, weighing how reliable the evidence is, and resisting single-cause or 'obvious' explanations.`;
 }
 
 export async function generateFeedback(
@@ -298,7 +298,7 @@ export async function generateFeedback(
     .join("\n");
   const system =
     instrument === "subject"
-      ? "You are an instructor giving warm, specific feedback on a student's criminal-psychology reasoning check (realistic short cases about the course material). 2-4 sentences. Note their overall performance and offer one concrete way to reason better about cases. Use only the metrics provided; do not invent numbers. Plain prose, no markdown headings."
+      ? "You are an instructor giving warm, specific feedback on a student's developmental-psychology reasoning check (realistic short cases about the course material). 2-4 sentences. Note their overall performance and offer one concrete way to reason better about cases. Use only the metrics provided; do not invent numbers. Plain prose, no markdown headings."
       : "You are a reasoning instructor giving warm, specific feedback on a student's general-reasoning check. 2-4 sentences. Note overall performance and the skill areas to strengthen, using only the metrics provided. Plain prose, no markdown headings.";
   const user = `Assessment: ${assessmentTitle}\nResult summary: ${summary.headline}\nMetrics:\n${metricsText}`;
   try {
@@ -412,7 +412,7 @@ async function generateSubjectVariant(
 ): Promise<GeneratedItemContent[]> {
   const spec = genSpecFor("subject", phase);
   const system =
-    "You are an assessment author writing ORIGINAL criminal-psychology questions for an intro course. " +
+    "You are an assessment author writing ORIGINAL developmental-psychology questions for an intro course. " +
     "Every question must be a short, realistic CASE (a named person or situation) that rewards REASONING about the case, never recall of a definition or a one-word fact. " +
     "Each has exactly four answer options with one clearly best, well-supported answer. " +
     "List the CORRECT option FIRST, followed by three plausible but worse distractors (an over-simple single-cause claim, an 'obvious'/sensational answer, or an irrelevant one). " +
@@ -422,7 +422,7 @@ async function generateSubjectVariant(
     `Stay strictly within this scope: ${spec.topicFocus} ` +
     'Respond ONLY as JSON of the form {"items":[{"prompt":"short case ending in a question","options":["best","worse","worse","worse"],"modelAnswer":"why the first option is best"}]}.';
   const user =
-    `Write ${count} new, distinct criminal-psychology case questions within the scope above.\n` +
+    `Write ${count} new, distinct developmental-psychology case questions within the scope above.\n` +
     `For style only (do NOT copy these): ${JSON.stringify(examplePrompts)}.`;
   const out = await chatJson<{
     items?: { prompt?: unknown; options?: unknown; modelAnswer?: unknown }[];

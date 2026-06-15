@@ -25,7 +25,7 @@ const BLURBS: Record<Phase, string> = {
 };
 
 const INSTRUMENT_LABELS: Record<Instrument, string> = {
-  subject: "Criminal Psychology",
+  subject: "Developmental Psychology",
   general: "General Reasoning",
 };
 

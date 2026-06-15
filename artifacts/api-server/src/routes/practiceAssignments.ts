@@ -82,13 +82,13 @@ router.post(
           explanation: string;
         }>;
       }>(
-        `You write a PRACTICE version of an introductory criminal psychology ${assignment.kind} titled "${assignment.title}". You are given the real assignment's problems as templates. Produce EXACTLY ${templates.length} NEW problems, one per template, in the same order. Each new problem must: (1) cover the SAME topic and test the SAME concept as its template, (2) be clearly DIFFERENT in wording, scenario, and specifics (never copy the template), (3) match the template's style and answer length (if the template expects a reasoned paragraph, write a problem that calls for a reasoned paragraph), (4) be fully self-contained — do NOT reference "the lecture", "the text", "the course", or any named example a student would only know from a specific reading; state any scenario in full inside the problem. For each problem also write the model "correctAnswer" (what a strong student answer contains) and a short "explanation" of the reasoning. Respond as strict JSON: {"problems": [{"prompt": string, "correctAnswer": string, "explanation": string}, ...]} with exactly ${templates.length} items.`,
+        `You write a PRACTICE version of an introductory developmental psychology ${assignment.kind} titled "${assignment.title}". You are given the real assignment's problems as templates. Produce EXACTLY ${templates.length} NEW problems, one per template, in the same order. Each new problem must: (1) cover the SAME topic and test the SAME concept as its template, (2) be clearly DIFFERENT in wording, scenario, and specifics (never copy the template), (3) match the template's style and answer length (if the template expects a reasoned paragraph, write a problem that calls for a reasoned paragraph), (4) be fully self-contained — do NOT reference "the lecture", "the text", "the course", or any named example a student would only know from a specific reading; state any scenario in full inside the problem. For each problem also write the model "correctAnswer" (what a strong student answer contains) and a short "explanation" of the reasoning. Respond as strict JSON: {"problems": [{"prompt": string, "correctAnswer": string, "explanation": string}, ...]} with exactly ${templates.length} items.`,
         JSON.stringify({
           assignmentKind: assignment.kind,
           assignmentTitle: assignment.title,
           templates: templates.map((t, i) => ({
             number: i + 1,
-            topic: t.topicTitle ?? "criminal psychology",
+            topic: t.topicTitle ?? "developmental psychology",
             promptStyleExample: t.prompt,
             modelAnswerExample: t.correctAnswer,
           })),

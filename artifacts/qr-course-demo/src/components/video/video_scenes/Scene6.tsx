@@ -94,7 +94,7 @@ export function Scene6({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
               >
                 <div>
                   <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Homework</div>
-                  <h4 className="font-serif text-lg text-primary mb-1">Homework 1.1 — What criminal psychology is</h4>
+                  <h4 className="font-serif text-lg text-primary mb-1">Homework 1.1 — What developmental psychology is</h4>
                   <div className="text-sm text-muted-foreground">3 problems</div>
                 </div>
                 <div className="flex items-center space-x-6">
@@ -117,7 +117,7 @@ export function Scene6({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
               >
                 <div>
                   <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Homework</div>
-                  <h4 className="font-serif text-lg text-primary mb-1">Homework 1.2 — Why people offend</h4>
+                  <h4 className="font-serif text-lg text-primary mb-1">Homework 1.2 — Nature vs. nurture</h4>
                   <div className="text-sm text-muted-foreground">4 problems</div>
                 </div>
                 <div className="flex items-center space-x-6">
@@ -174,11 +174,11 @@ export function Scene6({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
             <div className="bg-white border border-border rounded-xl shadow-sm p-8 mb-6 relative overflow-hidden">
               <div className="absolute top-0 right-0 bg-emerald-100 text-emerald-700 px-4 py-1.5 text-xs font-bold tracking-widest rounded-bl-xl border-b border-l border-emerald-200">GRADED</div>
               
-              <h3 className="font-medium text-lg mb-6 max-w-2xl text-foreground">Q1. Why can two people face the same situation but only one of them offends?</h3>
+              <h3 className="font-medium text-lg mb-6 max-w-2xl text-foreground">Q1. Why can two children grow up in the same home but develop very differently?</h3>
               
               <div className="mb-6 max-w-2xl">
                 <div className="text-xs text-muted-foreground mb-2">Your answer:</div>
-                <div className="px-6 py-3 bg-muted/30 border border-border rounded-lg text-base">Because each person brings different stresses, influences, and choices to the same situation, so the pressure to offend isn't equal.</div>
+                <div className="px-6 py-3 bg-muted/30 border border-border rounded-lg text-base">Because each child brings a different temperament and has different experiences and relationships, so nature and nurture shape them in different ways.</div>
               </div>
 
               <AnimatePresence>
@@ -193,7 +193,7 @@ export function Scene6({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                       <span>AI Tutor Feedback</span>
                     </div>
                     <div className="text-sm text-blue-900 leading-relaxed">
-                      <StreamingText text="Correct. Offending comes from many causes stacking up — not one. Recognizing that the same situation pushes differently on different people is exactly the point. Clear and well stated." delay={0} />
+                      <StreamingText text="Correct. Development comes from many causes stacking up — not one. Recognizing that nature and nurture shape each child differently is exactly the point. Clear and well stated." delay={0} />
                     </div>
                   </motion.div>
                 )}
@@ -219,7 +219,7 @@ export function Scene6({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
             </div>
             
             <div className="bg-white border border-border rounded-xl shadow-sm p-8 opacity-50">
-              <h3 className="font-medium text-lg mb-6 max-w-2xl text-foreground">Q2. How do a person's situation and choices both contribute to offending...</h3>
+              <h3 className="font-medium text-lg mb-6 max-w-2xl text-foreground">Q2. How do a child's nature and their environment both contribute to development...</h3>
               <div className="text-sm text-muted-foreground">Problem content hidden...</div>
             </div>
           </motion.div>

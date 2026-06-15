@@ -157,7 +157,7 @@ export const practiceAttemptsTable = pgTable("practice_attempts", {
 
 // ---------------------------------------------------------------------------
 // Diagnostic reasoning assessments (embedded program-level instruments).
-// Two instruments — `subject` (Criminal Psychology subject reasoning) and
+// Two instruments — `subject` (Developmental Psychology subject reasoning) and
 // `general` (general reasoning) — each offered at four phases (before, third,
 // twothirds, after) in three formats, with freshly generated, never-repeating
 // items every attempt. Ungraded: takeable anytime, never affects the grade.

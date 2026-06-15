@@ -1,32 +1,32 @@
-# YouTube Description — Criminal Psychology for Children
+# YouTube Description — Developmental Psychology for Children
 
 > The canonical, maintained copy of this description lives at the repo root: `youtube-description.md`. This file is kept in sync as the promo artifact's local reference.
 
 ## Title options
 
-- Inside the Criminal Mind — Criminal Psychology for Children
-- Criminal Psychology for Children | An AI-Taught Course (No Math, No Coding)
-- Why People Break the Rules — Criminal Psychology for Children
+- Inside the Growing Mind — Developmental Psychology for Children
+- Developmental Psychology for Children | An AI-Taught Course (No Math, No Coding)
+- How We Become Who We Are — Developmental Psychology for Children
 
 ## Short description (for the box, ~150 chars)
 
-A friendly, one-unit intro to criminal psychology — taught, tutored, and graded by AI. No math or coding. For curious students and grown-ups alike.
+A friendly, one-unit intro to developmental psychology — taught, tutored, and graded by AI. No math or coding. For curious students and grown-ups alike.
 
 ## Full description
 
-Why do people break the rules? Criminal Psychology for Children is a self-paced course that explains the science of why people offend and how the justice system reasons — in plain language, with no math, coding, or prior science required. It's kept tasteful and age-appropriate from start to finish.
+How do we become who we are? Developmental Psychology for Children is a self-paced course that explains the science of how people grow and change across the whole lifespan — in plain language, with no math, coding, or prior science required. It's kept friendly and age-appropriate from start to finish.
 
 An AI tutor teaches each lesson, answers your questions about the exact paragraph you're reading, drills you with practice that adapts as you go, and grades your homework with real written feedback. Every submission is even screened for AI-authorship — by a text classifier AND a keystroke-pattern detector — so the work stays honest.
 
 One unit, eight topics:
-• 1.1 What criminal psychology is
-• 1.2 Why people offend
-• 1.3 Inside the psychopath
-• 1.4 Profiling the offender
-• 1.5 Eyewitnesses and memory
-• 1.6 Interrogation and false confessions
-• 1.7 Madness and the law
-• 1.8 Predicting danger
+• 1.1 What developmental psychology is
+• 1.2 Nature vs. nurture
+• 1.3 The infant mind
+• 1.4 Attachment — the first bond
+• 1.5 How children think (Piaget)
+• 1.6 Language — the feat every toddler pulls off
+• 1.7 The teenage brain
+• 1.8 Aging and the lifespan
 
 What's inside:
 • Three-depth lessons — read the Short, Medium, or Long version of any topic
@@ -39,11 +39,11 @@ Perfect for middle schoolers, curious adults wanting a quick but meaningful intr
 
 Start learning — no instructor, no textbook, no math.
 
-#CriminalPsychology #Psychology #AIeducation #EdTech #OnlineLearning #ForensicPsychology #HumanBehavior #LearnSomethingNew
+#DevelopmentalPsychology #Psychology #AIeducation #EdTech #OnlineLearning #ChildDevelopment #HumanBehavior #LearnSomethingNew
 
 ## Chapters (adjust timestamps to the final cut)
 
-0:00 Inside the criminal mind
+0:00 Inside the growing mind
 0:08 What the course is
 0:20 The AI tutor, lessons & adaptive practice
-0:35 Criminal Psychology for Children
+0:35 Developmental Psychology for Children
