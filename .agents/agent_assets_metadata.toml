@@ -23,3 +23,9 @@ id = "IhlBFpvwhqNicclr5C_QR"
 uri = "file://youtube-description.md"
 type = "text"
 title = "YouTube Description — Baby AI Math"
+
+[[outputs]]
+id = "Qpzwo_NPMNo_tjMm6_ppp"
+uri = "file://artifacts/course-video/public/audio/bg_music.mp3"
+type = "audio"
+title = "background music"

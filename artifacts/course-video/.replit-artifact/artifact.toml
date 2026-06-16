@@ -1,0 +1,31 @@
+kind = "video"
+previewPath = "/course-video/"
+title = "Baby AI Math — Walkthrough"
+version = "1.0.0"
+id = "artifacts/course-video"
+router = "path"
+
+[[integratedSkills]]
+name = "video-js"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/course-video/" ]
+localPort = 24483
+
+[services.development]
+run = "pnpm --filter @workspace/course-video run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/course-video", "run", "build" ]
+publicDir = "artifacts/course-video/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24483"
+BASE_PATH = "/course-video/"
