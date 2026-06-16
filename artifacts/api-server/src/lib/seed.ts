@@ -14,7 +14,7 @@ import { logger } from "./logger";
 // the value stored in seed_meta; a mismatch forces a full re-seed, so content
 // edits self-heal in every environment (including a republished production)
 // without a manual database wipe.
-const SEED_CONTENT_VERSION = "2026-06-15-developmental-psychology-for-children-v1";
+const SEED_CONTENT_VERSION = "2026-06-15-baby-ai-math-v1";
 
 type SeedTopic = {
   slug: string;
@@ -26,246 +26,250 @@ type SeedTopic = {
 };
 
 const TOPICS: SeedTopic[] = [
-  // Unit 1 — Developmental Psychology for Everyone
+  // Unit 1 — Baby AI Math: the math behind the machine
   {
-    slug: "what-developmental-psychology-is",
-    title: "What developmental psychology is",
+    slug: "why-ai-is-really-math",
+    title: "Why AI is really math",
     weekNumber: 1,
-    blurb: "Developmental psychology studies how people change from before birth to the end of life — and change never really stops.",
-    lectureTitle: "1.1 What developmental psychology is (growth, stages, and the whole lifespan)",
-    body: `# What developmental psychology is
+    blurb: "When a chatbot writes a poem it feels like magic — but underneath it is all numbers and arithmetic, done at enormous scale.",
+    lectureTitle: "1.1 Why AI is really math (the idea behind the machine)",
+    body: `# Why AI is really math
 
-A baby who can't hold up her head becomes a toddler who runs, then a teenager who argues about everything, then an adult, then an old person looking back on it all. That whole journey is the subject of **developmental psychology** — the careful study of how and why people change across their entire lives.
+You type a question and a chatbot answers in fluent, friendly sentences — it really does feel like there's a tiny mind inside the box. There isn't. Underneath the human-sounding words, an AI is doing one thing: an unimaginable amount of plain arithmetic on lists of numbers. This whole course is about that surprising truth — **AI is really math** — and the good news is the math behind it is far gentler than its reputation.
 
-## A science of change across life
+## Everything becomes numbers
 
-Developmental psychology is a science, which means it doesn't run on cute stories or "common sense" about kids. It uses evidence — careful observation, experiments, and studies that follow the same people for years — to ask things like: *when* do babies start to understand the world, *how* does thinking grow more powerful, and *why* do teenagers take risks. The goal is to describe what really changes, and to explain what drives those changes.
+A computer can't think about the *word* "cat" or the *idea* of a sunset. The very first thing any AI does is turn whatever you give it — text, images, sound — into numbers. A word becomes a list of numbers; a photo becomes a giant grid of numbers (one per dot of color); a sound becomes numbers measuring the wave. Once the world is numbers, the machine can do the only thing it's good at: arithmetic. Every clever-looking thing AI does starts with this quiet translation step.
 
-## Stages or smooth growth?
+## A giant pile of tunable dials
 
-One of the field's oldest questions is whether we change in **stages** — sudden jumps to a new way of being, like a caterpillar turning into a butterfly — or in smooth, gradual steps, like a plant slowly growing taller. The honest answer is "some of both." Some changes (like learning to walk) look like real leaps; others (like getting better at remembering) creep up gradually. Knowing which is which is a big part of the work.
+Inside the model is a huge collection of numbers called **weights** — picture millions or billions of little dials. When numbers flow through the model, each dial multiplies and nudges them along the way. The exact settings of all those dials are what make one model good at writing code and another good at describing pictures. The model isn't a brain full of facts; it's a mountain of dials whose particular settings happen to produce useful answers.
 
-## Three kinds of growth at once
+## Learning is just adjusting numbers
 
-To keep things clear, developmental psychologists watch three areas at the same time: **physical** growth (the body and brain), **cognitive** growth (thinking, memory, and language), and **social-emotional** growth (feelings and relationships). These are tangled together — a baby who can finally crawl (physical) suddenly explores more, learns more (cognitive), and bumps into new rules from parents (social). Real development is all three braided into one rope.
+So where do the right dial settings come from? Nobody sets them by hand — there are far too many. Instead the model **learns** them: it makes a guess, sees how wrong it was, and nudges the dials a tiny bit toward "less wrong." Do that billions of times on billions of examples and the dials drift into settings that work. Everything people call "training" or "learning" is, at bottom, this patient adjusting of numbers — no understanding required, just relentless tuning.
 
-## Why this matters
+## Why "math, not magic" matters
 
-This isn't just for scientists. The same ideas shape how we raise children, design schools, write laws about teenagers, and care for the elderly. When adults misunderstand how children grow — expecting a three-year-old to "just be reasonable," or treating a teenager's brain as a finished adult brain — real people get hurt or blamed for things they can't yet do. Understanding development is a kind of fairness across every age.
+Seeing AI as math instead of magic changes how you treat it. Magic is mysterious and trustworthy; math is understandable and checkable. Because it's all arithmetic on numbers, AI has no secret wisdom — it can be confidently wrong, it reflects whatever examples it learned from, and it can be measured, tested, and improved. Knowing the machine is "just math" is exactly what lets us use it well and not be fooled by it.
 
 ## In the real world
 
-Some of the most powerful evidence comes from **longitudinal studies** — projects that follow the very same people for decades. In New Zealand, researchers tracked over a thousand babies born in the same town from birth into middle age, measuring them again and again. That patient, year-after-year watching revealed how early traits, family life, and luck weave together over a lifetime — something no single snapshot of a person could ever show. It's a reminder that development is a story, and you have to watch the whole thing to understand it.`,
+When you send one short message to a large chatbot, your words are turned into numbers and pushed through billions of multiply-and-add steps before a single word of the reply appears — a stack of arithmetic so tall it needs warehouse-sized computers to run. The astonishing part isn't that a mind is thinking; it's that *pure arithmetic, at a scale humans can't picture, can look so much like thinking.* That gap between "simple math" and "feels like magic" is the mystery this course is here to take apart.`,
   },
   {
-    slug: "nature-vs-nurture",
-    title: "Nature vs. nurture",
+    slug: "vectors-and-embeddings",
+    title: "Vectors and embeddings",
     weekNumber: 1,
-    blurb: "It was never 'genes OR environment' — who you become grows out of the two working together, constantly.",
-    lectureTitle: "1.2 Nature vs. nurture (the argument that won't die)",
-    body: `# Nature vs. nurture
+    blurb: "AI turns every word and idea into a point in space — and where that point sits is what 'meaning' becomes for a machine.",
+    lectureTitle: "1.2 Numbers as meaning: vectors and embeddings",
+    body: `# Vectors and embeddings
 
-Here's an argument that has run for centuries and refuses to end: are we shaped by **nature** — the genes we're born with — or by **nurture** — the world that raises us? People still take sides as if it's a sports match. But the real answer, the one the evidence keeps pointing to, is that the question itself is wrong. It was never one or the other.
+We said AI turns everything into numbers. But a single number can't capture much — how would one number hold the meaning of the word "ocean"? The trick is to use a *whole list* of numbers at once. That list is called a **vector**, and the clever way AI arranges those vectors so they actually carry meaning is called an **embedding.** This is one of the most beautiful ideas in the whole field.
 
-## Two answers that are both incomplete
+## A vector is just a list of numbers
 
-"Nature" says you arrive with a fixed blueprint: your genes set your height, your temperament, maybe even your talents. "Nurture" says you arrive as a blank slate, and your family, friends, and experiences write the whole story. Each side captures something true — and each, on its own, is clearly false. Identical twins raised apart end up similar in surprising ways (score one for nature), yet a child's language, habits, and fears are obviously shaped by where they grow up (score one for nurture).
+A vector sounds intimidating, but it's nothing more than an ordered list of numbers, like \`[2, 5, 1]\`. You can think of it as a location: \`[2, 5]\` is a spot on a map, two steps east and five steps north. AI uses much longer lists — hundreds of numbers — which is just a spot in a space with hundreds of directions instead of two. We can't picture that, but the math doesn't care; a location is a location whether it has 2 numbers or 500.
 
-## Genes set a range, the world picks the spot
+## Meaning as a place in space
 
-A better way to think about it: your genes often set a **range** of possibilities, and your environment decides where inside that range you land. Height is a clear example — good genes set how tall you *could* grow, but poor nutrition can keep you well below it. The same logic reaches into the mind: a child might be born with the potential to be a strong reader, but only a world full of books and conversation turns that potential into the real thing.
+Here's the leap. AI gives every word its own vector — its own location — and arranges them so that **words with similar meanings sit close together.** "Dog," "puppy," and "cat" land in the same neighborhood; "helicopter" is far away across town. The machine has no dictionary and no idea what a dog *is.* It just knows that the word "dog" lives near the word "puppy," and that nearness is what meaning becomes for a machine. An **embedding** is exactly this: a map where distance means similarity.
 
-## They don't just add — they interact
+## Directions can carry meaning too
 
-The deepest idea is that nature and nurture don't sit in separate boxes; they **interact.** A naturally bold, active baby pulls different reactions out of the world than a quiet, cautious one — so the same parents end up creating different environments for each child. Genes shape the experiences you have, and experiences can even change how genes get used. Asking "how much is nature and how much is nurture?" is a bit like asking whether a song is more about the notes or the playing.
+The map has an even more surprising feature: the *directions* between points mean something. The step that takes you from "man" to "woman" turns out to be roughly the same step that takes you from "king" to "queen." So you can do arithmetic on meaning: take the vector for "king," subtract "man," add "woman," and you land right next to "queen." Meaning isn't just stored as locations — it's woven into the geometry, so relationships become directions you can travel.
 
-## Why the either/or is dangerous
+## Why this is so powerful
 
-Picking a side has real costs. Believe everything is "nature" and you start treating people's troubles as fixed and hopeless — why bother helping? Believe everything is "nurture" and you blame parents for every difference and ignore real inborn needs. The grown-up view — that the two always work together — keeps us both realistic about what's hard to change and hopeful about what isn't.
+Once meaning is a location, everything downstream gets easy. To find similar documents, look for nearby vectors. To translate, line up two languages' maps. To recommend a song, find the ones sitting near the ones you love. Turning fuzzy meaning into hard geometry is what lets a machine that only does arithmetic still handle something as slippery as language. Almost every modern AI rests on this one move.
 
 ## In the real world
 
-There's a genetic condition called PKU where, because of a single faulty gene, the body can't handle a substance found in ordinary food — and the buildup once caused serious intellectual disability. It sounds like pure "nature," a fate written in the genes. But the harm only happens if the child *eats* that substance. Put the baby on a special diet — a change in **nurture** — and development proceeds normally. One faulty gene, one change in the environment, and the outcome flips completely. It's the whole nature-and-nurture lesson in a single story.`,
+When a search engine understands that "how to fix a flat tire" and "repairing a punctured wheel" are asking the same thing — despite sharing almost no words — it's because both phrases land in nearly the same spot on the embedding map. The old way matched keywords and missed it; the new way matches *locations* and nails it. That quiet shift, from matching words to matching places in space, is why search and chatbots suddenly got so much better at knowing what you actually meant.`,
   },
   {
-    slug: "the-infant-mind",
-    title: "The infant mind",
+    slug: "dot-product-and-distance",
+    title: "The dot product and distance",
     weekNumber: 1,
-    blurb: "Babies aren't blank, helpless blobs — they arrive already tuned to faces, voices, and the rules of the world.",
-    lectureTitle: "1.3 The infant mind (what babies know before they can speak)",
-    body: `# The infant mind
+    blurb: "If meaning is a location, AI needs a way to measure 'how alike' two locations are — that ruler is the dot product and distance.",
+    lectureTitle: "1.3 Measuring likeness: the dot product and distance",
+    body: `# The dot product and distance
 
-For a long time people assumed a newborn's mind was a "blooming, buzzing confusion" — a blank, helpless blob that knew nothing. That picture turned out to be spectacularly wrong. Modern research shows that babies arrive already prepared for the world, packed with preferences and expectations, long before they can say a single word.
+In the last topic, meaning became a location — every word a point on a vast map. But a map is only useful if you can measure it. How does a machine actually *tell* that "dog" and "puppy" are close while "dog" and "helicopter" are far? It needs a ruler for comparing vectors. The two rulers AI reaches for constantly are **distance** and the **dot product** — and almost everything AI does involves measuring likeness with one of them.
 
-## Born ready for people
+## Distance: how far apart
 
-Within days of birth, babies already prefer some things over others — and most of those things are *people.* Newborns turn toward human faces more than scrambled patterns, prefer their own mother's voice to a stranger's, and like the rhythm of the language they heard in the womb. They aren't passive. From the start, a baby is built to seek out the faces and voices that will keep it alive and teach it everything. The "blank slate" was never blank.
+The most natural ruler is plain distance — the straight-line gap between two points, exactly like measuring between two cities on a map. Two vectors that sit close together have a small distance and are counted as similar; two that sit far apart have a large distance and are counted as different. It's the same intuition you already use: things near each other are alike, things far apart aren't. AI just does this in a space with hundreds of directions instead of two.
 
-## How do you study a baby who can't talk?
+## The dot product: do they point the same way
 
-Here's the clever problem: you can't *ask* a baby what it knows. So researchers learned to read the two things babies control — **where they look** and **how long.** Babies stare longer at things that are new or surprising and look away from things that have become boring. By carefully measuring those gazes, scientists can ask a baby "does this surprise you?" without a single word — and the baby answers with its eyes.
+The **dot product** is a second, slightly different ruler, and it's the workhorse of AI. Instead of asking "how far apart are these points," it asks "**do these two arrows point in the same direction?**" You get it by multiplying the matching numbers of two vectors and adding the results up. When two vectors point the same way, the dot product is large and positive; when they point in opposite directions, it's negative; when they're unrelated, it's near zero. A big dot product is the machine's way of saying "these two things agree."
 
-## The surprise test
+## Cosine similarity: direction over size
 
-Use that trick and something amazing appears. Show a baby an event that breaks the rules of the physical world — an object that seems to pass through a solid wall, or two toys that become three when nothing was added — and the baby **stares longer**, as if to say "wait, that's not possible." That extra staring is evidence that even young infants already expect objects to be solid, to keep existing when hidden, and to add up correctly. They have a rough physics in their heads before they can crawl.
+Sometimes you care about *direction* but not *size.* A long document and a short one can be about the exact same thing, even though one vector is "bigger" just because there's more text. **Cosine similarity** fixes this: it's the dot product after ignoring length, so it only measures the angle between two vectors — are they pointing the same way, regardless of how long the arrows are? This is the most common likeness score in AI precisely because it focuses on meaning and shrugs off size.
 
-## Out of sight, not gone
+## Why AI measures likeness constantly
 
-One famous milestone is **object permanence** — understanding that a thing still exists even when you can't see it. Very young babies act as if a hidden toy has simply vanished; a bit later, they'll search for it under a blanket. For decades people thought this understanding arrived slowly and late. The looking-time studies suggest babies grasp it earlier than they can *show* with their clumsy hands — knowing and doing don't always arrive together.
+This sounds like a small bit of bookkeeping, but it's everywhere. Search compares your question's vector to every document's vector and returns the closest. A recommender compares what you liked to everything available and ranks by similarity. Even inside a chatbot, deciding which earlier words to "pay attention" to is mostly a flurry of dot products. Measuring likeness is one of the handful of operations AI does over and over, billions of times.
 
 ## In the real world
 
-In one elegant study, researchers showed babies a simple "math" scene: one doll placed behind a screen, then a second doll added behind it. When the screen dropped to reveal only *one* doll — an impossible result — the babies stared much longer than when two dolls appeared. Months before they could speak or count, they expected one plus one to make two, and were startled when it didn't. The infant mind, it turns out, is already quietly keeping track of the world.`,
+When a music app builds you a playlist of songs "you might like," it has turned every song into a vector and is quietly computing similarity between the songs you love and millions you've never heard. The ones with the highest similarity score float to the top of your recommendations. You experience it as the app "getting your taste" — but under the hood it's just a ruler being run across a map, again and again, asking the same humble question: *how alike are these two points?*`,
   },
   {
-    slug: "attachment",
-    title: "Attachment",
+    slug: "matrices",
+    title: "Matrices",
     weekNumber: 1,
-    blurb: "The bond between a baby and its caregiver isn't just sweet — it's a survival system that shapes how we relate for life.",
-    lectureTitle: "1.4 Attachment (why the first bond shapes everything)",
-    body: `# Attachment
+    blurb: "A matrix is a grid of numbers that takes one list of numbers in and reshapes it into another — it's how a network moves information.",
+    lectureTitle: "1.4 Matrices: how a network moves information",
+    body: `# Matrices
 
-Watch a one-year-old in a new place and you'll see it: she explores, then glances back to make sure her caregiver is still there, then explores a little further. That invisible thread between a baby and the person who cares for it is called **attachment**, and studying it changed how the whole world thinks about raising children.
+We have vectors (lists of numbers that carry meaning) and rulers for comparing them. But an AI doesn't just *store* vectors — it *transforms* them, step after step, turning the numbers for your question into the numbers for its answer. The tool that does that transforming is the **matrix.** If a vector is a single list of numbers, a matrix is a whole grid of them, and it's the engine that moves information through a network.
 
-## More than feeding
+## A matrix is a grid of numbers
 
-People used to assume babies love their caregivers simply because they're the source of food — "cupboard love." Then experiments with baby monkeys shattered that idea. Given a choice between a bare wire "mother" that provided milk and a soft cloth "mother" that provided none, the frightened babies clung to the soft one and ran to it for comfort. **Contact and comfort**, not just food, turned out to be the heart of the bond. We are wired to seek closeness, not just calories.
+A matrix is simply numbers arranged in a rectangle — rows and columns, like a tiny spreadsheet. That's the whole definition; there's nothing mystical about it. What makes it interesting is what it *does:* a matrix is a machine for taking a vector in one end and producing a new, transformed vector out the other. Feed in a list of numbers, and the matrix hands you back a different list. It's a recipe for reshaping numbers.
 
-## A secure base
+## Multiplying mixes and reshapes
 
-A good attachment works like a **secure base.** Because the caregiver is reliable, the child feels safe enough to wander off, try new things, and learn — knowing there's a safe spot to run back to when the world gets scary. This is why attachment isn't the opposite of independence; it's the *launchpad* for it. The most confident explorers are usually the ones who feel most certain someone has their back.
+How does the reshaping work? Each number that comes out is a **weighted blend** of all the numbers that went in — you multiply each input by a weight in the grid and add them up (yes, that's a pile of dot products again). One row of the matrix might mostly listen to the first two inputs; another might blend all of them differently. So a matrix lets every output number draw a little from every input number, in whatever proportions its weights specify. That's how information gets mixed and routed.
 
-## Measuring the bond
+## A layer of a network is a matrix
 
-To study attachment, researchers designed a careful little drama: a baby plays in a room, the caregiver briefly leaves, a stranger appears, and the caregiver returns. The key moment isn't the leaving — it's the **reunion.** A securely attached baby is upset when the caregiver goes but is comforted and soothed on return. Other babies show insecure patterns: some seem indifferent, others can't be calmed. Watching that reunion gives a surprisingly clear window into the relationship.
+This is the punchline that connects everything: **one layer of a neural network is basically one matrix multiply.** The "weights" — those millions of tunable dials from topic 1.1 — are exactly the numbers filling the matrices. When data flows through a layer, the layer's matrix blends and reshapes it into a more useful set of numbers. So a neural network isn't a brain; it's a stack of grids that each transform the numbers a little.
 
-## Patterns, not destiny
+## Stacking transformations
 
-These early patterns matter — secure attachment is linked to easier friendships and steadier emotions later on. But it's important not to overstate it. Attachment can change as relationships change, and one early pattern does not lock in a person's whole future. Like everything in this course, it's a strong influence and a set of odds, not a switch that decides the rest of a life.
+One matrix can only reshape so much, so networks chain many of them: the output of one becomes the input to the next, with a small non-linear "bend" added between them so the steps don't collapse into one. Layer after layer, the original numbers get refined — raw word-numbers near the bottom, rich meaning near the top. Depth is just lots of these transformations stacked, each handing its reshaped numbers to the next.
 
 ## In the real world
 
-The monkey study with the wire and cloth "mothers" is one of the most famous in all of psychology precisely because the result was so clear and so moving: comfort beat food, every time. Around the same time, careful observation of human babies separated from caregivers showed how deeply distressing that loss is — and how much steady, responsive care matters. Together, this work helped end the old advice to handle babies coldly "so they won't get spoiled," and replaced it with something kinder and truer: babies need warmth as surely as they need milk.`,
+When a translation model turns an English sentence into Spanish, your words enter as vectors and then pass through layer after layer of matrices, each one blending and reshaping the numbers — gradually carrying information from "what these English words mean" toward "what Spanish words say the same thing." No single matrix knows Spanish; the translation emerges from dozens of humble grid-multiplications in a row. Moving information is what matrices do, and stacking them is how a network thinks its way from a question to an answer.`,
   },
   {
-    slug: "how-children-think",
-    title: "How children think",
+    slug: "slopes-and-gradients",
+    title: "Slopes and gradients",
     weekNumber: 1,
-    blurb: "Children don't think like small adults — they think in a genuinely different way that grows in stages.",
-    lectureTitle: "1.5 How children think (Piaget and the stages of mind)",
-    body: `# How children think
+    blurb: "Before an AI can improve, it needs to know which way is 'better' — a slope, generalized to a gradient, is the arrow that tells it.",
+    lectureTitle: "1.5 Slopes and gradients: which way is 'better'?",
+    body: `# Slopes and gradients
 
-Ask a four-year-old why it gets dark at night and you might hear "so people can sleep." That's not just a wrong fact — it's a glimpse of a whole different *way* of thinking. The great insight of **Jean Piaget** was that children aren't simply adults who know less. Their minds work by different rules, and those rules change in a predictable order as they grow.
+So far we have a machine that turns inputs into outputs by pushing numbers through matrices. But out of the box, its millions of dials are set to nonsense and its answers are wrong. To learn, it has to figure out, for every single dial, *which way should I turn this to do better?* The mathematical idea that answers "which way is better" is the **slope**, and its grown-up version — the **gradient** — is the compass that all of AI learning is built on.
 
-## Children build their own understanding
+## Slope: how steep, and which way
 
-Piaget saw children as little scientists, constantly building and testing their own theories about how the world works. They take in new experiences and fit them into what they already understand — and when something won't fit, they're forced to rebuild their theory into something better. Thinking grows not by adults pouring facts in, but by the child actively making sense of the world, over and over.
+You already know slopes from walking up a hill: the slope tells you how steep the ground is and which direction is up. In math it's the same — given a curve, the slope at a point says how fast things are changing and whether they're rising or falling. A big slope means a steep change; a slope of zero means you're on flat ground, at a peak or the bottom of a valley. That little "which way and how fast" number is the seed of everything in this topic.
 
-## Four big stages
+## A loss score: how wrong the AI is
 
-Piaget described thinking as moving through four broad stages. In the **sensorimotor** stage, babies "think" through senses and actions — grabbing, mouthing, banging. In the **preoperational** stage, young children can use words and imagination but reason in ways that look strange to adults. In the **concrete operational** stage, school-age children get logical about real, concrete things. And in **formal operational** thinking, adolescents become able to reason about abstract ideas and "what ifs." The order, Piaget argued, is the same everywhere.
+To use slopes for learning, AI first needs something to measure: a single number for **how wrong** the model currently is, called the **loss.** Good answers give a low loss; bad answers give a high loss. Now learning has a clear goal — make the loss as small as possible. Picture the loss as a landscape where height means error: the model is standing somewhere on it, and it wants to get downhill to the low ground where its answers are good.
 
-## Why a young child gets fooled
+## The gradient points uphill
 
-Two classic quirks show how preschoolers think. In **conservation**, pour water from a short, wide glass into a tall, thin one and a young child insists there's now *more* water — they fix on the height and miss that nothing was added or removed. And in **egocentrism**, young children struggle to picture a scene from anyone's viewpoint but their own. These aren't signs of a "dumb" child; they're signs of a mind that hasn't yet built certain logical tools.
+Here's where the slope earns its keep. A model doesn't have one dial; it has millions, so it needs a slope for *each* of them at once. That bundle of slopes — "if I nudge this dial, does the loss go up or down, and how fast?" for every dial — is the **gradient.** The gradient is an arrow pointing in the direction the loss increases *fastest* — straight uphill toward more error. Which is wonderfully convenient: to improve, you just go the **opposite** way.
 
-## Piaget was right, and incomplete
+## Why slopes matter for learning
 
-Later researchers showed Piaget was onto something huge but also got some things wrong — mostly by *underestimating* children. With simpler, friendlier tests, kids often reveal understanding earlier than his tasks suggested, and development turns out to be less neatly step-like than four tidy stages imply. That's science working as it should: a brilliant theory opens the door, and the people who follow refine it.
+The gradient turns a hopeless problem into a simple instruction. Instead of guessing settings for millions of dials, the model asks "which way is downhill?" and steps that way. Every dial gets its own little "turn me up a bit / turn me down a bit" from the gradient. Without this compass, training would be blind trial-and-error across an impossibly huge space; with it, the model always knows which way is *better* right now.
 
 ## In the real world
 
-The water-glass conservation task is so reliable you can almost do it at a birthday party. Show a young child two identical glasses with the same amount of juice, then pour one into a taller, skinnier glass while they watch every drop. Ask which has more, and the preschooler will confidently point to the tall one — "it's bigger!" A year or two later, the very same child will look at you like the question is silly: "It's the same, you just poured it." Nothing changed but the glass; everything changed in the mind.`,
+Think of a hiker caught in thick fog on a mountain, trying to reach the valley. They can't see the bottom, but they can feel the ground under their feet sloping one way or another — and as long as they keep stepping in the downhill direction, they make progress. The gradient is exactly that felt-slope for an AI: a local sense of "which way is down" computed for millions of dials at once. It can't see the whole error landscape, but it always knows which direction is better from right where it stands.`,
   },
   {
-    slug: "language-development",
-    title: "Language",
+    slug: "gradient-descent",
+    title: "Gradient descent",
     weekNumber: 1,
-    blurb: "Every typical toddler cracks the code of language without lessons — one of the most astonishing feats humans pull off.",
-    lectureTitle: "1.6 Language (the astonishing feat every toddler pulls off)",
-    body: `# Language
+    blurb: "Learning, for an AI, is just rolling downhill: feel which way reduces error, take a small step, and repeat until you reach the valley.",
+    lectureTitle: "1.6 Gradient descent: learning by rolling downhill",
+    body: `# Gradient descent
 
-Think about what a three-year-old can do: take a stream of sounds, figure out where the words are, learn thousands of them, and string them into sentences nobody taught them word-by-word — all without a single grammar lesson. No adult could learn a new language that fast. Yet nearly every toddler on Earth does it. How is one of the biggest puzzles in this whole field.
+We now have the compass — the gradient tells the model which way is downhill toward less error. **Gradient descent** is simply the act of *using* that compass over and over: take a small step downhill, check the slope again, take another step, and keep going until you can't get any lower. It is, almost unbelievably, the core method by which essentially every modern AI learns. Learning is rolling downhill.
 
-## The same path, everywhere
+## The error landscape
 
-Children around the world learn language in a strikingly similar order. First **cooing**, then **babbling** ("bababa") that practices the sounds, then first words around the first birthday, then a sudden **word explosion** where new words pour in. Early sentences are **telegraphic** — "want cookie," "doggie gone" — keeping the important words and dropping the rest. This shared timetable, across wildly different languages and cultures, is a big clue that something deep and built-in is at work.
+Picture the loss from the last topic as a vast, hilly landscape, where high ground means "very wrong" and low valleys mean "very right." The model, with its current dial settings, is standing at one spot on this landscape. Training is the journey from wherever it starts — usually high up, since random dials give terrible answers — down into a low valley where its answers are good. The whole drama of learning is this descent.
 
-## Built-in or taught?
+## Take a step downhill, then repeat
 
-So is language **nature** or **nurture**? One side argues the human brain comes pre-wired for grammar — that children couldn't possibly learn something so complex so fast unless they were born ready for it. The other side points out that children clearly need to *hear* language: the words and patterns they learn obviously come from the people around them, and children who are talked with more tend to develop language faster. As with everything in this course, the truth lives in the overlap — a prepared brain meeting a world full of talk.
+The recipe is short. Compute the gradient (which way is downhill). Nudge every dial a small amount in the downhill direction. You're now standing a little lower — a little less wrong. Then do it again from the new spot, and again, thousands or millions of times. Each step alone is tiny and unimpressive, but repeated relentlessly they carry the model from nonsense down to genuinely useful behavior. Patience, not insight, is what does the work.
 
-## The mistakes that prove the rule
+## Step size matters: the learning rate
 
-Here's the most delightful evidence that kids learn *rules*, not just copy phrases: they make errors no adult ever modeled. A child who once correctly said "went" starts saying "goed"; "feet" becomes "foots"; "ran" becomes "runned." Nobody ever says those words to them. The child has figured out the rule — add "-ed," add "-s" — and is over-applying it to words that break the rule. Those "mistakes" are actually a sign of a powerful little mind discovering the hidden logic of language.
+How big each step should be is set by the **learning rate**, and it matters more than you'd think. Steps that are too big make the model leap right over the valley and bounce around — or fly off the mountain entirely — never settling. Steps that are too small make learning crawl, taking forever to get anywhere. Good training picks a step size that's brisk enough to make progress but careful enough not to overshoot the bottom. It's the difference between sprinting downhill in the dark and inching down one careful foot at a time.
 
-## A window that narrows
+## Getting stuck in local valleys
 
-Language also shows a **sensitive period** — a stretch of childhood when the brain soaks up language with astonishing ease. Young children pick up a language, or two, almost effortlessly; adults grind at it and rarely sound native. Tragic cases of children deprived of any language in early childhood show how hard full language becomes if that early window is missed. The door doesn't slam, but it does narrow with age.
+Real landscapes aren't a single smooth bowl; they're rugged, with lots of little dips. A roller can settle into a shallow **local valley** that isn't the true lowest point and get stuck, since every direction from there looks like "uphill." This is a genuine challenge in training, and much of the cleverness in modern AI is tricks — a bit of randomness, momentum, clever step sizes — to avoid getting trapped and keep finding deeper valleys.
 
 ## In the real world
 
-Researchers tested whether kids really learn rules using made-up words. They showed children a cartoon creature and said, "This is a wug." Then they showed two of them: "Now there are two ___?" Without hesitation, little children said "wugs" — adding the plural to a word they had never heard before and that doesn't exist. They couldn't have memorized it; they *applied a rule.* That tiny made-up animal is one of the clearest proofs that toddlers aren't parrots — they're code-breakers.`,
+Imagine a ball set down on a bumpy hillside: it doesn't need a map or a plan, it just rolls in whatever direction is downhill and eventually comes to rest in a low spot. Training an AI is shockingly close to that — billions of dials all nudged a little downhill, step after step, until the whole system settles where its answers are good. The mind-bending part is that something as simple as "keep rolling downhill" is enough, given enough steps and examples, to produce a system that can write, translate, and converse.`,
   },
   {
-    slug: "the-teenage-brain",
-    title: "The teenage brain",
+    slug: "probability",
+    title: "Probability",
     weekNumber: 1,
-    blurb: "Teenagers aren't broken or lazy — their brains are mid-renovation, with the gas pedal wired before the brakes.",
-    lectureTitle: "1.7 The teenage brain (why adolescence looks the way it does)",
-    body: `# The teenage brain
+    blurb: "An AI never really 'knows' the answer — it assigns probabilities to many possibilities and goes with the likely ones.",
+    lectureTitle: "1.7 Probability: how AI handles uncertainty and guesses",
+    body: `# Probability
 
-Adults love to complain about teenagers: moody, impulsive, glued to friends, drawn to risk. It's tempting to write it off as bad attitude or laziness. But brain science tells a more interesting story. The teenage brain isn't broken or finished — it's in the middle of a massive, necessary renovation, and a lot of "teenage behavior" makes sense once you see the construction site.
+It's tempting to imagine an AI looking up the one true answer and handing it to you. That's not what happens. Underneath, an AI deals in **probabilities** — it spreads its bet across many possible answers, scoring each by how likely it seems, and then picks from the top. Understanding that AI is fundamentally a *guessing machine that manages uncertainty* explains both why it's so flexible and why it sometimes gets things confidently wrong.
 
-## Still under construction
+## AI thinks in probabilities, not certainties
 
-For a long time people assumed the brain was basically done by childhood. It isn't. The brain keeps rewiring deep into the **mid-twenties**, getting faster and more efficient. Adolescence isn't a finished product behaving badly; it's a work in progress, pruning unused connections and speeding up the ones that remain. The teenager you know is, quite literally, running on a brain that's still being built.
+Whenever an AI produces an output, it isn't choosing between "right" and "wrong" — it's producing a **probability for every option.** For a yes/no medical screen it might output "85% likely, 15% unlikely." For a photo it might say "70% cat, 20% fox, 10% dog." It almost never declares total certainty, because it's working from patterns in past examples, not from facts it knows to be true. Living in probabilities is what lets it handle a messy, ambiguous world instead of breaking on anything it hasn't seen exactly before.
 
-## The gas pedal and the brakes
+## Predicting the next word
 
-The key clue is *which* parts grow up first. The brain's emotional, reward-seeking system — the "gas pedal" that craves excitement, fun, and approval — matures **early**, around puberty. But the **prefrontal cortex** — the "brakes" that handle planning, judgment, and impulse control — matures **last**, into the mid-twenties. For a few years, the gas pedal is floored while the brakes are still being installed. That mismatch, not stupidity, drives a lot of teenage risk-taking.
+A chatbot is, at heart, a next-word probability machine. Given the words so far, it computes a probability for *every* word that could come next — after "The cat sat on the," words like "mat" or "floor" score high and "democracy" scores almost zero. It picks a likely word, adds it, and repeats, one word at a time. There's no sentence planned in advance; the fluent paragraph you read is just thousands of "what's the most likely next word?" guesses chained together.
 
-## Why friends matter so much
+## Confidence — and being confidently wrong
 
-Teenagers don't just take more risks; they take far more when **friends are watching.** This isn't simple peer pressure — the teenage brain finds social approval intensely rewarding, so the presence of peers literally cranks up the pull of a risky-but-exciting choice. From the inside, fitting in and seeking thrills feel enormously important, because for the developing brain, they are. Understanding this changes how we should think about teen behavior in groups.
+Because every answer is a probability, an AI always has a *confidence* attached, and here's the catch: high confidence is not the same as being right. A model can assign 95% to an answer that's flatly false, simply because that answer *looked* likely based on its training patterns. This is why AI can state a made-up "fact" in a calm, sure voice. The number reflects how well the answer fits learned patterns — not whether it's actually true — so confident-sounding output should never be mistaken for verified truth.
 
-## A feature, not just a bug
+## Why a little randomness helps
 
-Here's the surprise: this design may be useful, not just dangerous. Adolescence is when humans must leave the safety of childhood, try new things, take social risks, and build a life apart from their parents. A brain tuned toward novelty, excitement, and friendship is well-suited to that leap. The same wiring that leads to reckless choices also powers creativity, passion, and the courage to strike out on one's own. The trick is keeping teens safe while the brakes finish installing.
+If a chatbot always grabbed the single highest-probability word, it would sound stiff and repetitive. So AI usually adds a pinch of **randomness**, often called *temperature:* instead of always taking the top choice, it sometimes picks a slightly less likely word. Low temperature makes it safe and predictable; high temperature makes it surprising and creative (and sometimes weird). That deliberate dash of chance is why asking the same question twice can give two different, equally fluent answers.
 
 ## In the real world
 
-In one clever experiment, teens and adults played a risky driving video game, sometimes alone and sometimes with friends watching. Adults drove about the same either way. But teenagers took **far more risks when peers were present** — running more yellow lights, pushing their luck — even though no one said a word. The mere presence of friends lit up the reward system and tipped the balance toward thrill. It's vivid evidence that the teenage brain isn't just a smaller adult brain; it's tuned to a different, noisier station.`,
+The autocomplete that suggests your next word while texting is a small, visible cousin of what a big chatbot does constantly. It looks at what you've typed, ranks the likely next words by probability, and offers the top few — and you've surely seen it suggest something confidently wrong. A large language model is the same idea scaled up enormously: a probability-over-words guesser, chaining one likely guess after another. Once you see AI as managing uncertainty rather than knowing facts, both its fluency and its confident mistakes finally make sense.`,
   },
   {
-    slug: "aging-and-lifespan",
-    title: "Aging and the lifespan (capstone)",
+    slug: "backpropagation",
+    title: "Backpropagation (capstone)",
     weekNumber: 1,
-    blurb: "Development doesn't stop at adulthood — we keep changing, losing some things and gaining others, right to the end.",
-    lectureTitle: "1.8 Aging and the lifespan, and what comes next (Capstone)",
-    body: `# Aging and the lifespan (capstone)
+    blurb: "Backpropagation is how a network figures out the blame for its mistakes and fixes itself — the idea that ties the whole course together.",
+    lectureTitle: "1.8 Backpropagation: how the whole thing teaches itself (Capstone)",
+    body: `# Backpropagation (capstone)
 
-We end where most people assume development is already over: adulthood and old age. The biggest myth about the lifespan is that growth happens in childhood and then we just slowly run down. The truth is far more interesting — we keep developing until the very end, and later life brings real losses *and* real gains that the science is only now appreciating.
+We've collected all the pieces: numbers and vectors, matrices that transform them, a loss that scores how wrong the output is, gradients that point downhill, and gradient descent that steps that way. **Backpropagation** is the idea that snaps them together into a machine that teaches itself. It answers the one question we left open — *with millions of dials, how does the model know how much to turn each one?* — and so it's the perfect capstone for the whole course.
 
-## Development never stops
+## Putting the pieces together
 
-The whole point of a *lifespan* view is that change is never finished. Adults learn new skills, take on new roles, rebuild after setbacks, and rethink who they are well into old age. Some abilities fade, yes — but others ripen. Treating adulthood as a flat plateau or a long decline misses most of the human story. The same scientific curiosity we aimed at babies belongs on every decade of life.
+Learning runs as a loop with three beats: make a guess, measure how wrong it was, and adjust. Every idea in this course lives somewhere in that loop. The guess is numbers flowing forward through matrices (topics 1.2–1.4). The "how wrong" is the loss, and "which way to adjust" is the gradient (topic 1.5), applied by stepping downhill (topic 1.6). Backpropagation is the clever step that connects the mistake at the end back to every dial that helped cause it.
 
-## Losing some, gaining some
+## The forward pass: a guess
 
-Aging is best understood as a mix of **losses and gains.** Raw mental speed and the ability to juggle brand-new information — sometimes called *fluid* abilities — tend to decline with age. But accumulated knowledge, vocabulary, and hard-won judgment — *crystallized* abilities — often hold steady or keep growing for decades. The older mind is slower at some games and far richer at others. It's not simply "worse"; it's *different*, with a different set of strengths.
+It starts with a **forward pass.** Your input is turned into vectors and pushed through layer after layer of matrices, getting reshaped at each step, until the model produces an output and a confidence — a probability-flavored guess (topic 1.7). Then the loss measures the gap between that guess and the right answer. At this moment the model knows *that* it was wrong and by how much, but not yet *whose fault* it was among its millions of dials.
 
-## The surprising happiness of later life
+## Assigning blame backward
 
-Here's a finding that startles almost everyone: older adults, on average, often report being **as happy or happier** than younger ones, and handle their emotions more smoothly. One leading explanation is that when people sense time is more limited, they stop chasing everything and focus on what matters most — close relationships and meaningful moments. The narrowing of time, oddly, sharpens the focus on joy. Aging isn't only a story of decline; for many, it's a story of getting better at living.
+Now the magic. Backpropagation works **backward** from the mistake, layer by layer, asking at each step: "how much did each dial here contribute to the error?" Because every layer is just arithmetic, the blame can be passed back through it with the same slope idea from topic 1.5 — each layer hands the layer before it its share of responsibility. By the time this sweep reaches the front, every single dial has a gradient: a precise "you should turn up a little / down a little" to reduce the error. That's how blame gets fairly assigned across an enormous network.
+
+## The learning loop, millions of times
+
+With the blame assigned, gradient descent takes one small downhill step — every dial nudged the way its gradient says — and the model is now a hair less wrong. Then the loop runs again on the next example: guess, measure, blame backward, nudge. Repeat across billions of examples and the network slowly tunes itself from random nonsense into something that writes, translates, and reasons. No one programs the dials; the loop discovers them.
 
 ## Tying the course together
 
-Look back across all eight topics and one thread runs through them: **resist the simple story.** Development isn't pure nature or pure nurture; babies aren't blank; children don't think like little adults; teenagers aren't just badly behaved; and old age isn't just decline. Again and again, the careful evidence replaces a tidy myth with something richer, stranger, and more humane. That habit — looking past the obvious story to what's really happening — is the most valuable thing to carry out of this course.
+Step back and the whole course is one sentence: an AI turns things into **numbers**, arranges them so location means **meaning**, measures **likeness** with dot products, transforms them through **matrices**, scores its errors with a **loss**, finds "better" with a **gradient**, rolls downhill with **gradient descent**, expresses its guesses as **probabilities**, and assigns blame for its mistakes with **backpropagation** so it can fix itself. Every "intelligent" thing AI does is built from these humble, understandable parts.
 
 ## The biggest questions stay open
 
-And plenty remains unsolved. How much can we shape our own development? Why do some people thrive after hardship while others struggle? How do we help every stage of life go well, from the first bond to the last years? Developmental psychology gives us better questions and more honest answers — not final ones. The single habit worth keeping is this: whenever someone offers a simple, certain story about how people grow and change, ask, "Is that real, or is it a myth?"`,
+And plenty remains genuinely unsolved. Why do networks this simple work *so* well? How do we make their confident guesses more honest, their reasoning more reliable, their behavior safe and fair? Seeing that AI is "just math" doesn't make it small — it makes it *understandable*, which is exactly what we need to use it wisely. The single habit worth carrying out of this course is this: whenever AI seems like magic, ask, "what's the simple math underneath?" — because there always is some.`,
   },
 ];
 
@@ -288,227 +292,227 @@ type SeedAssignment = {
 const ASSIGNMENTS: SeedAssignment[] = [
   {
     kind: "homework",
-    title: "Homework 1.1 — Change, nature & nurture, infants, and attachment",
+    title: "Homework 1.1 — Numbers, vectors, likeness, and matrices",
     weekNumber: 1,
     isTimed: false,
     timeLimitMinutes: null,
     instructions:
-      "Untimed practice covering sections 1.1–1.4. Answer each question in a few sentences (about 3–5) in your own words. There's no need for any math — just explain your thinking clearly. One-word answers won't receive credit.",
+      "Untimed practice covering sections 1.1–1.4. Answer each question in a few sentences (about 3–5) in your own words. You don't need to do any calculations — just explain the idea clearly. One-word answers won't receive credit.",
     problems: [
       {
-        topicSlug: "what-developmental-psychology-is",
+        topicSlug: "why-ai-is-really-math",
         prompt:
-          "A friend says, 'Developmental psychology is just the study of little kids growing up.' Using what the field actually covers, explain why this is too narrow. (3–5 sentences.)",
+          "A friend says, 'AI must understand things — it answers my questions just like a person would, so there's clearly a little mind in there.' Using the idea that AI is really math, explain why this is a misunderstanding. (3–5 sentences.)",
         correctAnswer:
-          "Developmental psychology studies how people change across their entire lives, not just childhood — from before birth all the way to old age. Change never really stops: adults learn new skills, take on new roles, and even old age brings real gains alongside losses. The field also watches three areas at once — physical, cognitive, and social-emotional growth — at every stage, not only in kids. So limiting it to 'little kids growing up' leaves out most of the human story it's actually trying to explain.",
+          "There's no little mind inside; underneath the human-sounding words an AI is only doing an enormous amount of plain arithmetic on lists of numbers. It first turns the input (text, images, sound) into numbers, then pushes them through millions of tunable numbers called weights, multiplying and adding along the way. What looks like understanding is really patterns in those numbers producing a likely-looking output, not a mind grasping meaning. So the fluent answer is the result of math at huge scale, which can look like thinking without any thinking actually happening.",
         explanation:
-          "Full credit: explains development is lifelong (birth/before birth to old age, change never stops), not just childhood, and may note the three domains across all stages.",
+          "Full credit: explains AI is arithmetic on numbers (inputs become numbers, weights transform them) and that fluent output isn't genuine understanding/a mind.",
       },
       {
-        topicSlug: "nature-vs-nurture",
+        topicSlug: "vectors-and-embeddings",
         prompt:
-          "Two people argue: one says 'we're born who we are, it's all genes,' the other says 'we're shaped entirely by how we're raised.' Explain why developmental psychology rejects both extremes. (3–5 sentences.)",
+          "An AI places the word 'puppy' very close to 'dog' on its map, and places 'helicopter' far away — even though it has no dictionary and doesn't know what a dog is. Explain how this can work, using the idea of vectors and embeddings. (3–5 sentences.)",
         correctAnswer:
-          "Both extremes are incomplete because nature and nurture always work together — it was never one or the other. Genes often set a range of possibilities, and the environment decides where inside that range a person lands, the way good genes set how tall you could grow but nutrition decides how tall you actually get. More than that, the two interact: a child's inborn temperament shapes the experiences they have, and experiences can even change how genes get used. So 'all genes' and 'all upbringing' both miss the real picture, which is the two constantly influencing each other.",
+          "Each word is given a vector — a list of numbers that acts like a location in space — and an embedding arranges those locations so that words with similar meanings sit close together. The machine doesn't need to know what a dog is; it just learned from lots of text that 'puppy' is used like 'dog,' so their locations end up near each other, while 'helicopter' lands far away. For a machine, that nearness IS meaning: distance on the map stands in for similarity of meaning. So it can act as if it understands relationships between words purely by where it has placed their points.",
         explanation:
-          "Full credit: explains nature and nurture interact rather than compete (genes set a range, environment shapes within it; the two influence each other), so neither extreme is right.",
-        hint: "Think about whether genes and environment work in separate boxes, or whether each one shapes the other.",
+          "Full credit: explains a vector is a list of numbers/location, an embedding places similar-meaning words near each other, and nearness stands in for meaning (no real 'knowing' needed).",
+        hint: "What does 'close together on the map' represent for a machine that only handles numbers?",
       },
       {
-        topicSlug: "the-infant-mind",
+        topicSlug: "dot-product-and-distance",
         prompt:
-          "Someone says, 'Newborn babies don't know anything — their minds are totally blank.' Use evidence about the infant mind to explain why this is wrong, and how we can even tell. (3–5 sentences.)",
+          "A music app builds a playlist of songs 'you might like.' Explain how measuring likeness between vectors (distance or the dot product) could let it do this, even though it has no idea what the songs sound like. (3–5 sentences.)",
         correctAnswer:
-          "Babies aren't blank; they arrive already prepared for the world, preferring human faces, their mother's voice, and the rhythm of the language they heard in the womb. Even young infants seem to expect objects to be solid and to keep existing when hidden, and they're surprised when those rules are broken. We can tell because babies look longer at things that are new or surprising, so researchers measure where and how long they look to find out what surprises them — without needing a single word. That extra staring at 'impossible' events is the evidence that the infant mind already knows quite a lot.",
+          "The app turns every song into a vector — a location in space — and then measures how alike two songs are by how close their vectors are (small distance) or by a large dot product, which checks whether two vectors point the same way. To build the playlist it compares the songs you already love to millions of others and ranks them by that similarity score, floating the closest ones to the top. It doesn't need to 'hear' anything; it just runs a ruler across a map of points. So the feeling that it 'gets your taste' is really just repeated likeness measurements between vectors.",
         explanation:
-          "Full credit: states babies arrive prepared (face/voice preferences, early physical expectations) and explains the looking-time/surprise method as how we know, contradicting the 'blank' claim.",
+          "Full credit: explains songs become vectors and the app ranks by similarity (small distance / large dot product) between your liked items and candidates, with no real understanding of the audio.",
       },
       {
-        topicSlug: "attachment",
+        topicSlug: "matrices",
         prompt:
-          "A relative insists, 'Babies only love whoever feeds them — it's all about the food.' Using what attachment research shows, explain two things this gets wrong. (3–5 sentences.)",
+          "Someone asks, 'If a neural network is so smart, what is actually happening inside one of its layers?' Using what you know about matrices, explain what a layer really does to information. (3–5 sentences.)",
         correctAnswer:
-          "First, attachment is about contact and comfort, not just food: given a choice, frightened baby monkeys clung to a soft, cloth 'mother' that gave no milk rather than a bare wire one that did, showing comfort matters more than calories. Second, the bond isn't just sweet dependence — it works as a secure base that actually lets a child explore, because feeling safe gives them the confidence to wander off and learn. So a caregiver provides safety and comfort, which is the heart of the bond, not merely meals. 'It's all about the food' misses both the comfort and the way attachment supports independence.",
+          "A layer is basically one matrix — a grid of numbers — and what it does is transform a vector into a new vector. Each number that comes out is a weighted blend of all the numbers that went in: you multiply each input by a weight in the grid and add them up, so information gets mixed and reshaped. Those weights are exactly the tunable dials the network learns. So a layer isn't 'thinking' — it's reshaping numbers, and stacking many such matrix steps is how the network gradually turns the numbers for a question into the numbers for an answer.",
         explanation:
-          "Full credit: corrects (1) comfort/contact matters more than food (e.g. the cloth vs. wire 'mother') and (2) attachment is a secure base that supports exploration/independence, not just feeding.",
+          "Full credit: explains a layer is a matrix (grid of numbers) that reshapes a vector by taking weighted blends of inputs, and that stacking these transformations moves information through the network.",
       },
     ],
   },
   {
     kind: "homework",
-    title: "Homework 1.2 — Thinking, language, the teenage brain, and aging",
+    title: "Homework 1.2 — Slopes, descent, probability, and backpropagation",
     weekNumber: 1,
     isTimed: false,
     timeLimitMinutes: null,
     instructions:
-      "Untimed practice covering sections 1.5–1.8. Answer each question in a few sentences (about 3–5) in your own words. No math is required — explain your reasoning. One-word answers won't receive credit.",
+      "Untimed practice covering sections 1.5–1.8. Answer each question in a few sentences (about 3–5) in your own words. No calculations are required — explain your reasoning. One-word answers won't receive credit.",
     problems: [
       {
-        topicSlug: "how-children-think",
+        topicSlug: "slopes-and-gradients",
         prompt:
-          "You pour juice from a short, wide glass into a tall, thin one while a preschooler watches, and they insist the tall glass now has 'more.' Using Piaget's ideas, explain what this shows about how young children think. (3–5 sentences.)",
+          "A model just gave a very wrong answer, and it has millions of dials it could adjust. Explain how the ideas of a 'loss' and a 'gradient' tell it which way to change those dials to do better. (3–5 sentences.)",
         correctAnswer:
-          "This is the classic conservation task, and the child's answer shows their thinking follows different rules than an adult's, not that they're unintelligent. The preschooler fixes on one feature — the height of the liquid — and misses that nothing was added or removed, so the amount must be the same. Piaget argued children aren't just adults who know less; their minds lack certain logical tools that develop later. A year or two on, the same child will find the question obvious, because their way of thinking will have grown into a new stage.",
+          "First the model needs a single number for how wrong it is, called the loss — high loss means bad answers, low loss means good ones, so the goal becomes making the loss small. The gradient is the bundle of slopes that says, for each dial, whether nudging it makes the loss go up or down and how fast. The gradient actually points in the direction the loss increases fastest — straight uphill toward more error — so to improve, the model turns each dial the opposite way, downhill. That gives every one of the millions of dials a precise 'turn up a little / turn down a little' instruction instead of blind guessing.",
         explanation:
-          "Full credit: identifies conservation, explains the child centers on one feature (height) and misses that quantity is unchanged, and frames it as children thinking by different rules/stages, not just knowing less.",
+          "Full credit: explains the loss measures how wrong the model is, the gradient gives a per-dial slope pointing uphill (toward more error), and the model moves the opposite way (downhill) to improve.",
       },
       {
-        topicSlug: "language-development",
+        topicSlug: "gradient-descent",
         prompt:
-          "A toddler who used to say 'went' starts saying 'goed,' and says 'foots' instead of 'feet' — words no adult ever taught them. Explain why these 'mistakes' are actually a good sign. (3–5 sentences.)",
+          "An AI starts out with random settings giving terrible answers, and after training it works well — yet each training step only makes a tiny change. Explain how gradient descent turns tiny steps into real learning, and why the step size matters. (3–5 sentences.)",
         correctAnswer:
-          "These errors are a sign the child is learning rules, not just copying phrases. Nobody ever says 'goed' or 'foots' to them, so the child can't be imitating — they've figured out the rule (add '-ed' for past tense, '-s' for plural) and are over-applying it to words that happen to break the rule. That shows a powerful little mind discovering the hidden logic of language rather than memorizing each word one by one. So the 'mistake' is really evidence of real grammatical understanding taking shape.",
+          "Gradient descent treats the model's error as a hilly landscape and repeatedly takes a small step downhill: compute which way reduces error, nudge every dial a little that way, then repeat thousands or millions of times. Each step is tiny and unimpressive, but relentlessly repeated they carry the model from high-up nonsense down into a low valley where its answers are good — patience, not insight, does the work. The step size (the learning rate) matters because steps too big make it leap over the valley and bounce around or fly off, while steps too small make learning crawl. Good training picks a size brisk enough to progress but careful enough not to overshoot the bottom.",
         explanation:
-          "Full credit: explains overregularization — the child applies a learned rule ('-ed'/'-s') to irregular words, which proves rule-learning rather than imitation, hence a positive sign.",
-        hint: "Could the child have heard 'goed' from an adult? If not, where did it come from?",
+          "Full credit: explains gradient descent repeats small downhill steps to reach a low-error valley, and that the learning rate must be balanced (too big overshoots/diverges, too small is too slow).",
+        hint: "Picture rolling downhill: what goes wrong if your steps are huge, and what goes wrong if they're tiny?",
       },
       {
-        topicSlug: "the-teenage-brain",
+        topicSlug: "probability",
         prompt:
-          "A teenager drives carefully alone but takes far more risks when friends are in the car. Using what you know about the teenage brain, explain why, and why calling it 'just bad behavior' misses the point. (3–5 sentences.)",
+          "A chatbot states a made-up 'fact' in a calm, confident voice, and it turns out to be false. Using what you know about how AI handles probability and uncertainty, explain why this happens. (3–5 sentences.)",
         correctAnswer:
-          "The teenage brain's emotional, reward-seeking 'gas pedal' matures early, while the prefrontal 'brakes' that handle judgment and impulse control mature last, into the mid-twenties — so for a few years the gas pedal is floored before the brakes are fully installed. On top of that, the teenage brain finds social approval intensely rewarding, so the mere presence of friends cranks up the pull of an exciting, risky choice, even with no one saying a word. That's why the same teen drives safely alone but riskily with peers watching. Calling it 'just bad behavior' misses that this is brain development, not a character flaw — and the same wiring also fuels creativity and the courage to grow up.",
+          "An AI never looks up a known truth; it produces a probability for each possible output and goes with the likely ones, so it's fundamentally a guessing machine. A chatbot in particular predicts the next word by probability over and over, chaining likely guesses into fluent sentences. The confidence number reflects how well an answer fits the patterns it learned, not whether the answer is actually true — so it can assign high probability to something flatly false. That's why it can deliver a made-up fact in a sure, calm voice: the fluent confidence is about pattern-fit, not verified truth.",
         explanation:
-          "Full credit: explains the early reward system vs. late-maturing prefrontal control and the heightened reward of peer presence, and reframes it as normal brain development rather than mere misbehavior.",
+          "Full credit: explains AI assigns probabilities rather than knowing facts, predicts likely words, and that high confidence reflects pattern-fit (not truth), so it can be confidently wrong.",
       },
       {
-        topicSlug: "aging-and-lifespan",
+        topicSlug: "backpropagation",
         prompt:
-          "Someone says, 'After you grow up, it's all downhill — getting older just means everything gets worse.' Explain why developmental psychology sees later life as more than decline. (3–5 sentences.)",
+          "A network made a mistake, but it has millions of dials and no one tells it which ones were at fault. Explain how backpropagation figures out how much to change each dial. (3–5 sentences.)",
         correctAnswer:
-          "Aging is best understood as a mix of losses and gains, not pure decline. Raw mental speed and handling brand-new information tend to fade, but accumulated knowledge, vocabulary, and judgment often hold steady or keep growing for decades. Strikingly, older adults on average often report being as happy or happier than younger people and manage their emotions more smoothly, partly because sensing limited time leads them to focus on what matters most. So later life brings real strengths and even greater well-being, which 'it's all downhill' completely misses.",
+          "After a forward pass produces a guess, the loss measures how wrong it was — but not whose fault it was among millions of dials. Backpropagation works backward from the mistake, layer by layer, asking at each step how much each dial contributed to the error, passing the blame back using the same slope idea behind gradients. By the time it reaches the front, every dial has its own gradient: a precise 'turn up a little / down a little' to reduce the error. Gradient descent then takes one small downhill step using all those instructions, and repeating the whole loop is how the network teaches itself.",
         explanation:
-          "Full credit: explains aging as losses AND gains (fluid declines but crystallized knowledge holds/grows) and notes the well-being finding (older adults often as happy or happier, focusing on what matters).",
+          "Full credit: explains backprop assigns blame backward through the layers to give each dial a gradient, which gradient descent then uses to nudge every dial — the self-teaching loop.",
       },
     ],
   },
   {
     kind: "test",
-    title: "Unit Test — Developmental Psychology for Everyone",
+    title: "Unit Test — Baby AI Math: The Math Behind the Machine",
     weekNumber: 1,
     isTimed: true,
     timeLimitMinutes: 30,
     instructions:
-      "Timed. 30 minutes. Covers sections 1.1–1.8. Answer each question in a few sentences (about 4–6) in your own words. No math is required. Pasting is disabled; keystrokes are screened for AI use.",
+      "Timed. 30 minutes. Covers sections 1.1–1.8. Answer each question in a few sentences (about 4–6) in your own words. No calculations are required. Pasting is disabled; keystrokes are screened for AI use.",
     problems: [
       {
-        topicSlug: "what-developmental-psychology-is",
+        topicSlug: "why-ai-is-really-math",
         prompt:
-          "Explain what developmental psychology is as a science, including the idea that it follows change across the whole lifespan and watches three kinds of growth at once. Why does that broad view matter? (4–6 sentences.)",
+          "Explain the claim at the heart of this course — that 'AI is really math, not magic' — covering how everything becomes numbers, what 'weights' are, and what 'learning' really means. Why does seeing AI as math (not magic) matter? (4–6 sentences.)",
         correctAnswer:
-          "Developmental psychology is the careful, evidence-based study of how and why people change across their entire lives, from before birth to old age — using observation, experiments, and studies that follow the same people for years rather than relying on common sense about kids. A core idea is the lifespan view: change never stops, so adulthood and old age are part of the story too, not just childhood. At every stage it watches three braided areas at once — physical growth (body and brain), cognitive growth (thinking, memory, language), and social-emotional growth (feelings and relationships). These domains are tangled together, so a single change like learning to crawl ripples across all three. That broad view matters because it keeps us from misjudging people at any age — for example expecting a young child or a teenager to do things their development hasn't made possible yet.",
+          "The core claim is that an AI, however human it sounds, is only doing an enormous amount of plain arithmetic on lists of numbers. First it turns whatever you give it — text, images, sound — into numbers, because that's the only thing a computer can actually work with. Those numbers flow through millions or billions of tunable numbers called weights (think of dials) that multiply and nudge them along the way, and the particular dial settings are what make a model useful. 'Learning' is just adjusting those numbers: the model guesses, sees how wrong it was, and nudges the dials toward 'less wrong,' billions of times. Seeing this as math rather than magic matters because math is understandable, checkable, and fallible — so we know AI has no secret wisdom, can be confidently wrong, and can be measured and improved rather than blindly trusted.",
         explanation:
-          "Full credit: defines developmental psychology as the evidence-based study of lifelong change, explains the lifespan view (not just childhood) and the three domains (physical, cognitive, social-emotional), and why the broad view matters.",
+          "Full credit: explains inputs become numbers, weights are tunable numbers/dials, learning is repeatedly adjusting them toward less error, and why 'math not magic' matters (understandable, checkable, can be wrong).",
       },
       {
-        topicSlug: "nature-vs-nurture",
+        topicSlug: "vectors-and-embeddings",
         prompt:
-          "Explain why developmental psychology rejects the 'nature vs. nurture' question as an either/or, using the ideas that genes set a range and that nature and nurture interact. (4–6 sentences.)",
+          "Explain what a vector and an embedding are, how 'meaning' becomes a location in space, and what it means that directions (like king − man + woman ≈ queen) can carry meaning too. (4–6 sentences.)",
         correctAnswer:
-          "The either/or is wrong because nature and nurture always work together rather than competing. Genes often set a range of possibilities, and the environment decides where inside that range a person lands — like good genes setting how tall you could grow while nutrition determines how tall you actually become. The deeper point is that the two interact: an inborn temperament shapes the experiences a child has, so a bold baby and a cautious baby pull different environments out of the same parents, and experiences can even change how genes get used. That's why asking 'how much is nature and how much is nurture' is like asking whether a song is more the notes or the playing. Picking a side also causes harm — pure 'nature' breeds hopelessness, pure 'nurture' breeds blame — while the grown-up view stays both realistic and hopeful.",
+          "A vector is just an ordered list of numbers, which you can picture as a location — a spot in a space with as many directions as there are numbers. An embedding gives every word its own vector and arranges them so that words with similar meanings sit close together, so 'dog,' 'puppy,' and 'cat' land in one neighborhood while 'helicopter' is far away. For a machine that only does arithmetic, that nearness IS meaning: it has no dictionary, it just knows which points sit near which. Even more surprising, the directions between points carry meaning too — the step from 'man' to 'woman' is about the same as the step from 'king' to 'queen,' so you can do arithmetic on meaning and land near 'queen.' This turns slippery meaning into hard geometry, which is what lets an arithmetic machine handle language at all.",
         explanation:
-          "Full credit: explains nature and nurture interact (genes set a range, environment shapes within it; temperament shapes experiences; experiences affect gene use), so the either/or framing fails.",
+          "Full credit: defines a vector (list of numbers/location) and an embedding (similar meanings placed near each other), explains nearness = meaning, and that directions encode relationships (king−man+woman≈queen).",
       },
       {
-        topicSlug: "the-infant-mind",
+        topicSlug: "dot-product-and-distance",
         prompt:
-          "Describe what babies seem to know before they can speak, and explain how researchers can study a baby's mind using looking time and 'surprise.' (4–6 sentences.)",
+          "Explain how AI measures 'likeness' between two vectors using distance and the dot product, why cosine similarity ignores size, and why AI needs to measure likeness so constantly. (4–6 sentences.)",
         correctAnswer:
-          "Babies are not blank slates; they arrive already prepared for people and the world, preferring human faces, their mother's voice, and the rhythm of their native language. Even young infants appear to expect objects to be solid and to keep existing when hidden, and some studies suggest they expect simple amounts to add up correctly. Researchers can't ask a baby what it knows, so they read the two things babies control: where they look and for how long. Babies stare longer at events that are new or surprising and look away from boring ones, so showing a baby an 'impossible' event — an object passing through a wall, or one plus one appearing to make one — and measuring the extra staring reveals what the baby expected. That longer look at rule-breaking events is the evidence that the infant mind already tracks the world.",
+          "Once meaning is a location, AI compares vectors with a ruler. Distance is the plain straight-line gap between two points — small distance means similar, large means different — just like measuring between two cities. The dot product is a second ruler that asks whether two vectors point the same way: multiply matching numbers and add them up, and you get a large positive number when they agree, near zero when unrelated, and negative when opposed. Cosine similarity is the dot product after ignoring length, so it measures only the angle (direction) between vectors — useful because a long and a short document can mean the same thing even though one vector is 'bigger.' AI needs this constantly because search, recommendations, and even a chatbot deciding which earlier words to attend to all come down to measuring likeness, billions of times.",
         explanation:
-          "Full credit: describes infant knowledge (face/voice preferences, expecting solidity/permanence) and explains the looking-time/violation-of-expectation method (longer looking at surprising/impossible events) as how we know.",
+          "Full credit: explains distance (gap between points), the dot product (same-direction agreement), cosine similarity (direction not size), and that likeness-measuring underlies search/recommendation/attention.",
       },
       {
-        topicSlug: "attachment",
+        topicSlug: "matrices",
         prompt:
-          "Explain what attachment is, why comfort matters more than food, and how the 'secure base' idea connects attachment to a child's independence. (4–6 sentences.)",
+          "Explain what a matrix is, how multiplying a vector by it 'mixes and reshapes' information, why one layer of a neural network is basically a matrix, and what stacking many of them achieves. (4–6 sentences.)",
         correctAnswer:
-          "Attachment is the strong emotional bond between a baby and the person who cares for it — a kind of survival system that shapes how we relate to others. It's not just about feeding: experiments with baby monkeys showed that frightened babies clung to a soft, cloth 'mother' that gave no milk rather than a bare wire one that did, so contact and comfort, not just calories, are the heart of the bond. A good attachment works as a 'secure base': because the caregiver is reliable, the child feels safe enough to explore, try new things, and learn, knowing there's a safe spot to return to. That's why attachment isn't the opposite of independence — it's the launchpad for it, since the most confident explorers usually feel most certain someone has their back. These early patterns matter for later life but are influences and odds, not a switch that fixes a child's whole future.",
+          "A matrix is just numbers arranged in a grid of rows and columns, and what makes it useful is that it transforms a vector into a new vector. Each output number is a weighted blend of all the input numbers — you multiply each input by a weight in the grid and add them up — so every output can draw a little from every input, mixing and reshaping the information. Those grid weights are exactly the tunable dials the network learns, which is why one layer of a neural network is basically one matrix multiply. A single matrix can only reshape so much, so networks stack many of them, with a small non-linear 'bend' between layers so the steps don't collapse into one. Layer after layer, the numbers get refined — raw word-numbers near the bottom, rich meaning near the top — which is how information moves from a question to an answer.",
         explanation:
-          "Full credit: defines attachment, explains comfort/contact over food (cloth vs. wire 'mother'), and the secure-base idea linking attachment to confident exploration/independence.",
+          "Full credit: defines a matrix (grid of numbers) that reshapes vectors via weighted blends, identifies a layer as a matrix of learned weights, and explains stacking (with non-linearities) refines information.",
       },
       {
-        topicSlug: "how-children-think",
+        topicSlug: "slopes-and-gradients",
         prompt:
-          "Explain Piaget's central insight that children think differently (not just less), using one concrete example such as conservation or egocentrism, and note one way later researchers refined his theory. (4–6 sentences.)",
+          "Explain how AI uses a 'loss' and a 'gradient' to know which way is 'better.' Include what the loss measures, what the gradient is, and why the model moves opposite to the gradient. (4–6 sentences.)",
         correctAnswer:
-          "Piaget's central insight was that children aren't simply adults who know less — their minds work by different rules that change in a predictable order as they grow, and children actively build their own understanding rather than just absorbing facts. Conservation shows this clearly: pour the same juice into a taller, thinner glass and a preschooler insists there's now more, because they fix on the height and miss that nothing was added or removed. Egocentrism is another example — young children struggle to picture a scene from anyone's viewpoint but their own. These aren't signs of a dumb child but of a mind that hasn't yet built certain logical tools, which develop in later stages. Later researchers refined Piaget by showing he often underestimated children: with simpler, friendlier tests, kids reveal understanding earlier than his tasks suggested, and development is less neatly step-like than four tidy stages imply.",
+          "To improve, a model first needs a single number for how wrong it is, called the loss — low loss means good answers, high loss means bad ones, so learning becomes 'make the loss small.' It helps to picture the loss as a landscape where height means error and the model is standing somewhere on it. A slope tells you how steep something is and which way is up; since the model has millions of dials, it needs a slope for each one at once, and that bundle is the gradient. The gradient points in the direction the loss increases fastest — straight uphill toward more error. So to get better, the model steps the opposite way, downhill, giving every dial a precise 'turn up or down a bit' instruction instead of blind trial-and-error.",
         explanation:
-          "Full credit: explains children think by different rules (not just less) and build understanding, gives a valid example (conservation/egocentrism), and notes a refinement (Piaget underestimated kids / stages less rigid).",
+          "Full credit: explains the loss measures error, the gradient is the per-dial slope pointing uphill (toward more error), and moving opposite (downhill) reduces error for all dials at once.",
       },
       {
-        topicSlug: "language-development",
+        topicSlug: "gradient-descent",
         prompt:
-          "Explain why language learning is considered an astonishing feat, and use the example of errors like 'goed' or 'foots' to show that children learn rules rather than just imitating. (4–6 sentences.)",
+          "Explain gradient descent as 'learning by rolling downhill': the error landscape, why tiny repeated steps work, why the learning rate matters, and the problem of local valleys. (4–6 sentences.)",
         correctAnswer:
-          "Language learning is astonishing because a young child takes a stream of sounds, figures out where the words are, learns thousands of them, and builds sentences nobody taught word-by-word — all without grammar lessons, and faster than any adult could. Children worldwide follow a strikingly similar path: cooing, babbling, first words, a word explosion, and telegraphic speech like 'want cookie,' which hints at something built in. The clearest proof that they learn rules rather than imitate is errors like 'goed' or 'foots' — words no adult ever says to them. The child has worked out the rule (add '-ed' for past tense, '-s' for plurals) and is over-applying it to words that break the rule. So those 'mistakes' actually reveal a powerful mind discovering the hidden logic of language, not a parrot copying phrases.",
+          "Gradient descent pictures the model's error as a hilly landscape where high ground is 'very wrong' and low valleys are 'very right,' with the model starting high up because random dials give terrible answers. The method is short: compute which way is downhill (the gradient), nudge every dial a small amount that way, then repeat from the new spot thousands or millions of times. Each step is tiny, but relentlessly repeated they carry the model from nonsense down into a good valley — patience, not insight, does the work. The step size, called the learning rate, matters because too-big steps leap over the valley and bounce around or diverge, while too-small steps make learning crawl. A further problem is local valleys: the landscape is bumpy, so the model can settle in a shallow dip that isn't the true lowest point, which is why training uses tricks like randomness and momentum to avoid getting stuck.",
         explanation:
-          "Full credit: explains the speed/complexity that makes language learning remarkable (and the shared milestones) and uses overregularization ('goed'/'foots') to show rule-learning rather than imitation.",
+          "Full credit: explains the error landscape, repeated small downhill steps reaching a low-error valley, the learning-rate tradeoff, and local valleys/getting stuck.",
       },
       {
-        topicSlug: "the-teenage-brain",
+        topicSlug: "probability",
         prompt:
-          "Explain why the teenage brain leads to more risk-taking, using the 'gas pedal and brakes' idea and the effect of peers, and explain why this design might actually be useful. (4–6 sentences.)",
+          "Explain how AI handles uncertainty with probability: that it assigns probabilities rather than knowing facts, how a chatbot predicts the next word, why it can be confidently wrong, and why a little randomness ('temperature') is used. (4–6 sentences.)",
         correctAnswer:
-          "The teenage brain isn't broken or finished — it's still rewiring into the mid-twenties, and the order in which parts mature explains the behavior. The emotional, reward-seeking 'gas pedal' that craves excitement and approval matures early, around puberty, but the prefrontal 'brakes' that handle planning, judgment, and impulse control mature last, so for a few years the gas pedal is floored while the brakes are still being installed. The teenage brain also finds social approval intensely rewarding, so risk-taking jumps when friends are watching, even with no spoken pressure. This design may actually be useful, because adolescence is when humans must leave the safety of childhood, try new things, and build a life apart from their parents. The same wiring that produces reckless choices also powers creativity, passion, and the courage to strike out, so the task is keeping teens safe while the brakes finish installing.",
+          "An AI doesn't look up a true answer; for any output it produces a probability for each possibility and goes with the likely ones, so it's really a guessing machine that manages uncertainty. A chatbot in particular is a next-word probability machine: given the words so far, it scores every possible next word, picks a likely one, adds it, and repeats, so the fluent paragraph is thousands of 'most likely next word' guesses chained together — nothing is planned in advance. Because every answer is a probability, it always has a confidence attached, but confidence reflects how well an answer fits learned patterns, not whether it's true — so it can assign high probability to something false and state it calmly. A little randomness, often called temperature, is added so it doesn't always grab the single top word and sound stiff: low temperature is safe and predictable, high temperature is more creative (and sometimes weird), which is why the same question can give different answers.",
         explanation:
-          "Full credit: explains early reward system vs. late prefrontal control ('gas pedal/brakes'), the heightened effect of peers, and why novelty/risk-seeking is adaptive for becoming independent.",
+          "Full credit: explains probabilities over options (not knowing facts), next-word prediction, confidence ≠ truth (confidently wrong), and temperature/randomness and its effect.",
       },
       {
-        topicSlug: "aging-and-lifespan",
+        topicSlug: "backpropagation",
         prompt:
-          "Explain why developmental psychology treats aging as more than decline, using the idea of losses and gains and the finding about well-being in later life. (4–6 sentences.)",
+          "Explain how backpropagation lets a network 'teach itself': the forward pass, how blame is assigned backward, how it connects to gradient descent, and how repeating the loop produces learning. (4–6 sentences.)",
         correctAnswer:
-          "The lifespan view holds that development never stops, so aging is a continuation of change rather than a simple winding down. It's best understood as a mix of losses and gains: raw mental speed and handling brand-new information (fluid abilities) tend to decline, but accumulated knowledge, vocabulary, and judgment (crystallized abilities) often hold steady or keep growing for decades. So the older mind isn't simply 'worse' — it's different, slower at some games and far richer at others. Strikingly, older adults on average often report being as happy or happier than younger people and handle emotions more smoothly, partly because sensing that time is limited leads them to focus on close relationships and meaningful moments. That's why 'it's all downhill' is a myth: later life brings real strengths and, for many, greater well-being.",
+          "Learning runs as a loop: guess, measure how wrong, and adjust. The guess is the forward pass — the input becomes vectors and flows through layer after layer of matrices until the model produces an output and a confidence — and the loss then measures the gap from the right answer, telling the model that it was wrong but not whose fault it was among millions of dials. Backpropagation works backward from the mistake, layer by layer, asking how much each dial contributed to the error and passing the blame back using the same slope idea behind gradients. By the time it reaches the front, every dial has its own gradient, a precise 'turn up or down a little' to reduce the error. Gradient descent then takes one small downhill step using all those instructions, and repeating the whole loop across billions of examples slowly tunes the network from random nonsense into something useful — no one programs the dials, the loop discovers them.",
         explanation:
-          "Full credit: explains the lifespan view (development never stops), aging as losses AND gains (fluid declines, crystallized holds/grows), and the well-being finding (older adults often as happy/happier, focusing on what matters).",
+          "Full credit: explains the forward pass produces a guess + loss, backprop assigns blame backward to give each dial a gradient, gradient descent steps downhill, and repeating the loop is self-teaching.",
       },
     ],
   },
   {
     kind: "final",
-    title: "Final — Developmental Psychology for Everyone",
+    title: "Final — Baby AI Math: The Math Behind the Machine",
     weekNumber: 1,
     isTimed: true,
     timeLimitMinutes: 45,
     instructions:
-      "Timed cumulative final. 45 minutes. Covers the whole course (sections 1.1–1.8). Answer each question in a paragraph (about 5–7 sentences) in your own words. No math is required. Pasting is disabled; keystrokes are screened for AI use.",
+      "Timed cumulative final. 45 minutes. Covers the whole course (sections 1.1–1.8). Answer each question in a paragraph (about 5–7 sentences) in your own words. No calculations are required. Pasting is disabled; keystrokes are screened for AI use.",
     problems: [
       {
-        topicSlug: "aging-and-lifespan",
+        topicSlug: "backpropagation",
         prompt:
-          "Using ideas from across the whole course, argue that one habit of mind — 'resist the simple story' — runs through developmental psychology. Show how it applies to at least three different topics (for example: nature vs. nurture, the 'blank' newborn, love being 'just about food,' children as little adults, the teenage brain, or aging as pure decline). (5–7 sentences.)",
+          "Using ideas from across the whole course, trace how a single piece of input becomes an answer and how the model learns from its mistake. Show how at least four different topics fit together (for example: numbers/vectors, embeddings, matrices, loss/gradient, gradient descent, probability, backpropagation). (5–7 sentences.)",
         correctAnswer:
-          "The thread running through the whole course is to resist the simple, tidy story and replace it with careful, evidence-based thinking. Nature vs. nurture isn't an either/or: genes set a range and the environment shapes it, and the two constantly interact, so 'all genes' and 'all upbringing' are both wrong. Newborns aren't blank either — looking-time studies show babies already prefer faces and voices and expect objects to be solid, surprising us with how much they know. Children don't think like little adults; conservation and egocentrism show their minds follow genuinely different rules that grow in stages. The same caution undoes the myths that love is just about food (comfort beats calories), that teenagers are simply badly behaved (their brains are mid-renovation), and that old age is pure decline (real gains and even greater well-being appear). That shared habit — looking past the obvious story to what's really happening — is harder than believing a neat myth, but it's what makes the field both honest and humane.",
+          "It starts by turning the input into numbers — specifically vectors, lists of numbers arranged by an embedding so that location stands for meaning, with similar things placed near each other. Those vectors flow forward through layer after layer of matrices, grids of weights that mix and reshape the numbers, carrying information from 'what the question means' toward 'what the answer should be.' The model's output is really a set of probabilities — for a chatbot, a likely next word — so its answer is a confident guess, not a looked-up fact. To learn, a loss scores how wrong that guess was, and the gradient gives a per-dial slope pointing toward more error, so the model knows which way is 'better.' Backpropagation passes the blame for the mistake backward through the layers so every weight gets its own gradient, and gradient descent nudges them all a small step downhill. Repeat this guess-measure-blame-nudge loop across billions of examples and the network tunes itself from random nonsense into something that works. Every 'intelligent' step is really one of these humble math operations chained together.",
         explanation:
-          "Full credit: states the unifying habit (reject simple stories for evidence) and applies it correctly to at least three distinct course topics with accurate detail.",
+          "Full credit: traces input → numbers/vectors/embeddings → matrices → probabilistic output → loss/gradient → backprop → gradient descent loop, correctly connecting at least four distinct topics.",
       },
       {
-        topicSlug: "nature-vs-nurture",
+        topicSlug: "vectors-and-embeddings",
         prompt:
-          "Someone insists, 'People are just born the way they are — genes decide everything.' Using evidence and ideas from the course, argue why development is better understood as nature and nurture working together. Use at least one concrete example. (5–7 sentences.)",
+          "Someone insists, 'A search engine can only match the exact words you type — if you use different words, it can't possibly know what you mean.' Using the course's ideas about vectors, embeddings, and measuring likeness, argue why modern systems can do better. Use a concrete example. (5–7 sentences.)",
         correctAnswer:
-          "The 'genes decide everything' view assumes a fixed blueprint, but the evidence shows nature and nurture always work together. Genes typically set a range of possibilities while the environment decides where inside it a person lands — good height genes still need good nutrition to be realized, and a child born to be a strong reader needs a world full of books and talk to get there. The two also interact: an inborn temperament shapes the experiences a child has, so a bold baby and a cautious one draw different environments out of the very same parents, and experiences can even change how genes are used. A striking example is the genetic condition PKU, where a single faulty gene once caused serious intellectual disability — yet the harm only happens if the child eats a certain substance, so a simple change in diet (nurture) lets development proceed normally. One gene, one environmental change, and the whole outcome flips. That's why 'genes decide everything' mistakes a starting point for a finished story.",
+          "The 'only exact words' view describes the old way of searching, which did just match keywords and missed anything phrased differently. Modern systems instead turn each phrase into a vector — a location in space — using an embedding that places similar meanings close together, regardless of the exact words used. So 'how to fix a flat tire' and 'repairing a punctured wheel' land in nearly the same spot even though they share almost no words. To find matches, the system measures likeness between vectors — small distance, or a large dot product / high cosine similarity — and returns the closest ones, which is comparing locations rather than spellings. That's why search and chatbots got dramatically better at understanding what you meant rather than just what you typed. The key shift was treating meaning as geometry: once meaning is a place in space, different words for the same idea sit in the same neighborhood.",
         explanation:
-          "Full credit: rejects pure genetic determinism, explains genes-set-a-range plus interaction, and supports it with a concrete example (e.g. PKU diet, or height/reading) showing environment changes the outcome.",
+          "Full credit: explains embeddings place similar meanings near each other and likeness is measured by distance/dot product/cosine, so different words for the same idea match — with a concrete example.",
       },
       {
-        topicSlug: "attachment",
+        topicSlug: "gradient-descent",
         prompt:
-          "A parent worries that comforting their baby too much will 'spoil' it and make it clingy and dependent. Using what the course shows about attachment, explain why this worry gets the science backwards. Use a concrete example or study. (5–7 sentences.)",
+          "A skeptic says, 'There's no way a machine could learn to write and translate just by doing arithmetic — something smarter must be going on.' Using the ideas of loss, gradients, and gradient descent, explain why simple 'rolling downhill' really can produce capable AI. Use a concrete image or example. (5–7 sentences.)",
         correctAnswer:
-          "This worry gets the science backwards, because warm, responsive care doesn't create a clingy child — it builds the security that makes a child brave. Attachment is the strong bond between a baby and caregiver, and research shows it rests on contact and comfort, not just feeding: frightened baby monkeys clung to a soft, cloth 'mother' that gave no milk rather than a bare wire one that did, proving comfort matters more than calories. A good attachment works as a 'secure base' — because the caregiver is reliable, the child feels safe enough to explore, try new things, and learn, knowing there's a safe spot to return to. So attachment isn't the opposite of independence; it's the launchpad for it, and the most confident explorers tend to be the ones most sure someone has their back. This is exactly why the old advice to handle babies coldly 'so they won't be spoiled' was abandoned in favor of warmth. Comforting a baby builds confidence, not dependence.",
+          "It really is mostly arithmetic, and the engine is gradient descent. The model first measures how wrong it is with a single number, the loss, which you can picture as height on a hilly error landscape where it starts high up because random settings give terrible answers. The gradient tells it, for every one of its millions of dials, which way is downhill toward less error, and it takes a small step that way, then recomputes and steps again. Like a ball set on a bumpy hillside that simply rolls downhill until it rests in a low spot, the model needs no map or plan — just 'keep going downhill.' Each step is tiny, but repeated across billions of examples those steps carry it from nonsense to genuinely useful behavior, which is why patience, not insight, does the work. Nothing 'smarter' is required: capable writing and translation emerge from an immense number of humble downhill nudges, which is exactly the surprising lesson of the course.",
         explanation:
-          "Full credit: explains comfort/contact over food (cloth vs. wire 'mother') and the secure-base idea that responsive care supports exploration/independence, correcting the 'spoiling' myth, with a concrete example.",
+          "Full credit: explains the loss as an error landscape, the gradient as the downhill direction over many dials, and repeated small steps (rolling downhill) producing capable behavior, with a concrete image/example.",
       },
       {
-        topicSlug: "the-teenage-brain",
+        topicSlug: "probability",
         prompt:
-          "A lawmaker argues, 'Teenagers who take dangerous risks are just bad kids who should know better.' Using the course, explain why brain development offers a fairer and more accurate account. Use a concrete example or study. (5–7 sentences.)",
+          "A user says, 'The chatbot sounded so confident, so I trusted it — but it was wrong. Isn't that a glitch?' Using the course, explain why confident-but-wrong is expected, not a glitch, and what it means about how AI 'knows' things. Use a concrete example. (5–7 sentences.)",
         correctAnswer:
-          "Calling risk-taking teens 'bad kids' misreads what's actually happening in the developing brain. The teenage brain isn't broken or finished — it keeps rewiring into the mid-twenties, and the parts don't mature at the same time. The emotional, reward-seeking 'gas pedal' that craves excitement and approval matures early, while the prefrontal 'brakes' for planning, judgment, and impulse control mature last, so for a few years the gas pedal is floored before the brakes are installed. The teenage brain also finds social approval intensely rewarding, which is why risk jumps when peers are present: in one experiment, teens took far more risks in a driving game when friends were watching, while adults drove about the same either way. That's not a character flaw but normal, temporary brain development — and the same wiring toward novelty and friendship also fuels creativity and the courage to grow up. A fairer response keeps teens safe while the brakes finish installing, rather than simply branding them 'bad.'",
+          "It's not a glitch — it follows directly from how AI works. An AI never looks up a known fact; it assigns probabilities to many possibilities and goes with the likely ones, so it's fundamentally a guessing machine. A chatbot predicts the next word by probability over and over, chaining likely guesses into fluent sentences, which is why it sounds smooth even when it's making something up. The confidence attached to an answer reflects how well that answer fits the patterns it learned, not whether it's actually true, so it can assign high probability to a flat falsehood and state it in a calm, sure voice — much like phone autocomplete confidently suggesting the wrong word. That means 'sounding confident' is about pattern-fit, not verified truth, so it should never be mistaken for being right. The practical lesson is to treat fluent, confident AI output as a plausible guess to be checked, not as authority.",
         explanation:
-          "Full credit: explains early reward system vs. late prefrontal control and the heightened effect of peers (e.g. the driving-game study), reframes risk as normal development rather than 'bad kids,' and may note its adaptive side.",
+          "Full credit: explains AI assigns probabilities rather than knowing facts, confidence reflects pattern-fit not truth (so confident-wrong is expected), with a concrete example and the takeaway to verify output.",
       },
     ],
   },
@@ -519,24 +523,24 @@ type SeedPrimer = SeedTopic;
 const REASONING_PRIMERS: SeedPrimer[] = [
   {
     slug: "reasoning-primer-subject",
-    title: "How to reason about developmental psychology cases",
+    title: "How to reason about AI-math cases",
     weekNumber: 1,
     blurb:
-      "Diagnostic primer: applying the course's ideas to concrete developmental-psychology situations.",
-    lectureTitle: "Primer: How to reason about developmental psychology cases",
-    body: `# How to reason about developmental psychology cases
+      "Diagnostic primer: applying the course's ideas to concrete situations about how AI really works.",
+    lectureTitle: "Primer: How to reason about AI-math cases",
+    body: `# How to reason about AI-math cases
 
-This short primer prepares you for the **Developmental Psychology** diagnostic. That check is *ungraded practice* — it never affects your course grade. It is drawn from the eight topics of this unit and asks you to *apply* what you have learned to a specific situation, not to recite a definition.
+This short primer prepares you for the **AI Math** diagnostic. That check is *ungraded practice* — it never affects your course grade. It is drawn from the eight topics of this unit and asks you to *apply* what you have learned to a specific situation, not to recite a definition.
 
 ## It tests application, not memorization
 
-A diagnostic question gives you a small, concrete scene — a baby, a preschooler, a teenager, an aging adult — and asks what the course's ideas tell you about it. Knowing the word "object permanence" or "attachment" is not enough; the question wants you to recognize *when* you are looking at one and *why* it matters here.
+A diagnostic question gives you a small, concrete scene — a search engine matching two differently-worded phrases, a chatbot answering confidently but wrongly, a model overshooting because its steps are too big — and asks what the course's ideas tell you about it. Knowing the words "embedding" or "gradient descent" is not enough; the question wants you to recognize *when* you are looking at one and *why* it matters here.
 
 ## What the questions reward
 
-- **Naming the right idea** — match the situation to the concept that fits it: whether a behavior reflects nature, nurture, or both; what babies already know; how children think differently; how language is learned; why teenagers take risks; how aging brings gains as well as losses.
+- **Naming the right idea** — match the situation to the concept that fits it: whether something is about turning things into numbers, meaning as location (embeddings), measuring likeness (distance/dot product), reshaping with matrices, finding "better" with a gradient, learning by rolling downhill, handling uncertainty with probability, or self-teaching with backpropagation.
 - **Using evidence from the scene** — point to the detail in the situation that supports your answer, rather than answering from a general impression.
-- **Avoiding the simple story** — the course replaces tidy myths with careful explanation. The best answers resist "it's all genes," "babies know nothing," or "it's all downhill," and stay grounded in the science.
+- **Avoiding the "magic" story** — the course replaces "AI just understands" with careful explanation. The best answers resist "there's a mind in there" or "it must know the truth," and stay grounded in the math.
 
 ## How to do this activity well
 
@@ -555,7 +559,7 @@ Take it as often as you like; the questions are freshly generated every time, an
     lectureTitle: "Primer: Core reasoning skills",
     body: `# Core reasoning skills
 
-This short primer prepares you for the **General Reasoning** diagnostic — an *ungraded* check that tests five genuine reasoning skills. These are the same skills you use to decide what a set of facts really shows, so they matter directly for thinking clearly about how people grow and change.
+This short primer prepares you for the **General Reasoning** diagnostic — an *ungraded* check that tests five genuine reasoning skills. These are the same skills you use to decide what a set of facts really shows, so they matter directly for thinking clearly about how AI works.
 
 ## The five skills
 
@@ -567,7 +571,7 @@ This short primer prepares you for the **General Reasoning** diagnostic — an *
 
 ## A recurring trap: things that move together
 
-Most wrong answers are statements that *sound* reasonable but are **not actually backed up by what you were told**. The discipline this check rewards is the same one careful thinking about human development demands: keep apart what the facts **show**, what you're **assuming**, and what only *sounds* right. Two things happening together does not prove one causes the other.
+Most wrong answers are statements that *sound* reasonable but are **not actually backed up by what you were told**. The discipline this check rewards is the same one careful thinking about technology demands: keep apart what the facts **show**, what you're **assuming**, and what only *sounds* right. Two things happening together does not prove one causes the other.
 
 ## How to do this activity well
 
@@ -636,15 +640,15 @@ export async function seedReasoningPrimersIfMissing(): Promise<void> {
 }
 
 export async function seedIfEmpty(): Promise<void> {
-  // The course was migrated to the Developmental Psychology for Children
-  // syllabus. Detect the marker topic; if present and the content version
-  // matches, the content is current and we skip. This makes the seed
-  // self-healing across environments: a database that still holds older content
-  // (e.g. a previous curriculum) is detected and replaced on boot.
+  // The course was migrated to the Baby AI Math syllabus. Detect the marker
+  // topic; if present and the content version matches, the content is current
+  // and we skip. This makes the seed self-healing across environments: a
+  // database that still holds older content (e.g. a previous curriculum) is
+  // detected and replaced on boot.
   const markerTopic = await db
     .select({ id: topicsTable.id })
     .from(topicsTable)
-    .where(eq(topicsTable.slug, "what-developmental-psychology-is"));
+    .where(eq(topicsTable.slug, "why-ai-is-really-math"));
   // Read the stored content version. Tolerate the seed_meta table not yet
   // existing (e.g. a boot that races ahead of schema migration): treat that as
   // "no version recorded", which forces a reseed once the table is present.
@@ -685,7 +689,7 @@ export async function seedIfEmpty(): Promise<void> {
     const row = (existing.rows[0] ?? {}) as { n?: number };
     if ((row.n ?? 0) > 0) {
       logger.warn(
-        "Seed: stale course content detected — replacing with the Developmental Psychology for Children curriculum",
+        "Seed: stale course content detected — replacing with the Baby AI Math curriculum",
       );
       await tx.execute(
         sql`TRUNCATE TABLE answers, attempts, practice_attempts, practice_problems, practice_sessions, problems, assignments, lectures, topics, diagnostic_responses, diagnostic_attempts, diagnostic_items, diagnostic_assessments RESTART IDENTITY CASCADE`,

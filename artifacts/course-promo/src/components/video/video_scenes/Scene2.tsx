@@ -36,7 +36,7 @@ export function Scene2() {
           }
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         >
-          <h2 className="text-[4vw] font-black text-secondary">Nature vs. nurture.</h2>
+          <h2 className="text-[4vw] font-black text-secondary">Math, not magic.</h2>
         </motion.div>
 
         {/* Phase 2: Noticing */}
@@ -50,7 +50,7 @@ export function Scene2() {
           }
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         >
-          <h2 className="text-[4vw] font-black text-primary">The infant mind.</h2>
+          <h2 className="text-[4vw] font-black text-primary">Numbers as meaning.</h2>
           <div className="flex gap-2 mt-4">
             {[1, 2, 3].map(i => (
               <motion.div key={i} className="w-6 h-6 rounded-full bg-primary" 
@@ -71,7 +71,7 @@ export function Scene2() {
           }
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         >
-          <h2 className="text-[4vw] font-black text-accent text-center">Attachment —<br/>the first bond.</h2>
+          <h2 className="text-[4vw] font-black text-accent text-center">Learning —<br/>rolling downhill.</h2>
         </motion.div>
       </div>
     </motion.div>

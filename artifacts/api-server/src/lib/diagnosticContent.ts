@@ -3,9 +3,9 @@
 //
 // Two instruments, each offered at FOUR time-points (phases) so a student can
 // gauge themselves before, during, and after the course:
-//   - subject  — Developmental Psychology subject-specific reasoning. Realistic
-//     short cases about the course material; the best-supported answer is keyed
-//     first.
+//   - subject  — AI Math subject-specific reasoning. Realistic short cases
+//     about the course material (the math behind AI); the best-supported answer
+//     is keyed first.
 //   - general  — General Reasoning. Genuine reasoning items spanning analysis,
 //     inference, evaluation, deduction, and induction (NOT a "docility"/agree-
 //     with-authority test).
@@ -86,27 +86,27 @@ export type GenSpec = { topicFocus: string; level: string };
 const SUBJECT_SPECS: Record<Phase, GenSpec> = {
   before: {
     level:
-      "Intro level: answerable by a thoughtful newcomer reasoning carefully, BEFORE any lessons. Do not assume prior course knowledge or technical terms.",
+      "Intro level: answerable by a thoughtful newcomer reasoning carefully, BEFORE any lessons. Do not assume prior course knowledge or technical terms. No calculations — reward plain-language reasoning.",
     topicFocus:
-      "What developmental psychology is and how it thinks about people: that development is lifelong change (from before birth to old age) studied scientifically, that it spans physical, cognitive, and social-emotional growth, and that who a person becomes grows out of nature and nurture working together rather than a single 'it's all genes' or 'it's all upbringing' cause.",
+      "What 'AI is really math' means and how to think about it: that an AI, however human it sounds, is doing an enormous amount of plain arithmetic on lists of numbers rather than truly understanding; that everything (text, images, sound) is first turned into numbers; that a model is a giant pile of tunable numbers ('weights') that learning adjusts; and that AI is math, not magic — so it has no secret wisdom and can be confidently wrong.",
   },
   third: {
     level:
-      "Early course level: covers roughly the first third of the unit. Plain language, short realistic cases.",
+      "Early course level: covers roughly the first third of the unit. Plain language, short realistic cases, no calculations.",
     topicFocus:
-      "Topics 1.1-1.3: what developmental psychology is (lifelong change across physical, cognitive, and social-emotional domains); nature vs. nurture (genes set a range, environment shapes it, and the two interact rather than competing); and the infant mind (babies are not blank — they prefer faces and voices and already expect objects to be solid/permanent, studied via looking time and surprise).",
+      "Topics 1.1-1.3: AI is really math (inputs become numbers; weights are tunable numbers; learning adjusts them; math not magic); vectors and embeddings (a vector is a list of numbers acting as a location, an embedding places similar-meaning things near each other so nearness IS meaning, and directions can carry meaning like king-man+woman≈queen); and measuring likeness (distance is how far apart two vectors are, the dot product checks whether they point the same way, cosine similarity ignores size — used for search and recommendations).",
   },
   twothirds: {
     level:
-      "Mid course level: covers roughly the first two-thirds of the unit. Realistic short cases requiring a step of reasoning.",
+      "Mid course level: covers roughly the first two-thirds of the unit. Realistic short cases requiring a step of reasoning, no calculations.",
     topicFocus:
-      "Topics 1.1-1.6: lifelong development, nature/nurture interaction, and the infant mind, PLUS attachment (the bond rests on comfort/contact not just food, and works as a secure base for exploration), how children think (Piaget — children reason by different rules that change in stages, e.g. conservation and egocentrism), and language development (children learn rules, shown by overregularization like 'goed'/'foots', within a sensitive period).",
+      "Topics 1.1-1.6: AI as math, vectors/embeddings, and measuring likeness, PLUS matrices (a grid of numbers that reshapes a vector by taking weighted blends of inputs, so one layer of a network is a matrix and stacking them moves information), slopes and gradients (a loss measures how wrong the model is, and the gradient is the per-dial slope pointing uphill toward more error, so you move the opposite way), and gradient descent (learning by repeatedly stepping downhill on the error landscape, where the learning-rate step size matters and you can get stuck in local valleys).",
   },
   after: {
     level:
-      "End-of-course level: covers the whole unit. Integrative short cases that apply more than one idea.",
+      "End-of-course level: covers the whole unit. Integrative short cases that apply more than one idea, no calculations.",
     topicFocus:
-      "The full unit, topics 1.1-1.8: lifelong development, nature/nurture, the infant mind, attachment, Piagetian thinking, and language, PLUS the teenage brain (an early-maturing reward system and late-maturing prefrontal control, with risk heightened by peers) and aging and the lifespan (development never stops; aging brings losses AND gains, with crystallized knowledge holding/growing and often steady or higher well-being).",
+      "The full unit, topics 1.1-1.8: AI as math, vectors/embeddings, measuring likeness, matrices, slopes/gradients, and gradient descent, PLUS probability (AI assigns probabilities rather than knowing facts, a chatbot predicts the next word, confidence reflects pattern-fit not truth so it can be confidently wrong, and a little randomness/'temperature' adds variety) and backpropagation (the self-teaching loop: a forward pass guesses, the loss scores the error, blame is passed backward to give each weight a gradient, gradient descent nudges them, repeated millions of times).",
   },
 };
 
@@ -152,7 +152,7 @@ const FORMAT_LABEL: Record<DiagFormat, string> = {
 function instructionsFor(instrument: Instrument, format: DiagFormat): string {
   const subject =
     instrument === "subject"
-      ? "Answer each question about developmental psychology — these reward careful reasoning about realistic cases, not memorized facts"
+      ? "Answer each question about the math behind AI — these reward careful reasoning about realistic cases (no calculations), not memorized facts"
       : "Answer each reasoning question — these measure how you think, not what you recall";
   const body =
     format === "mcq"
@@ -164,86 +164,86 @@ function instructionsFor(instrument: Instrument, format: DiagFormat): string {
 }
 
 // ===========================================================================
-// SUBJECT — Developmental Psychology blueprint cases (best answer keyed FIRST)
+// SUBJECT — AI Math blueprint cases (best answer keyed FIRST)
 // ===========================================================================
 
 const SUBJECT_BEFORE: DiagItem[] = [
   {
     prompt:
-      "A reporter asks a developmental psychologist why a particular toddler is unusually shy. The psychologist would most likely explain the behavior in terms of:",
+      "A reporter asks an AI researcher how a chatbot manages to write a clever poem. The researcher would most likely explain it in terms of:",
     options: [
-      "an inborn temperament and the child's experiences working together",
-      "the toddler's astrological sign",
-      "whether the room happened to be noisy that day",
-      "the reporter's personal opinion of toddlers",
+      "an enormous amount of arithmetic on numbers producing a likely-looking output, not genuine understanding",
+      "a tiny conscious mind inside the computer feeling inspired",
+      "the computer copying the poem word-for-word from one place",
+      "the reporter's personal opinion of poetry",
     ],
     modelAnswer:
-      "Developmental psychology explains behavior through nature and nurture working together (e.g. temperament plus experience), not luck, intuition, or unrelated traits.",
+      "The course's view is that AI is really math: a chatbot does a huge amount of arithmetic on numbers to produce a likely-looking output, rather than truly understanding or having a mind.",
   },
   {
     prompt:
-      "A headline claims 'people are simply born exactly who they'll be — genes decide everything.' How would a developmental psychologist most likely treat this claim?",
+      "A headline claims 'AI just KNOWS the right answer — it's basically magic.' How would someone who understands AI most likely treat this claim?",
     options: [
-      "As an oversimplification, since development comes from nature and nurture together",
+      "As an oversimplification, since AI is arithmetic on numbers and can be confidently wrong",
       "As obviously true and needing no evidence",
-      "As something that cannot be studied at all",
-      "As true only for certain personality types",
+      "As proof that AI can never make a mistake",
+      "As true only for very expensive AI",
     ],
     modelAnswer:
-      "It is an oversimplification; the field rejects 'genes decide everything' because development arises from nature and nurture interacting.",
+      "It is an oversimplification; AI is math, not magic — it works by arithmetic on numbers, has no secret wisdom, and can be confidently wrong.",
   },
   {
     prompt:
-      "Which question is most central to what developmental psychology actually studies?",
+      "Which description is most central to what this course says an AI really is?",
     options: [
-      "How and why people change across their lives, from before birth to old age",
-      "Which baby stroller is the cheapest to buy",
-      "How to design a more comfortable nursery chair",
-      "Which childhood stories make the most dramatic movies",
+      "A system doing huge amounts of arithmetic on lists of numbers",
+      "A private library storing every fact ever written",
+      "A computer that feels emotions like a person",
+      "A short list of if-then rules written by hand",
     ],
     modelAnswer:
-      "Developmental psychology studies how and why people change across the whole lifespan, from before birth to old age.",
+      "At bottom an AI is doing an enormous amount of plain arithmetic on lists of numbers — that's the core 'AI is really math' idea.",
   },
 ];
 
 const SUBJECT_THIRD: DiagItem[] = [
   {
     prompt:
-      "A newborn turns toward her mother's voice and stares longer at a human face than at a scrambled pattern. These behaviors are best understood as showing that:",
+      "A search engine returns a great match for 'how to fix a flat tire' when you actually typed 'repairing a punctured wheel,' even though the two share almost no words. This is best understood as showing that:",
     options: [
-      "babies arrive already prepared for people, not as blank slates",
-      "the baby is simply bored",
-      "newborns cannot tell anything apart",
-      "the baby dislikes faces",
+      "both phrases are turned into vectors that land near each other on a meaning map (an embedding)",
+      "the engine secretly stored every possible phrasing of every question",
+      "the two phrases share spelling the computer happened to notice",
+      "the engine guessed randomly and got lucky",
     ],
     modelAnswer:
-      "Newborns already prefer faces and familiar voices, showing the infant mind is prepared for people rather than blank.",
+      "An embedding turns each phrase into a vector (a location), placing similar meanings close together, so differently-worded phrases that mean the same thing land near each other and match.",
     skillArea: "analysis",
   },
   {
     prompt:
-      "Two children are raised by the same parents, but one is naturally bold and the other cautious, and they end up with quite different experiences at home. This best illustrates that:",
+      "A music app turns songs into vectors, notices that a new song's vector sits close to ones you love, and recommends it. This best illustrates that:",
     options: [
-      "a child's inborn temperament and environment interact, each shaping the other",
-      "parents have no effect on children at all",
-      "only the weather shapes behavior",
-      "the outcome is pure random chance",
+      "AI finds similar things by measuring likeness between vectors (small distance or a large dot product)",
+      "the app has actually listened to and understood every song",
+      "recommendations are just whatever songs are newest",
+      "the app reads your mind directly",
     ],
     modelAnswer:
-      "It shows nature and nurture interact: an inborn temperament shapes the experiences a child has, so the same parents create different environments.",
+      "The app represents songs as vectors and measures likeness (small distance / large dot product) between what you like and other songs, ranking the closest — no real understanding of the audio needed.",
     skillArea: "inference",
   },
   {
     prompt:
-      "A student says 'how a person turns out is decided entirely by how they're raised — genes don't matter.' Why would a developmental psychologist push back?",
+      "Someone says, 'A computer can't possibly handle the meaning of words — meaning isn't a number.' Given the course, why would you push back?",
     options: [
-      "Because development comes from genes and environment working together, not nurture alone",
-      "Because upbringing never influences anyone",
-      "Because only adults ever change",
-      "Because development cannot be explained in any way",
+      "Because an embedding turns meaning into a location in space, so similar meanings sit close and nearness stands in for meaning",
+      "Because computers secretly understand language exactly like people do",
+      "Because words don't really have any meaning at all",
+      "Because meaning is something that can never be studied",
     ],
     modelAnswer:
-      "Single-cause explanations are too simple; development results from nature and nurture interacting, so 'all upbringing' is as wrong as 'all genes.'",
+      "Embeddings make meaning a location in space: similar-meaning words are placed near each other, so for a machine nearness IS meaning — meaning becomes geometry it can compute with.",
     skillArea: "evaluation",
   },
 ];
@@ -251,41 +251,41 @@ const SUBJECT_THIRD: DiagItem[] = [
 const SUBJECT_TWOTHIRDS: DiagItem[] = [
   {
     prompt:
-      "You pour juice from a wide glass into a tall, thin one while a preschooler watches, and they insist the tall glass now has more. What does this best illustrate about young children's thinking?",
+      "A model's answers are terrible at first, but after training they're good — even though each training step barely changes anything. What does this best illustrate?",
     options: [
-      "Children reason by different rules and can center on one feature (height) while missing that the amount is unchanged",
-      "The child is simply not paying attention",
-      "Preschoolers think exactly like adults",
-      "The amount of juice really did change",
+      "Gradient descent: repeated small downhill steps on the error landscape slowly drive the loss down",
+      "The model suddenly understood the topic in a single moment",
+      "Someone hand-set the millions of dials to the right values",
+      "Training does nothing; the model was always good",
     ],
     modelAnswer:
-      "It shows the conservation error: young children reason by different rules, focusing on one feature (height) and missing that quantity stayed the same.",
+      "It shows gradient descent: many tiny downhill steps on the error landscape accumulate, carrying the model from high error to low error even though each step is small.",
     skillArea: "evaluation",
   },
   {
     prompt:
-      "A toddler who once said 'went' starts saying 'goed,' a word no adult ever taught her. What does this scenario best demonstrate?",
+      "During training, a model's error keeps bouncing up and down and never settles into a low value. What is the most likely explanation?",
     options: [
-      "Children learn grammar rules and over-apply them, rather than only imitating what they hear",
-      "The child has forgotten how to talk",
-      "Adults must have taught her the word 'goed'",
-      "Language is learned purely by copying phrases",
+      "The learning rate (step size) is too big, so it overshoots the valley and bounces around",
+      "The model has no weights left to adjust",
+      "The data was turned into letters instead of numbers",
+      "Gradients always cause bouncing and nothing can be done",
     ],
     modelAnswer:
-      "Overregularization shows children learn rules (add '-ed') and over-apply them to irregular words, proving rule-learning rather than imitation.",
+      "A too-large learning rate makes each step overshoot the low point, so the model leaps past the valley and bounces around instead of settling — smaller steps would help.",
     skillArea: "inference",
   },
   {
     prompt:
-      "A frightened baby monkey chooses to cling to a soft cloth 'mother' that gives no milk rather than a bare wire one that does. Why is that important for understanding attachment?",
+      "Inside one layer of a neural network, what is really happening to the numbers that flow through it?",
     options: [
-      "It shows the bond rests on comfort and contact, not just on being fed",
-      "It proves babies don't need food at all",
-      "It shows attachment is only about feeding",
-      "It means babies prefer whoever is nearest",
+      "A matrix reshapes the vector, making each output a weighted blend of the inputs",
+      "The layer looks up the answer in a stored table",
+      "The layer ponders the meaning the way a person would",
+      "Nothing changes; the numbers pass straight through unaltered",
     ],
     modelAnswer:
-      "Attachment rests on comfort and contact, not just food; the baby seeks the comforting figure even when it provides no milk.",
+      "A layer is a matrix that transforms the vector: each output number is a weighted blend of all the inputs (using learned weights), which is how information gets mixed and reshaped.",
     skillArea: "analysis",
   },
 ];
@@ -293,41 +293,41 @@ const SUBJECT_TWOTHIRDS: DiagItem[] = [
 const SUBJECT_AFTER: DiagItem[] = [
   {
     prompt:
-      "A teenager drives carefully when alone but takes far more risks when friends are in the car. Which explanation fits what the course shows about the teenage brain?",
+      "A chatbot states a made-up 'fact' in a calm, confident voice, and it turns out to be false. Which explanation fits what the course shows?",
     options: [
-      "The reward system matures early while impulse-control matures later, and peers heighten the pull of risky choices",
-      "Teenagers simply choose to misbehave for no reason",
-      "The teenage brain is fully mature and identical to an adult's",
-      "Friends have no effect on a teenager's choices",
+      "AI assigns probabilities and predicts likely words; confidence reflects pattern-fit, not truth, so it can be confidently wrong",
+      "The chatbot is deliberately lying",
+      "A confident AI is always correct, so this can't really happen",
+      "It must simply have been hacked",
     ],
     modelAnswer:
-      "The early-maturing reward system, late-maturing prefrontal control, and the heightened reward of peer presence explain more risk-taking with friends.",
+      "AI produces probabilities and predicts likely words rather than knowing facts; its confidence reflects how well an answer fits learned patterns, not whether it's true, so confident-but-wrong is expected.",
     skillArea: "evaluation",
   },
   {
     prompt:
-      "An older adult is slower at learning a brand-new phone app but has a far richer vocabulary and steadier judgment than a young adult. How should this be understood?",
+      "After a wrong answer, a network adjusts millions of dials, even though no one tells it which ones were at fault. How should this be understood?",
     options: [
-      "As aging bringing losses and gains: fluid speed declines while crystallized knowledge holds or grows",
-      "As proof that aging is only decline",
-      "As a sign the older adult is not really thinking",
-      "As meaning age never changes the mind at all",
+      "Backpropagation assigns blame backward to give each weight a gradient, then gradient descent nudges them all",
+      "The network randomly changes dials and hopes for the best",
+      "A programmer fixes each dial by hand after every mistake",
+      "The network actually can't learn from its mistakes at all",
     ],
     modelAnswer:
-      "Aging brings losses and gains: raw speed (fluid) declines while accumulated knowledge and judgment (crystallized) hold steady or grow.",
+      "Backpropagation works backward from the error to assign each weight a share of the blame (a gradient), and gradient descent then nudges every weight a small step to reduce the loss.",
     skillArea: "inference",
   },
   {
     prompt:
-      "A commentator says, 'After childhood, development is over — it's all genes early on and then pure decline.' Drawing on the unit, the strongest criticism is that:",
+      "A commentator says, 'AI literally understands and knows the truth — it's a digital mind.' Drawing on the unit, the strongest criticism is that:",
     options: [
-      "Development is lifelong and shaped by nature and nurture together, with real gains even in later life",
-      "Development really does stop at childhood, so the claim is fine",
-      "Genes truly decide everything early, so the claim is fine",
-      "Nothing about people can ever be studied",
+      "AI is arithmetic on numbers that assigns probabilities; it has no real understanding and can be confidently wrong",
+      "AI really is a conscious mind, so the claim is fine",
+      "AI knows every truth there is, so the claim is fine",
+      "Nothing about AI can ever be studied",
     ],
     modelAnswer:
-      "Development is lifelong and arises from nature and nurture interacting; later life brings real gains (e.g. crystallized knowledge, well-being), so the claim fails twice.",
+      "AI is math — arithmetic on numbers that outputs probabilities — not a knowing mind; it has no guaranteed access to truth and can be confidently wrong, so 'understands and knows the truth' overstates it.",
     skillArea: "evaluation",
   },
 ];
@@ -440,7 +440,7 @@ const BASE_CONTENT: BaseContent[] = PHASE_ORDER.flatMap((phase) => {
     {
       instrument: "subject" as const,
       phase,
-      baseTitle: `Developmental Psychology Check — ${PHASE_LABEL[phase]}`,
+      baseTitle: `AI Math Check — ${PHASE_LABEL[phase]}`,
       items: subjectItems[phase],
     },
     {

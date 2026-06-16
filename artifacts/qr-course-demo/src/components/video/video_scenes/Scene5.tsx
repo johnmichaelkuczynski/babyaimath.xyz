@@ -26,7 +26,7 @@ export function Scene5({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
     }, 2000);
 
     const t3 = setTimeout(() => {
-      setTypedAnswer("Their inborn nature.");
+      setTypedAnswer("Because the words are spelled similarly.");
     }, 3000);
 
     const t4 = setTimeout(() => {
@@ -50,11 +50,11 @@ export function Scene5({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
 
     const t9 = setTimeout(() => {
       setCursorPos({ x: '35vw', y: '82vh' }); // move into answer box
-      setTypedAnswer("Even with");
+      setTypedAnswer("Because songs");
     }, 8500);
-    const t10 = setTimeout(() => setTypedAnswer("Even with the same home,"), 9000);
-    const t11 = setTimeout(() => setTypedAnswer("Even with the same home, their temperaments"), 9500);
-    const t12 = setTimeout(() => setTypedAnswer("Even with the same home, their temperaments and experiences differed."), 10000);
+    const t10 = setTimeout(() => setTypedAnswer("Because songs that sit close together"), 9000);
+    const t11 = setTimeout(() => setTypedAnswer("Because songs that sit close together share similar"), 9500);
+    const t12 = setTimeout(() => setTypedAnswer("Because songs that sit close together share similar features, so liking one suggests the other."), 10000);
 
     const t13 = setTimeout(() => {
       setCursorPos({ x: '70vw', y: '60vh' }); // Move to Submit
@@ -110,7 +110,7 @@ export function Scene5({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
         <div className="text-xs font-bold text-muted-foreground tracking-widest uppercase mb-4">Topic Practice</div>
         <div className="flex justify-between items-end mb-8">
           <div>
-            <h1 className="text-4xl font-serif text-primary mb-2">Nature vs. nurture</h1>
+            <h1 className="text-4xl font-serif text-primary mb-2">Vectors and embeddings</h1>
             <div className="text-sm text-muted-foreground">Unit 1 · 1 prior attempt · 1% accuracy · <span className="text-emerald-600 font-semibold">STRONG</span></div>
           </div>
           <div className="text-sm font-medium border border-border px-3 py-1 rounded-md bg-white">
@@ -126,10 +126,10 @@ export function Scene5({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
         <div className="bg-white border border-border rounded-xl shadow-sm overflow-hidden flex flex-col min-h-[400px]">
           <div className="p-8 flex-1 border-b border-border text-lg text-primary font-medium leading-relaxed">
             {phase >= 1 && phase < 4 && (
-              <StreamingText text="A baby cries whenever a parent leaves the room, but is happy when they return. Is this better explained by the baby's inborn nature or by what they've learned? Explain." delay={0} />
+              <StreamingText text="In an embedding, the words 'cat' and 'kitten' end up as points that sit very close together, while 'cat' and 'airplane' sit far apart. In plain words, what does that closeness tell us?" delay={0} />
             )}
             {phase >= 4 && (
-              <StreamingText text="Two siblings are raised in the same home, but grow up with very different personalities. Why can a shared upbringing still lead to different paths?" delay={0} />
+              <StreamingText text="A music app places two songs you love as points that sit very close together in its 'taste space.' Why might that make it suggest one song right after the other?" delay={0} />
             )}
           </div>
           
@@ -159,7 +159,7 @@ export function Scene5({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                     <span>Not quite</span>
                   </div>
                   <div className="text-sm text-red-900 leading-relaxed">
-                    <StreamingText text="Not quite. Crying when a parent leaves and calming when they return is learned through the bond of attachment — it's not simply inborn nature. Development comes from nature and nurture working together." delay={0} />
+                    <StreamingText text="Not quite. Points sitting close together means the words have similar meaning, not similar spelling. An embedding places things by what they mean, so 'cat' and 'kitten' land near each other because they're related in meaning." delay={0} />
                   </div>
                 </motion.div>
               )}
@@ -174,7 +174,7 @@ export function Scene5({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                     <span>Correct!</span>
                   </div>
                   <div className="text-sm text-emerald-900 leading-relaxed">
-                    <StreamingText text="Correct! A shared home isn't the whole story. Different temperaments, experiences, and relationships shape siblings in different ways — which is why children from the same household can grow up so differently. That's nature and nurture together." delay={0} />
+                    <StreamingText text="Correct! Points that sit close together represent things with similar features. So when two songs land near each other in taste space, liking one is a strong hint you'll enjoy the other — that's how similarity drives recommendations." delay={0} />
                   </div>
                 </motion.div>
               )}
@@ -182,8 +182,8 @@ export function Scene5({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
 
             <div className="mt-4">
               <div className="flex space-x-2 border-b border-border pb-2 mb-3 overflow-x-auto text-xs font-medium">
-                <div className="px-3 py-1 border-b-2 border-primary text-primary">Nature & nurture</div>
-                {['Attachment', 'Object permanence', 'Piaget', 'Language', 'The teenage brain', 'Aging'].map(t => (
+                <div className="px-3 py-1 border-b-2 border-primary text-primary">Vectors & embeddings</div>
+                {['Dot product', 'Matrices', 'Gradients', 'Gradient descent', 'Probability', 'Backpropagation'].map(t => (
                   <div key={t} className="px-3 py-1 text-muted-foreground">{t}</div>
                 ))}
               </div>

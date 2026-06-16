@@ -38,19 +38,19 @@ const features = [
   {
     icon: BarChart3,
     title: "One Unit, 8 Topics",
-    body: "From what developmental psychology really is all the way to aging and the lifespan.",
+    body: "From why AI is really math all the way to how it teaches itself.",
   },
 ];
 
 const topics = [
-  { n: "1.1", title: "What developmental psychology is" },
-  { n: "1.2", title: "Nature vs. nurture" },
-  { n: "1.3", title: "The infant mind (what babies know before they can speak)" },
-  { n: "1.4", title: "Attachment (the first bond)" },
-  { n: "1.5", title: "How children think (Piaget)" },
-  { n: "1.6", title: "Language development" },
-  { n: "1.7", title: "The teenage brain" },
-  { n: "1.8", title: "Aging and the lifespan" },
+  { n: "1.1", title: "Why AI is really math (the idea behind the machine)" },
+  { n: "1.2", title: "Numbers as meaning: vectors and embeddings" },
+  { n: "1.3", title: "Measuring likeness: the dot product and distance" },
+  { n: "1.4", title: "Matrices: how a network moves information" },
+  { n: "1.5", title: "Slopes and gradients: which way is better?" },
+  { n: "1.6", title: "Gradient descent: learning by rolling downhill" },
+  { n: "1.7", title: "Probability: how AI handles uncertainty and guesses" },
+  { n: "1.8", title: "Backpropagation: how the whole thing teaches itself (Capstone)" },
 ];
 
 export default function Landing() {
@@ -62,7 +62,7 @@ export default function Landing() {
             <Search className="w-4 h-4" />
           </div>
           <span className="font-serif font-semibold text-lg tracking-tight">
-            Developmental Psychology for Children
+            Baby AI Math
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -89,15 +89,15 @@ export default function Landing() {
         <section className="max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium mb-6">
             <BarChart3 className="w-3.5 h-3.5" />
-            A friendly, one-unit intro to developmental psychology
+            A friendly, one-unit intro to the math behind AI
           </div>
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-primary leading-tight mb-5">
-            How minds grow across a lifetime. Let's understand it together.
+            AI isn't magic — it's math. Let's understand it together.
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
             A self-paced course that teaches, tutors, drills, and grades you —
-            developmental psychology in plain language, no math or coding required.
-            Perfect for curious students and grown-ups alike.
+            the math behind AI in plain language, no prior math needed — every idea
+            is explained in plain words. Perfect for curious students and grown-ups alike.
           </p>
           <div className="flex items-center justify-center gap-3">
             <Link href="/sign-up">
@@ -162,7 +162,7 @@ export default function Landing() {
       </main>
 
       <footer className="border-t border-border px-6 py-6 text-center text-sm text-muted-foreground">
-        Developmental Psychology for Children — where the curriculum, the tutor, the grader, and the
+        Baby AI Math — where the curriculum, the tutor, the grader, and the
         integrity check all live in one room.
       </footer>
     </div>

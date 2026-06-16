@@ -58,10 +58,10 @@ export function Scene3({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
       {/* Left Pane (Static from previous) */}
       <div className="w-1/2 h-full border-r border-border p-12 overflow-hidden flex flex-col relative opacity-50">
         <div className="text-xs font-bold tracking-widest text-muted-foreground mb-4">UNIT 1</div>
-        <h1 className="text-3xl font-serif text-primary mb-8">1.1 What developmental psychology is</h1>
+        <h1 className="text-3xl font-serif text-primary mb-8">1.1 Why AI is really math</h1>
         <div className="prose prose-sm max-w-none text-foreground/80 space-y-6">
-          <h2 className="font-serif text-2xl text-primary">What developmental psychology is</h2>
-          <p>Developmental psychology is the study of how people grow and change — from infancy and childhood, through the teenage years, all the way into old age.</p>
+          <h2 className="font-serif text-2xl text-primary">Why AI is really math</h2>
+          <p>AI math is the study of how machines learn — and underneath, it all comes down to numbers and arithmetic at an enormous scale.</p>
         </div>
       </div>
 
@@ -79,7 +79,7 @@ export function Scene3({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
               <motion.div exit={{ opacity: 0, y: -20 }} className="mt-auto">
                 <div className="mb-4 text-xs font-semibold text-muted-foreground uppercase tracking-widest">Starter questions for this section</div>
                 <div className="flex flex-wrap gap-2 mb-6">
-                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">Why do babies cry when a parent leaves the room?</div>
+                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">Why does AI turn words into numbers?</div>
                 </div>
               </motion.div>
             )}
@@ -90,7 +90,7 @@ export function Scene3({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                 animate={{ opacity: 1, y: 0, scale: 1 }} 
                 className="self-end max-w-[85%] bg-primary text-white p-4 rounded-2xl rounded-tr-sm shadow-sm mt-auto"
               >
-                Why do babies cry when a parent leaves the room?
+                Why does AI turn words into numbers?
               </motion.div>
             )}
 
@@ -110,7 +110,7 @@ export function Scene3({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                 animate={{ opacity: 1, y: 0 }} 
                 className="self-start w-[85%] bg-muted/30 border border-border p-5 rounded-2xl rounded-tl-sm text-[15px] leading-relaxed shadow-sm"
               >
-                <StreamingText text="Great question. Very young babies act as if things they can't see no longer exist — so when a parent leaves the room, it can feel like they've vanished for good. As object permanence develops, babies learn that people still exist when out of sight, which is closely tied to their growing attachment." delay={0} />
+                <StreamingText text="Great question. A computer can't read words the way we do — it can only do arithmetic. So every word gets turned into a list of numbers the model can crunch. Doing math on those numbers is how a chatbot can work with language at all — there's no magic, just numbers at a huge scale." delay={0} />
               </motion.div>
             )}
           </div>
@@ -118,9 +118,9 @@ export function Scene3({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
           <div className="mt-6 w-full min-h-24 border border-border rounded-xl bg-background p-3 flex items-end shadow-inner relative z-10">
             <div className="w-full flex justify-between items-center pr-2">
               <div className="text-foreground text-[15px] font-medium pl-2 relative w-full h-full flex items-center">
-                {phase === 1 && <TypewriterText text="Why do babies cry when a parent leaves the room?" speed={25} />}
+                {phase === 1 && <TypewriterText text="Why does AI turn words into numbers?" speed={25} />}
                 {phase >= 2 && phase < 4 && <span className="text-muted-foreground font-normal">Ask a question about this section...</span>}
-                {phase >= 4 && <TypewriterText text="So when do babies learn that hidden things still exist?" speed={20} />}
+                {phase >= 4 && <TypewriterText text="So is the whole model just a big pile of numbers?" speed={20} />}
                 {((phase >= 1 && phase < 2) || phase >= 4) && (
                   <motion.div className="w-0.5 h-5 bg-primary ml-1" animate={{ opacity: [1, 0] }} transition={{ repeat: Infinity, duration: 0.8 }} />
                 )}

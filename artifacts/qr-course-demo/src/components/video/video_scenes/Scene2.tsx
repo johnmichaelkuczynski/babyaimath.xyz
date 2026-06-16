@@ -64,7 +64,7 @@ export function Scene2({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
       {/* Left Pane: Lecture Content */}
       <div className="w-1/2 h-full border-r border-border p-12 overflow-hidden flex flex-col relative">
         <div className="text-xs font-bold tracking-widest text-muted-foreground mb-4">UNIT 1</div>
-        <h1 className="text-3xl font-serif text-primary mb-8">1.1 What developmental psychology is</h1>
+        <h1 className="text-3xl font-serif text-primary mb-8">1.1 Why AI is really math</h1>
         
         <div className="flex bg-muted/50 rounded-lg p-1 w-fit mb-10 border border-border">
           <div className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${phase < 1 ? 'bg-white shadow-sm text-primary' : 'text-muted-foreground'}`}>Short</div>
@@ -73,12 +73,12 @@ export function Scene2({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
         </div>
 
         <div className="prose prose-sm max-w-none text-foreground/80 space-y-6">
-          <h2 className="font-serif text-2xl text-primary">What developmental psychology is</h2>
+          <h2 className="font-serif text-2xl text-primary">Why AI is really math</h2>
           <p>
-            Developmental psychology is the study of how people grow and change — from the first moments of infancy, through childhood and the teenage years, all the way into old age.
+            AI math is the study of how machines learn — and at its heart it's surprisingly simple: everything a model does comes down to numbers and arithmetic, just at an enormous scale.
           </p>
           <p>
-            Change isn't random. There are patterns to how minds and bodies develop across the lifespan. Understanding those patterns helps us care for children and make sense of our own growth.
+            A chatbot's reply can feel like magic, but it isn't. There are patterns in how a model turns words into numbers and back again. Understanding those patterns helps us see what AI is really doing.
           </p>
           
           <AnimatePresence>
@@ -90,10 +90,10 @@ export function Scene2({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                 className="space-y-6"
               >
                 <p>
-                  Growth is rarely about a single cause. Our genes, the people around us, and the experiences we have all shape who we become — sometimes a little, sometimes a lot.
+                  A model's answer is rarely about a single number. Millions of tiny values — the model's "weights" or dials — work together to shape what it says, sometimes a little, sometimes a lot.
                 </p>
                 <p>
-                  For example, two children raised in the same home can turn out very differently. Developmental psychology asks why — and uses the answer to help children thrive at every stage of life.
+                  For example, two models trained on the same data can behave very differently. AI math asks why — and uses the answer to help us build models that learn well.
                 </p>
               </motion.div>
             )}
@@ -120,9 +120,9 @@ export function Scene2({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
               >
                 <div className="mb-4 text-xs font-semibold text-muted-foreground uppercase tracking-widest">Starter questions for this section</div>
                 <div className="flex flex-wrap gap-2 mb-6">
-                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">Why do babies cry when a parent leaves the room?</div>
-                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">Two children grow up in the same home but turn out differently. Why?</div>
-                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">What is object permanence, and when do babies learn it?</div>
+                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">Why does AI turn words into numbers?</div>
+                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">Two models train on the same data but behave differently. Why?</div>
+                  <div className="px-3 py-1.5 rounded-full border border-border text-sm text-primary bg-muted/30">What is a "weight" in a model, and why does it matter?</div>
                 </div>
                 <div className="w-full h-24 border border-border rounded-lg bg-muted/20 p-3 text-muted-foreground text-sm flex items-end shadow-inner">
                   <div className="w-full flex justify-between">
@@ -157,7 +157,7 @@ export function Scene2({ setCursorPos, setIsClicking }: { setCursorPos: (pos: {x
                     className="p-6 border border-border rounded-xl shadow-sm bg-white"
                   >
                     <p className="text-foreground font-medium mb-6">
-                      A baby happily plays with a toy, but cries the moment a parent hides it under a blanket. What does this suggest about how the infant mind develops?
+                      A friend says a chatbot "understands" language the way a person does. Using what you've learned, explain in plain words why its replies are really just numbers and arithmetic.
                     </p>
                     <div className="w-full h-12 border border-border rounded-md bg-muted/10 mb-4 px-3 flex items-center text-muted-foreground">Type your answer...</div>
                     <div className="px-4 py-2 bg-primary text-white rounded-md text-sm font-medium w-fit ml-auto">Submit</div>

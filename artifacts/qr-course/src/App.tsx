@@ -235,13 +235,13 @@ function ClerkProviderWithRoutes() {
         signIn: {
           start: {
             title: "Welcome back",
-            subtitle: "Sign in to continue your Developmental Psychology for Children course",
+            subtitle: "Sign in to continue your Baby AI Math course",
           },
         },
         signUp: {
           start: {
             title: "Create your account",
-            subtitle: "Start your developmental psychology journey with Developmental Psychology for Children",
+            subtitle: "Start your AI math journey with Baby AI Math",
           },
         },
       }}
