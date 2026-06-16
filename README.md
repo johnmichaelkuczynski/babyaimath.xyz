@@ -28,9 +28,6 @@ This is a [pnpm](https://pnpm.io/) workspace monorepo. The course runs as severa
 artifacts/
   qr-course/        # React + Vite frontend (the student app)
   api-server/       # Express API: lessons, tutor, practice, grading, detection, diagnostics
-  course-promo/     # The promotional video (React + Framer Motion), exportable to MP4
-  qr-course-demo/   # A real-React product walkthrough video
-  diagnostics-demo/ # A video of the operator self-tests
 lib/
   db/               # Drizzle ORM schema + Postgres connection
   api-spec/         # OpenAPI contract → generated React Query hooks + Zod validators

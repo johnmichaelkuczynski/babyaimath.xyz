@@ -1,40 +1,10 @@
 uploads = []
 
 [[generated]]
-id = "uM7_r5QfH4ARQSMJWuxk5"
-uri = "file://artifacts/diagnostics-demo/public/images/bg-navy-abstract.png"
-type = "image"
-title = "Navy blue abstract academic background"
-
-[[generated]]
-id = "7dGARkwxh8SWkd6ZAqyUT"
-uri = "file://artifacts/diagnostics-demo/public/images/bg-balance-scale.png"
-type = "image"
-title = "Ethical balance scale abstract"
-
-[[generated]]
 id = "LlWeR1g6eMzYo8DqLObvT"
 uri = "file://attached_assets/generated_images/abstract_cinematic_dark_navy_2c15.png"
 type = "image"
 title = "generated_image"
-
-[[generated]]
-id = "2TBBM8OOZM4OOKUEkwIHz"
-uri = "file://artifacts/course-promo/public/images/ai-tutor.png"
-type = "image"
-title = "Friendly AI robot avatar"
-
-[[generated]]
-id = "5Vucl_u-03TJXnw86HQH4"
-uri = "file://artifacts/course-promo/public/images/data-shapes.png"
-type = "image"
-title = "Fun geometric data shapes"
-
-[[outputs]]
-id = "k9ub7M-_NtEMTP4gQFmL8"
-uri = "file://artifacts/qr-course-demo/public/audio/bg_music.mp3"
-type = "audio"
-title = "background music"
 
 [[outputs]]
 id = "zpoa4kJaFwLQ67_UaLoks"
@@ -47,24 +17,6 @@ id = "gBlmXbiu3K5FNCNv2fX9f"
 uri = "file://README.md"
 type = "text"
 title = "README — Baby AI Math"
-
-[[outputs]]
-id = "FqMnfCzm6r7Jw0r0ejNvV"
-uri = "file://artifacts/diagnostics-demo/public/audio/bg_music.mp3"
-type = "audio"
-title = "background music"
-
-[[outputs]]
-id = "7Gk126T-Bb4dRx8JdJ-dH"
-uri = "file://artifacts/course-promo/public/audio/bg_music.mp3"
-type = "audio"
-title = "background music"
-
-[[outputs]]
-id = "xwqMN58ueq6FTNmUIZXDo"
-uri = "file://artifacts/course-promo/YOUTUBE_DESCRIPTION.md"
-type = "text"
-title = "YouTube Description — Course Promo Video"
 
 [[outputs]]
 id = "IhlBFpvwhqNicclr5C_QR"
