@@ -1,10 +1,8 @@
 # YouTube — Basic AI Math
 
-## 🎬 Title options (pick one)
+## 🎬 Title
 
-1. Basic AI Math — an AI course that teaches, tutors & grades itself
-2. I built an AI-powered course on the mathematics behind AI (it even catches AI cheating)
-3. Inside the Machine's Mind — the mathematical foundations of modern AI
+Basic AI Math — AI-Powered Course
 
 ---
 
