@@ -1,6 +1,6 @@
 kind = "video"
 previewPath = "/course-video/"
-title = "Baby AI Math — Walkthrough"
+title = "Basic AI Math — Walkthrough"
 version = "1.0.0"
 id = "artifacts/course-video"
 router = "path"

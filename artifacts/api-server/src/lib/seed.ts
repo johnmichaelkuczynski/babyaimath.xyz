@@ -14,7 +14,7 @@ import { logger } from "./logger";
 // the value stored in seed_meta; a mismatch forces a full re-seed, so content
 // edits self-heal in every environment (including a republished production)
 // without a manual database wipe.
-const SEED_CONTENT_VERSION = "2026-06-15-baby-ai-math-v1";
+const SEED_CONTENT_VERSION = "2026-06-16-basic-ai-math-v2";
 
 type SeedTopic = {
   slug: string;
@@ -26,7 +26,7 @@ type SeedTopic = {
 };
 
 const TOPICS: SeedTopic[] = [
-  // Unit 1 — Baby AI Math: the math behind the machine
+  // Unit 1 — Basic AI Math: the math behind the machine
   {
     slug: "why-ai-is-really-math",
     title: "Why AI is really math",
@@ -35,7 +35,7 @@ const TOPICS: SeedTopic[] = [
     lectureTitle: "1.1 Why AI is really math (the idea behind the machine)",
     body: `# Why AI is really math
 
-You type a question and a chatbot answers in fluent, friendly sentences — it really does feel like there's a tiny mind inside the box. There isn't. Underneath the human-sounding words, an AI is doing one thing: an unimaginable amount of plain arithmetic on lists of numbers. This whole course is about that surprising truth — **AI is really math** — and the good news is the math behind it is far gentler than its reputation.
+You type a question and a chatbot answers in fluent, natural sentences — it really does feel like there's a mind inside the box. There isn't. Underneath the human-sounding words, an AI is doing one thing: an unimaginable amount of plain arithmetic on lists of numbers. This whole course is about that surprising truth — **AI is really math** — and the good news is the math behind it is far gentler than its reputation.
 
 ## Everything becomes numbers
 
@@ -155,7 +155,7 @@ When a translation model turns an English sentence into Spanish, your words ente
     lectureTitle: "1.5 Slopes and gradients: which way is 'better'?",
     body: `# Slopes and gradients
 
-So far we have a machine that turns inputs into outputs by pushing numbers through matrices. But out of the box, its millions of dials are set to nonsense and its answers are wrong. To learn, it has to figure out, for every single dial, *which way should I turn this to do better?* The mathematical idea that answers "which way is better" is the **slope**, and its grown-up version — the **gradient** — is the compass that all of AI learning is built on.
+So far we have a machine that turns inputs into outputs by pushing numbers through matrices. But out of the box, its millions of dials are set to nonsense and its answers are wrong. To learn, it has to figure out, for every single dial, *which way should I turn this to do better?* The mathematical idea that answers "which way is better" is the **slope**, and its higher-dimensional version — the **gradient** — is the compass that all of AI learning is built on.
 
 ## Slope: how steep, and which way
 
@@ -388,7 +388,7 @@ const ASSIGNMENTS: SeedAssignment[] = [
   },
   {
     kind: "test",
-    title: "Unit Test — Baby AI Math: The Math Behind the Machine",
+    title: "Unit Test — Basic AI Math: The Math Behind the Machine",
     weekNumber: 1,
     isTimed: true,
     timeLimitMinutes: 30,
@@ -471,7 +471,7 @@ const ASSIGNMENTS: SeedAssignment[] = [
   },
   {
     kind: "final",
-    title: "Final — Baby AI Math: The Math Behind the Machine",
+    title: "Final — Basic AI Math: The Math Behind the Machine",
     weekNumber: 1,
     isTimed: true,
     timeLimitMinutes: 45,
@@ -640,7 +640,7 @@ export async function seedReasoningPrimersIfMissing(): Promise<void> {
 }
 
 export async function seedIfEmpty(): Promise<void> {
-  // The course was migrated to the Baby AI Math syllabus. Detect the marker
+  // The course was migrated to the Basic AI Math syllabus. Detect the marker
   // topic; if present and the content version matches, the content is current
   // and we skip. This makes the seed self-healing across environments: a
   // database that still holds older content (e.g. a previous curriculum) is
@@ -689,7 +689,7 @@ export async function seedIfEmpty(): Promise<void> {
     const row = (existing.rows[0] ?? {}) as { n?: number };
     if ((row.n ?? 0) > 0) {
       logger.warn(
-        "Seed: stale course content detected — replacing with the Baby AI Math curriculum",
+        "Seed: stale course content detected — replacing with the Basic AI Math curriculum",
       );
       await tx.execute(
         sql`TRUNCATE TABLE answers, attempts, practice_attempts, practice_problems, practice_sessions, problems, assignments, lectures, topics, diagnostic_responses, diagnostic_attempts, diagnostic_items, diagnostic_assessments RESTART IDENTITY CASCADE`,

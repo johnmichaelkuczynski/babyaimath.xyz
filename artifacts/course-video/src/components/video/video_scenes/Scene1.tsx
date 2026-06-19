@@ -44,8 +44,8 @@ export function Scene1() {
               transition={{ duration: 0.8 }}
               className="text-[1.5vw] text-[#4A5568] max-w-2xl mt-6"
             >
-              A friendly, plain-language intro to AI. <br/>
-              Taught, tutored, and graded by AI. No prior math or coding.
+              A rigorous introduction to the mathematics of modern AI. <br/>
+              Taught, tutored, and graded by AI — from first principles.
             </motion.p>
           </motion.div>
         ) : (

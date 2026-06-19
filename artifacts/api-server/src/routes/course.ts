@@ -21,9 +21,9 @@ const router: IRouter = Router();
 
 const WEEK_TITLES: Record<number, { title: string; summary: string }> = {
   1: {
-    title: "Baby AI Math: The Math Behind the Machine",
+    title: "Basic AI Math: The Math Behind the Machine",
     summary:
-      "What the math behind AI really is and why a chatbot's reply is just numbers and arithmetic at huge scale, how words and images become lists of numbers (vectors and embeddings), how AI measures likeness with the dot product and distance, how matrices move information through a network, what slopes and gradients tell us, how gradient descent learns by rolling downhill, how probability lets AI handle uncertainty, and how backpropagation ties it all together — all in plain language, no prior math or coding required.",
+      "What the math behind AI really is and why a chatbot's reply is just numbers and arithmetic at huge scale, how words and images become lists of numbers (vectors and embeddings), how AI measures likeness with the dot product and distance, how matrices move information through a network, what slopes and gradients tell us, how gradient descent learns by rolling downhill, how probability lets AI handle uncertainty, and how backpropagation ties it all together — each idea built up from first principles, one step at a time.",
   },
 };
 
@@ -112,7 +112,7 @@ router.get("/course/overview", async (_req, res) => {
 
   res.json(
     GetCourseOverviewResponse.parse({
-      title: "Baby AI Math",
+      title: "Basic AI Math",
       weeks,
       totals: { assignmentsCompleted, assignmentsTotal, practiceCount },
     }),

@@ -235,13 +235,13 @@ function ClerkProviderWithRoutes() {
         signIn: {
           start: {
             title: "Welcome back",
-            subtitle: "Sign in to continue your Baby AI Math course",
+            subtitle: "Sign in to continue your Basic AI Math course",
           },
         },
         signUp: {
           start: {
             title: "Create your account",
-            subtitle: "Start your AI math journey with Baby AI Math",
+            subtitle: "Start your Basic AI Math course",
           },
         },
       }}

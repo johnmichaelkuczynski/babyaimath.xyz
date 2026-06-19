@@ -1,12 +1,12 @@
-# Baby AI Math — App Blueprint
+# Basic AI Math — App Blueprint
 
-A complete architectural blueprint for the Baby AI Math one-unit intro course on the math behind AI. This document is the single reference for what the app does, how it's wired, and the contracts between pieces. For day-to-day commands and gotchas see `replit.md`.
+A complete architectural blueprint for the Basic AI Math one-unit intro course on the math behind AI. This document is the single reference for what the app does, how it's wired, and the contracts between pieces. For day-to-day commands and gotchas see `replit.md`.
 
 ---
 
 ## 1. Product summary
 
-Baby AI Math is a self-paced, single-user, no-login web course covering a one-unit, plain-language intro to the math behind artificial intelligence (8 topics, from "why AI is really math" through backpropagation). Students read AI-rewritten lecture notes at three lengths, ask an AI tutor scoped to the section they're reading, drill on adaptive practice problems, and submit homework / a unit test / a final that are AI-graded and AI-detection-screened.
+Basic AI Math is a self-paced, single-user, no-login web course covering a one-unit, plain-language intro to the math behind artificial intelligence (8 topics, from "why AI is really math" through backpropagation). Students read AI-rewritten lecture notes at three lengths, ask an AI tutor scoped to the section they're reading, drill on adaptive practice problems, and submit homework / a unit test / a final that are AI-graded and AI-detection-screened.
 
 The product surface is two deployable artifacts in one pnpm monorepo:
 

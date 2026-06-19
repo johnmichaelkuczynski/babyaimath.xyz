@@ -1,24 +1,24 @@
-# 🔎 Baby AI Math
+# 🔎 Basic AI Math
 
-**A Friendly, One-Unit Intro to the Math Behind AI That Teaches, Tutors, and Proofs Itself — for Curious Students and Adults Alike**
+**A Rigorous, One-Unit Introduction to the Mathematics Behind Modern AI That Teaches, Tutors, and Proofs Itself — Built for Researchers and Professionals Entering the Field**
 
 ---
 
 ## 🧩 Overview
 
-Baby AI Math is a self-paced, single-user web course that delivers a friendly, plain-language introduction to the math behind artificial intelligence — taught, tutored, drilled, and graded entirely by AI, with built-in academic-integrity enforcement. No prior math or coding required; every idea is explained intuitively in plain words rather than heavy formulas.
+Basic AI Math is a self-paced, single-user web course on the mathematics behind artificial intelligence — taught, tutored, drilled, and graded entirely by AI, with built-in academic-integrity enforcement. A complete one-unit curriculum builds the subject from first principles, one idea at a time, rather than leaning on heavy formulas.
 
-It turns the everyday wonder of *asking how a chatbot actually works* into one product: read each lesson at the depth you want, ask a tutor scoped to the exact section you're on, drill questions whose difficulty adapts to you in real time, and submit homework, a unit test, and a final that are AI-graded with feedback and screened for AI-generated answers. The material is kept approachable and concrete — it explains how AI is really just numbers and arithmetic at huge scale, from turning words into vectors to teaching a network through backpropagation.
+It turns the question *how does a chatbot actually work?* into one product: read each lesson at the depth you want, ask a tutor scoped to the exact section you're on, drill questions whose difficulty adapts to you in real time, and submit homework, a unit test, and a final that are AI-graded with feedback and screened for AI-generated answers. The material is concrete and built up step by step — it explains how AI is, underneath, numbers and arithmetic at huge scale, from turning words into vectors to teaching a network through backpropagation.
 
 The curriculum is organized into **one unit and 8 topics**: 1.1 why AI is really math; 1.2 numbers as meaning (vectors and embeddings); 1.3 measuring likeness (the dot product and distance); 1.4 matrices (how a network moves information); 1.5 slopes and gradients (which way is better?); 1.6 gradient descent (learning by rolling downhill); 1.7 probability (how AI handles uncertainty and guesses); and 1.8 backpropagation (how the whole thing teaches itself).
 
-Designed for **middle schoolers, curious adults wanting brief but meaningful exposure, instructors evaluating AI-taught coursework, and researchers studying AI academic integrity**, Baby AI Math pairs a real curriculum with two layers of AI-authorship detection — surfacing not just *whether* the writing looks AI-generated, but whether the *act of producing it* did.
+Designed for **researchers and professionals entering the discipline, instructors evaluating AI-taught coursework, and researchers studying AI academic integrity**, Basic AI Math pairs a real curriculum with two layers of AI-authorship detection — surfacing not just *whether* the writing looks AI-generated, but whether the *act of producing it* did.
 
 ---
 
 ## 🧠 What It Does
 
-- **One-Unit Structured Curriculum** — A complete plain-language intro syllabus across 8 topics. The unit ships with lessons, two homework sets, a timed unit test, and a cumulative final exam.
+- **One-Unit Structured Curriculum** — A complete syllabus across 8 topics. The unit ships with lessons, two homework sets, a timed unit test, and a cumulative final exam.
 - **Three-Depth Lessons** — Every lesson is available at **Short / Medium / Long** length, AI-rewritten while preserving the same examples and learning objectives. Skim the concept, expand it on demand, or read the deeper cut.
 - **Section-Scoped AI Tutor** — Ask a question about the paragraph you're reading and the answer streams back token-by-token, grounded in that exact lecture section. Suggested starter questions are pre-generated per lecture.
 - **Adaptive Topic Practice** — Generated problem sets that move difficulty up after a streak and down after a miss, with explanations on every answer. Per-session difficulty persists, so each drill picks up where the last one left off.
@@ -48,7 +48,7 @@ Designed for **middle schoolers, curious adults wanting brief but meaningful exp
 
 ## 📊 Designed For
 
-- **Middle Schoolers & Curious Adults:** A complete, plain-language intro to the math behind AI delivered with on-demand tutoring and adaptive practice — no instructor and no prior math or coding required.
+- **Researchers & Professionals Entering the Field:** A complete, rigorous grounding in the mathematics behind AI delivered with on-demand tutoring and adaptive practice — no instructor required.
 - **Instructors & Curriculum Designers:** A working reference for what AI-taught, AI-graded, AI-detection-screened coursework actually looks like end-to-end.
 - **Academic-Integrity Researchers:** A live testbed for layered AI-authorship detection that combines text-based classification with behavioral keystroke evidence.
 - **Product & Engineering Teams:** A reference implementation of contract-first full-stack architecture, streaming AI UX, and self-diagnostic operator tooling in a Replit pnpm monorepo.
@@ -57,14 +57,15 @@ Designed for **middle schoolers, curious adults wanting brief but meaningful exp
 
 ## 💡 Core Idea
 
-Baby AI Math reframes an AI-taught course as a *closed accountability loop*.
+Basic AI Math reframes an AI-taught course as a *closed accountability loop*.
 
 It doesn't just teach the material and grade the homework — it **teaches**, **tutors**, **drills**, **grades**, **detects misuse**, and **proves the whole pipeline still works** with a single click. The result is a self-paced course that students can actually trust to be fair, and that instructors can actually trust to be honest.
 
-**Baby AI Math — where the curriculum, the tutor, the grader, and the integrity check all live in one room.**
+**Basic AI Math — where the curriculum, the tutor, the grader, and the integrity check all live in one room.**
 
 ---
 
 ## 👤 User preferences
 
 - The user prefers to **convert the existing app in place** (e.g. replacing the prior course content/branding with the new subject) rather than create a standalone clone — keep all functionality and format intact when making content/branding changes.
+- The course audience is **adults** — typically PhD students and professors entering a new discipline — **never** children. Do not use "baby", "child"/"children", "kid"/"kid-friendly", "middle schooler", "grown-ups", or "friendly" framing, and do not lead with "no math!"/"no coding" claims. Describe it as a **basic/foundational but substantial and rigorous** course, emphasizing the depth and wealth of its content.
