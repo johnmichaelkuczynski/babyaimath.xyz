@@ -538,11 +538,8 @@ export default function LectureView() {
                         data-testid="button-prev-lecture"
                       >
                         <ArrowLeft className="w-4 h-4 text-muted-foreground group-hover:text-primary shrink-0" />
-                        <span className="flex flex-col min-w-0">
-                          <span className="text-xs uppercase tracking-wider text-muted-foreground">
-                            Previous
-                          </span>
-                          <span className="font-medium truncate">{prevLecture.title}</span>
+                        <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                          Previous
                         </span>
                       </button>
                     </Link>
@@ -555,11 +552,8 @@ export default function LectureView() {
                         className="group w-full h-full text-right rounded-lg border border-primary/40 bg-primary/5 hover:border-primary transition-colors p-4 flex items-center justify-end gap-3"
                         data-testid="button-next-lecture"
                       >
-                        <span className="flex flex-col min-w-0 items-end">
-                          <span className="text-xs uppercase tracking-wider text-primary/80">
-                            Next lecture
-                          </span>
-                          <span className="font-medium truncate">{nextLecture.title}</span>
+                        <span className="text-xs uppercase tracking-wider text-primary/80">
+                          Next lecture
                         </span>
                         <ArrowRight className="w-4 h-4 text-primary shrink-0" />
                       </button>
