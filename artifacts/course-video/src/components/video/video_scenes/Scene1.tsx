@@ -36,7 +36,7 @@ export function Scene1() {
               transition={{ duration: 0.8 }}
               className="text-[4vw] font-display font-bold text-[#1A2B3D] leading-tight"
             >
-              The math behind the machine.
+              Boost Your Functional Intelligence
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -44,7 +44,7 @@ export function Scene1() {
               transition={{ duration: 0.8 }}
               className="text-[1.5vw] text-[#4A5568] max-w-2xl mt-6"
             >
-              A rigorous introduction to the mathematics of modern AI. <br/>
+              A rigorous introduction to how reasoning tests work — and how to beat them. <br/>
               Taught, tutored, and graded by AI — from first principles.
             </motion.p>
           </motion.div>

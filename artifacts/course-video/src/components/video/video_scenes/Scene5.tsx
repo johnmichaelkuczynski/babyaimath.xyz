@@ -4,8 +4,8 @@ import { AppShell } from '../AppShell';
 
 export function Scene5() {
   const [phase, setPhase] = useState(0);
-  const question = "Why do similar words end up close together?";
-  const answer = "Because during training, the AI adjusted the coordinates based on context. Words that appear in similar sentences get nudged closer together in the math space.";
+  const question = "How do I know which rule the series is using?";
+  const answer = "Test the relationship between adjacent terms. Check the differences first, then the ratios. Whichever operation stays consistent across the whole sequence is the rule — then apply it once more to find the next term.";
   const [typedQ, setTypedQ] = useState("");
   const [typedA, setTypedA] = useState("");
 

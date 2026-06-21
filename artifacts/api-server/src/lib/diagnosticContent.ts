@@ -3,9 +3,9 @@
 //
 // Two instruments, each offered at FOUR time-points (phases) so a student can
 // gauge themselves before, during, and after the course:
-//   - subject  — AI Math subject-specific reasoning. Realistic short cases
-//     about the course material (the math behind AI); the best-supported answer
-//     is keyed first.
+//   - subject  — Functional Intelligence subject-specific reasoning. Realistic
+//     short cases and puzzles about the course material (reasoning-test skills);
+//     the best-supported answer is keyed first.
 //   - general  — General Reasoning. Genuine reasoning items spanning analysis,
 //     inference, evaluation, deduction, and induction (NOT a "docility"/agree-
 //     with-authority test).
@@ -86,27 +86,27 @@ export type GenSpec = { topicFocus: string; level: string };
 const SUBJECT_SPECS: Record<Phase, GenSpec> = {
   before: {
     level:
-      "Intro level: answerable by a thoughtful newcomer reasoning carefully, BEFORE any lessons. Do not assume prior course knowledge or technical terms. No calculations — reward plain-language reasoning.",
+      "Intro level: answerable by a thoughtful newcomer reasoning carefully, BEFORE any lessons. Do not assume prior course knowledge or jargon. No heavy calculation — reward plain-language reasoning about a concrete puzzle or test-taking situation.",
     topicFocus:
-      "What 'AI is really math' means and how to think about it: that an AI, however human it sounds, is doing an enormous amount of plain arithmetic on lists of numbers rather than truly understanding; that everything (text, images, sound) is first turned into numbers; that a model is a giant pile of tunable numbers ('weights') that learning adjusts; and that AI is math, not magic — so it has no secret wisdom and can be confidently wrong.",
+      "How reasoning/aptitude tests work and how to think about them: that a matrix or series puzzle is not a memory or talent test but a hunt for the single hidden RULE that governs every case; that the disciplined move is to find the rule from the examples and apply it to the new one; that an analogy turns on a precise relationship rather than loose association; and that doing well is a learnable craft (find the rule, eliminate wrong options, manage time) rather than innate cleverness.",
   },
   third: {
     level:
-      "Early course level: covers roughly the first third of the unit. Plain language, short realistic cases, no calculations.",
+      "Early course level: covers roughly the first third of the unit. Plain language, short realistic puzzles/cases, light reasoning, no heavy calculation.",
     topicFocus:
-      "Topics 1.1-1.3: AI is really math (inputs become numbers; weights are tunable numbers; learning adjusts them; math not magic); vectors and embeddings (a vector is a list of numbers acting as a location, an embedding places similar-meaning things near each other so nearness IS meaning, and directions can carry meaning like king-man+woman≈queen); and measuring likeness (distance is how far apart two vectors are, the dot product checks whether they point the same way, cosine similarity ignores size — used for search and recommendations).",
+      "Topics 1.1-1.2: pattern grids (a 3x3 matrix is a system of rules — read one feature across each row and another down each column, the answer satisfies both, and the transformation families are quantity, rotation, movement, addition/subtraction, alternation; verify a candidate against EVERY feature); and number/letter series (a series hides one repeated operation — take differences first for arithmetic, ratios for geometric, split interleaved series into strands, and convert letters to alphabet positions to reduce a letter series to a number series).",
   },
   twothirds: {
     level:
-      "Mid course level: covers roughly the first two-thirds of the unit. Realistic short cases requiring a step of reasoning, no calculations.",
+      "Mid course level: covers roughly the first two-thirds of the unit. Realistic short puzzles/cases requiring a step of reasoning, no heavy calculation.",
     topicFocus:
-      "Topics 1.1-1.6: AI as math, vectors/embeddings, and measuring likeness, PLUS matrices (a grid of numbers that reshapes a vector by taking weighted blends of inputs, so one layer of a network is a matrix and stacking them moves information), slopes and gradients (a loss measures how wrong the model is, and the gradient is the per-dial slope pointing uphill toward more error, so you move the opposite way), and gradient descent (learning by repeatedly stepping downhill on the error landscape, where the learning-rate step size matters and you can get stuck in local valleys).",
+      "Topics 1.1-1.4: pattern grids and number/letter series, PLUS analogies (an analogy tests a relationship not a resemblance — build a precise 'bridge sentence' linking A to B, transfer it to C, tighten it until exactly one option survives, and guard against wrong-link or reversed-direction distractors) and odd-one-out (find the shared RULE before the exception, choose the cleaner/more fundamental rule when several compete, and prefer structural features over surface features like color or shape).",
   },
   after: {
     level:
-      "End-of-course level: covers the whole unit. Integrative short cases that apply more than one idea, no calculations.",
+      "End-of-course level: covers the whole unit. Integrative short puzzles/cases that apply more than one skill, no heavy calculation.",
     topicFocus:
-      "The full unit, topics 1.1-1.8: AI as math, vectors/embeddings, measuring likeness, matrices, slopes/gradients, and gradient descent, PLUS probability (AI assigns probabilities rather than knowing facts, a chatbot predicts the next word, confidence reflects pattern-fit not truth so it can be confidently wrong, and a little randomness/'temperature' adds variety) and backpropagation (the self-teaching loop: a forward pass guesses, the loss scores the error, blame is passed backward to give each weight a gradient, gradient descent nudges them, repeated millions of times).",
+      "The full unit, topics 1.1-1.6: pattern grids, number/letter series, analogies, and odd-one-out, PLUS spatial reasoning (a rotation preserves shape and handedness while a reflection/mirror-flip reverses handedness — the classic trap; treat each fold line as a mirror so a punch doubles per fold; track one feature and check handedness) and test-craft (budget time and never sink into one hard item, eliminate impossible options to raise guessing odds, and let the scoring rule decide whether to guess — answer everything when wrong answers aren't penalized).",
   },
 };
 
@@ -152,7 +152,7 @@ const FORMAT_LABEL: Record<DiagFormat, string> = {
 function instructionsFor(instrument: Instrument, format: DiagFormat): string {
   const subject =
     instrument === "subject"
-      ? "Answer each question about the math behind AI — these reward careful reasoning about realistic cases (no calculations), not memorized facts"
+      ? "Answer each question about reasoning-test skills — these reward careful reasoning about a concrete puzzle or test-taking case, not memorized facts"
       : "Answer each reasoning question — these measure how you think, not what you recall";
   const body =
     format === "mcq"
@@ -164,86 +164,86 @@ function instructionsFor(instrument: Instrument, format: DiagFormat): string {
 }
 
 // ===========================================================================
-// SUBJECT — AI Math blueprint cases (best answer keyed FIRST)
+// SUBJECT — Functional Intelligence blueprint cases (best answer keyed FIRST)
 // ===========================================================================
 
 const SUBJECT_BEFORE: DiagItem[] = [
   {
     prompt:
-      "A reporter asks an AI researcher how a chatbot manages to write a clever poem. The researcher would most likely explain it in terms of:",
+      "A friend says a 3x3 grid puzzle (shapes that change cell to cell, with one cell blank) is 'just a test of whether you're naturally good at seeing pictures.' What is the better way to understand what such a puzzle is really testing?",
     options: [
-      "an enormous amount of arithmetic on numbers producing a likely-looking output, not genuine understanding",
-      "a tiny conscious mind inside the computer feeling inspired",
-      "the computer copying the poem word-for-word from one place",
-      "the reporter's personal opinion of poetry",
+      "Whether you can find the hidden rule that governs every cell and apply it to the blank",
+      "Whether you happen to have a photographic visual memory",
+      "Whether you can guess faster than other people",
+      "Whether you already memorized this exact puzzle before",
     ],
     modelAnswer:
-      "The course's view is that AI is really math: a chatbot does a huge amount of arithmetic on numbers to produce a likely-looking output, rather than truly understanding or having a mind.",
+      "A grid puzzle is a hunt for the single hidden rule that produced every cell; you recover the rule from the filled cells and apply it to the blank, so it rewards a learnable method, not innate picture-sense.",
   },
   {
     prompt:
-      "A headline claims 'AI just KNOWS the right answer — it's basically magic.' How would someone who understands AI most likely treat this claim?",
+      "To solve 'glove is to hand as sock is to ___,' a careful test-taker should focus mainly on:",
     options: [
-      "As an oversimplification, since AI is arithmetic on numbers and can be confidently wrong",
-      "As obviously true and needing no evidence",
-      "As proof that AI can never make a mistake",
-      "As true only for very expensive AI",
+      "the precise relationship in the first pair, then transfer it to the second",
+      "whichever word simply feels most associated with socks",
+      "the longest or most unusual answer option",
+      "how the words sound when read aloud",
     ],
     modelAnswer:
-      "It is an oversimplification; AI is math, not magic — it works by arithmetic on numbers, has no secret wisdom, and can be confidently wrong.",
+      "An analogy tests a relationship, not a resemblance: name the precise link in the first pair (a glove is the snug covering worn on a hand) and transfer it (a sock is the snug covering worn on a foot), rather than grabbing a merely associated word.",
   },
   {
     prompt:
-      "Which description is most central to what this course says an AI really is?",
+      "Which view best fits how this course treats success on reasoning/aptitude tests?",
     options: [
-      "A system doing huge amounts of arithmetic on lists of numbers",
-      "A private library storing every fact ever written",
-      "A computer that feels emotions like a person",
-      "A short list of if-then rules written by hand",
+      "It is a learnable craft — find the rule, eliminate wrong options, and manage time",
+      "It is fixed innate cleverness you either have or don't",
+      "It is mostly luck on the day of the test",
+      "It depends only on how fast you can read",
     ],
     modelAnswer:
-      "At bottom an AI is doing an enormous amount of plain arithmetic on lists of numbers — that's the core 'AI is really math' idea.",
+      "The course treats test performance as a trainable craft: recognizing pattern types, finding the governing rule, eliminating impossible options, and budgeting time — not a fixed talent.",
   },
 ];
 
 const SUBJECT_THIRD: DiagItem[] = [
   {
     prompt:
-      "A search engine returns a great match for 'how to fix a flat tire' when you actually typed 'repairing a punctured wheel,' even though the two share almost no words. This is best understood as showing that:",
+      "In a 3x3 grid, the number of dots rises by one across each row and also by one down each column. A solver checks only that the answer fits the row rule and ignores the columns. Why is this risky?",
     options: [
-      "both phrases are turned into vectors that land near each other on a meaning map (an embedding)",
-      "the engine secretly stored every possible phrasing of every question",
-      "the two phrases share spelling the computer happened to notice",
-      "the engine guessed randomly and got lucky",
+      "The correct cell must satisfy BOTH the row rule and the column rule, and distractors are built to pass one and fail the other",
+      "Columns never matter in any grid puzzle",
+      "Rows are always wrong and only columns count",
+      "Checking two rules is impossible, so one is enough",
     ],
     modelAnswer:
-      "An embedding turns each phrase into a vector (a location), placing similar meanings close together, so differently-worded phrases that mean the same thing land near each other and match.",
+      "A grid is a system of rules along two axes; the blank is where the row rule and column rule intersect, so the answer must satisfy both. Distractors are engineered to match on one feature and fail another, so checking only the row invites a trap.",
     skillArea: "analysis",
   },
   {
     prompt:
-      "A music app turns songs into vectors, notices that a new song's vector sits close to ones you love, and recommends it. This best illustrates that:",
+      "Faced with the series 2, 6, 18, 54, ___, a test-taker isn't sure whether to add or multiply. What is the most reliable way to decide?",
     options: [
-      "AI finds similar things by measuring likeness between vectors (small distance or a large dot product)",
-      "the app has actually listened to and understood every song",
-      "recommendations are just whatever songs are newest",
-      "the app reads your mind directly",
+      "Take differences first (4, 12, 36 — not constant), then ratios (all 3) — a constant ratio means multiply, giving 162",
+      "Assume it is always addition and answer 90",
+      "Pick the largest option without checking",
+      "Average the four numbers and round",
     ],
     modelAnswer:
-      "The app represents songs as vectors and measures likeness (small distance / large dot product) between what you like and other songs, ranking the closest — no real understanding of the audio needed.",
+      "Check differences first; if they aren't constant but the ratios are (6÷2=18÷6=54÷18=3), the series is geometric, so multiply by 3 to get 162. Confirming a constant ratio is what justifies multiplying rather than guessing.",
     skillArea: "inference",
   },
   {
     prompt:
-      "Someone says, 'A computer can't possibly handle the meaning of words — meaning isn't a number.' Given the course, why would you push back?",
+      "A series lurches up and down — 1, 10, 2, 20, 3, 30 — and no single add-or-multiply rule fits the whole thing. What is the best move?",
     options: [
-      "Because an embedding turns meaning into a location in space, so similar meanings sit close and nearness stands in for meaning",
-      "Because computers secretly understand language exactly like people do",
-      "Because words don't really have any meaning at all",
-      "Because meaning is something that can never be studied",
+      "Split it into two interleaved strands (1,2,3 and 10,20,30) and analyze each separately",
+      "Conclude the series has no rule at all",
+      "Add all the numbers together for the answer",
+      "Assume a typo and ignore half the terms",
     ],
     modelAnswer:
-      "Embeddings make meaning a location in space: similar-meaning words are placed near each other, so for a machine nearness IS meaning — meaning becomes geometry it can compute with.",
+      "When one rule won't fit a bouncing series, it is usually two patterns braided together; separating the odd-position terms (1,2,3) from the even-position terms (10,20,30) reveals two clean series.",
     skillArea: "evaluation",
   },
 ];
@@ -251,83 +251,83 @@ const SUBJECT_THIRD: DiagItem[] = [
 const SUBJECT_TWOTHIRDS: DiagItem[] = [
   {
     prompt:
-      "A model's answers are terrible at first, but after training they're good — even though each training step barely changes anything. What does this best illustrate?",
+      "On the analogy 'thermometer is to temperature as ___,' two options seem to fit because the test-taker's mental link is just 'goes with temperature.' What fixes this?",
     options: [
-      "Gradient descent: repeated small downhill steps on the error landscape slowly drive the loss down",
-      "The model suddenly understood the topic in a single moment",
-      "Someone hand-set the millions of dials to the right values",
-      "Training does nothing; the model was always good",
+      "Tighten the bridge to a precise relation — 'an instrument used to measure a quantity' (clock:time, scale:weight) — until exactly one option survives",
+      "Pick whichever of the two options is listed first",
+      "Choose the option most associated with thermometers in general",
+      "Give up, since two options always fit analogies",
     ],
     modelAnswer:
-      "It shows gradient descent: many tiny downhill steps on the error landscape accumulate, carrying the model from high error to low error even though each step is small.",
+      "A loose bridge like 'goes with' admits several answers; tightening it to the exact relationship (the instrument used to measure a quantity) eliminates all but one, e.g. clock:time or scale:weight.",
     skillArea: "evaluation",
   },
   {
     prompt:
-      "During training, a model's error keeps bouncing up and down and never settles into a low value. What is the most likely explanation?",
+      "Asked which is the odd one out among violin, guitar, flute, and cello, a test-taker stares at each item hoping one looks strange. Why does the disciplined method work better?",
     options: [
-      "The learning rate (step size) is too big, so it overshoots the valley and bounces around",
-      "The model has no weights left to adjust",
-      "The data was turned into letters instead of numbers",
-      "Gradients always cause bouncing and nothing can be done",
+      "Find the rule most items share first (three are string instruments), then the flute is the exception that breaks it",
+      "The odd one is always the last item listed",
+      "Strangeness can be spotted in a single item without any rule",
+      "The shortest word is always the odd one out",
     ],
     modelAnswer:
-      "A too-large learning rate makes each step overshoot the low point, so the model leaps past the valley and bounces around instead of settling — smaller steps would help.",
-    skillArea: "inference",
+      "You can't name an outlier until you name the shared rule: violin, guitar, and cello are string instruments, so the flute (a wind instrument) is the exception. Characterizing the majority is what reveals the odd one.",
+    skillArea: "analysis",
   },
   {
     prompt:
-      "Inside one layer of a neural network, what is really happening to the numbers that flow through it?",
+      "Three figures in a set are shaded and one is unshaded, but they also differ in number of sides. A solver picks the unshaded figure as the odd one. What should make them reconsider?",
     options: [
-      "A matrix reshapes the vector, making each output a weighted blend of the inputs",
-      "The layer looks up the answer in a stored table",
-      "The layer ponders the meaning the way a person would",
-      "Nothing changes; the numbers pass straight through unaltered",
+      "Structural features (like number of sides) usually outrank surface features (like shading), so the deeper rule may point elsewhere",
+      "Shading is always the only thing that matters",
+      "Surface features are always the intended rule",
+      "Number of sides can never define a group",
     ],
     modelAnswer:
-      "A layer is a matrix that transforms the vector: each output number is a weighted blend of all the inputs (using learned weights), which is how information gets mixed and reshaped.",
-    skillArea: "analysis",
+      "Classification distractors lean on surface features like shading; the intended rule is usually structural (e.g. number of sides). When a surface rule and a structural rule disagree, prefer the structural one.",
+    skillArea: "evaluation",
   },
 ];
 
 const SUBJECT_AFTER: DiagItem[] = [
   {
     prompt:
-      "A chatbot states a made-up 'fact' in a calm, confident voice, and it turns out to be false. Which explanation fits what the course shows?",
+      "On a spatial item, an option matches the target shape in every way but looks 'subtly backwards,' and the task is to identify a rotation. How should this be read?",
     options: [
-      "AI assigns probabilities and predicts likely words; confidence reflects pattern-fit, not truth, so it can be confidently wrong",
-      "The chatbot is deliberately lying",
-      "A confident AI is always correct, so this can't really happen",
-      "It must simply have been hacked",
+      "It is almost certainly a mirror reflection — a trap — because rotation preserves handedness while reflection reverses it",
+      "It must be the correct answer, since it matches everything",
+      "Backwards-looking shapes are always simple rotations",
+      "Handedness is irrelevant to spatial puzzles",
     ],
     modelAnswer:
-      "AI produces probabilities and predicts likely words rather than knowing facts; its confidence reflects how well an answer fits learned patterns, not whether it's true, so confident-but-wrong is expected.",
+      "A rotation preserves handedness; a reflection reverses it (like left vs right hands). A shape that looks right but subtly backwards is the classic mirror-image trap offered when a rotation is required.",
     skillArea: "evaluation",
   },
   {
     prompt:
-      "After a wrong answer, a network adjusts millions of dials, even though no one tells it which ones were at fault. How should this be understood?",
+      "Halfway through a timed test with no penalty for wrong answers, a test-taker has burned three minutes on one hard item and is falling behind. What is the best move?",
     options: [
-      "Backpropagation assigns blame backward to give each weight a gradient, then gradient descent nudges them all",
-      "The network randomly changes dials and hopes for the best",
-      "A programmer fixes each dial by hand after every mistake",
-      "The network actually can't learn from its mistakes at all",
+      "Eliminate any impossible options, mark a best guess, flag it, and move on to bank easier points",
+      "Keep working only this item until it is solved",
+      "Leave it blank and refuse to guess",
+      "Erase previous answers to save time",
     ],
     modelAnswer:
-      "Backpropagation works backward from the error to assign each weight a share of the blame (a gradient), and gradient descent then nudges every weight a small step to reduce the loss.",
+      "Never sink time into one item: the minutes cost easier points elsewhere. Eliminate what you can, guess (a no-penalty blank is a guaranteed zero), flag it, and return only if time remains.",
     skillArea: "inference",
   },
   {
     prompt:
-      "A commentator says, 'AI literally understands and knows the truth — it's a digital mind.' Drawing on the unit, the strongest criticism is that:",
+      "Someone claims, 'Doing well on these reasoning tests is pure innate IQ — strategy can't help.' Drawing on the whole unit, the strongest rebuttal is that:",
     options: [
-      "AI is arithmetic on numbers that assigns probabilities; it has no real understanding and can be confidently wrong",
-      "AI really is a conscious mind, so the claim is fine",
-      "AI knows every truth there is, so the claim is fine",
-      "Nothing about AI can ever be studied",
+      "Performance is a craft: recognizing the pattern type, finding the governing rule, eliminating options, and budgeting time all measurably raise the score",
+      "Innate IQ is the only thing that ever matters",
+      "Reasoning tests are decided entirely by luck",
+      "There are no usable methods for these puzzles",
     ],
     modelAnswer:
-      "AI is math — arithmetic on numbers that outputs probabilities — not a knowing mind; it has no guaranteed access to truth and can be confidently wrong, so 'understands and knows the truth' overstates it.",
+      "The unit shows that learnable methods — classifying the item, recovering the rule across rows/columns or via differences/ratios, building precise analogy bridges, distinguishing rotations from reflections, and managing time and guessing — raise scores, so strategy clearly helps.",
     skillArea: "evaluation",
   },
 ];
@@ -440,7 +440,7 @@ const BASE_CONTENT: BaseContent[] = PHASE_ORDER.flatMap((phase) => {
     {
       instrument: "subject" as const,
       phase,
-      baseTitle: `AI Math Check — ${PHASE_LABEL[phase]}`,
+      baseTitle: `Functional Intelligence Check — ${PHASE_LABEL[phase]}`,
       items: subjectItems[phase],
     },
     {

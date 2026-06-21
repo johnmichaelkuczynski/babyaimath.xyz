@@ -1,18 +1,18 @@
-# YouTube — Basic AI Math
+# YouTube — Functional Intelligence
 
 ## 🎬 Title
 
-Basic AI Math — AI-Powered Course
+Functional Intelligence — AI-Powered Course
 
 ---
 
 ## 📝 Description (paste into YouTube)
 
-**Basic AI Math** is a rigorous, self-paced course on the mathematics behind modern artificial intelligence — taught, tutored, drilled, and graded entirely by AI, with built-in academic-integrity enforcement. It builds the subject from first principles for anyone entering the field: a complete one-unit curriculum that explains how AI is, underneath, numbers and arithmetic at scale — from turning words into vectors all the way to backpropagation.
+**Functional Intelligence** is a rigorous, self-paced course on how reasoning tests work — and how to beat them — taught, tutored, drilled, and graded entirely by AI, with built-in academic-integrity enforcement. It builds the subject from first principles for anyone entering the discipline: a complete one-unit curriculum that trains the core reasoning skills aptitude tests measure — from pattern grids all the way to test-craft.
 
 In this video you'll see the whole course in action:
 
-🔎 Eight topics — from "why AI is really math" all the way to "backpropagation: how the whole thing teaches itself"
+🔎 Six topics — from "pattern grids: finding the rule that fills the blank" all the way to "test-craft: timing, elimination, and smart guessing"
 📖 Three-depth lessons — read any topic Short, Medium, or Long, the same ideas at the depth you want
 💬 A section-scoped AI tutor that answers questions about the exact paragraph you're reading
 🎯 Adaptive practice that gets harder when you're on a streak and eases off when you're stuck
@@ -27,19 +27,19 @@ A complete curriculum, an AI tutor, an AI grader, and an integrity check — in 
 
 ## ⏱️ Chapters
 
-0:00 Inside the machine's mind
+0:00 Inside the test-taker's mind
 0:08 What the course is
 0:20 The AI tutor, lessons & adaptive practice
-0:35 Basic AI Math
+0:35 Functional Intelligence
 
 ---
 
 ## 🏷️ Hashtags
 
-#AImath #ArtificialIntelligence #MachineLearning #AIeducation #EdTech #OnlineLearning #HowAIWorks #DeepLearning
+#FunctionalIntelligence #ReasoningTests #AptitudeTests #CognitiveSkills #AIeducation #EdTech #OnlineLearning #CriticalThinking
 
 ---
 
 ## 🔍 Tags
 
-AI math, the math behind AI, how AI works, machine learning, AI tutor, AI education, edtech, online learning, adaptive learning, vectors and embeddings, dot product, matrices, gradient descent, backpropagation, probability, neural networks, self-paced course, AI grading, academic integrity
+functional intelligence, reasoning tests, aptitude tests, pattern grids, number and letter series, analogies, odd one out, spatial reasoning, test craft, AI tutor, AI education, edtech, online learning, adaptive learning, AI grading, academic integrity, cognitive ability, critical thinking, test prep

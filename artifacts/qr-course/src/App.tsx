@@ -235,13 +235,13 @@ function ClerkProviderWithRoutes() {
         signIn: {
           start: {
             title: "Welcome back",
-            subtitle: "Sign in to continue your Basic AI Math course",
+            subtitle: "Sign in to continue your Functional Intelligence course",
           },
         },
         signUp: {
           start: {
             title: "Create your account",
-            subtitle: "Start your Basic AI Math course",
+            subtitle: "Start your Functional Intelligence course",
           },
         },
       }}

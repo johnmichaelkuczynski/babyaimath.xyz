@@ -21,7 +21,7 @@ const PHASE_ORDER = ["before", "third", "twothirds", "after"];
 const INSTRUMENT_ORDER: Instrument[] = ["subject", "general"];
 
 const INSTRUMENT_LABELS: Record<Instrument, string> = {
-  subject: "AI Math",
+  subject: "Functional Intelligence",
   general: "General Reasoning",
 };
 
@@ -203,7 +203,7 @@ export default function Reasoning() {
             Diagnostic Checks
           </h1>
           <p className="text-muted-foreground">
-            Two kinds of check — <strong>AI Math</strong> (about the
+            Two kinds of check — <strong>Functional Intelligence</strong> (about the
             course material) and <strong>General Reasoning</strong> — offered at
             four points in your journey: before the course, one-third through,
             two-thirds through, and after. Pick any one anytime, in the format

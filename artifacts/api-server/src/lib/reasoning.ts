@@ -285,7 +285,7 @@ function deterministicFeedback(
         : " Your reasoning was solid across the items.";
     return `Thanks for working through this reasoning check.${overall?.value ? ` You scored ${overall.value}.` : ""}${weakLine} Remember that a strong answer follows only from the reasons given — distinguish what is stated, what is assumed, and what is merely plausible.`;
   }
-  return `Thanks for working through these AI-math cases.${overall?.value ? ` You scored ${overall.value}.` : ""} Strong answers here come from reasoning about the case — looking for multiple interacting factors, weighing how reliable the evidence is, and resisting single-cause or 'obvious' explanations.`;
+  return `Thanks for working through these functional-intelligence cases.${overall?.value ? ` You scored ${overall.value}.` : ""} Strong answers here come from working the puzzle's method — finding the governing rule, transferring the exact relationship, distinguishing a rotation from a mirror image, and resisting the option that merely 'looks right.'`;
 }
 
 export async function generateFeedback(
@@ -298,7 +298,7 @@ export async function generateFeedback(
     .join("\n");
   const system =
     instrument === "subject"
-      ? "You are an instructor giving warm, specific feedback on a student's AI-math reasoning check (realistic short cases about the course material). 2-4 sentences. Note their overall performance and offer one concrete way to reason better about cases. Use only the metrics provided; do not invent numbers. Plain prose, no markdown headings."
+      ? "You are an instructor giving warm, specific feedback on a student's functional-intelligence reasoning check (realistic short puzzles/cases about reasoning-test skills like grids, series, analogies, odd-one-out, spatial reasoning, and test-craft). 2-4 sentences. Note their overall performance and offer one concrete way to reason better about such cases. Use only the metrics provided; do not invent numbers. Plain prose, no markdown headings."
       : "You are a reasoning instructor giving warm, specific feedback on a student's general-reasoning check. 2-4 sentences. Note overall performance and the skill areas to strengthen, using only the metrics provided. Plain prose, no markdown headings.";
   const user = `Assessment: ${assessmentTitle}\nResult summary: ${summary.headline}\nMetrics:\n${metricsText}`;
   try {
@@ -412,17 +412,17 @@ async function generateSubjectVariant(
 ): Promise<GeneratedItemContent[]> {
   const spec = genSpecFor("subject", phase);
   const system =
-    "You are an assessment author writing ORIGINAL AI-math questions for an intro course. " +
-    "Every question must be a short, realistic CASE (a concrete scenario about how AI uses math) that rewards REASONING about the case, never recall of a definition or a one-word fact. " +
+    "You are an assessment author writing ORIGINAL functional-intelligence questions for a reasoning-test course. " +
+    "Every question must be a short, realistic CASE or PUZZLE (a concrete reasoning-test scenario — a pattern grid, a number/letter series, an analogy, an odd-one-out set, a spatial rotation/fold, or a timing/guessing decision) that rewards REASONING about the case, never recall of a definition or a one-word fact. " +
     "Each has exactly four answer options with one clearly best, well-supported answer. " +
-    "List the CORRECT option FIRST, followed by three plausible but worse distractors (an over-simple single-cause claim, an 'obvious'/sensational answer, or an irrelevant one). " +
+    "List the CORRECT option FIRST, followed by three plausible but worse distractors (an over-simple claim, a surface-feature/'looks-right' trap, or an irrelevant one). " +
     "Also write a one-sentence model answer explaining why the first option is best. " +
     "Keep the subject matter tasteful and age-appropriate — never graphic or sensational. " +
     `Difficulty: ${spec.level} ` +
     `Stay strictly within this scope: ${spec.topicFocus} ` +
     'Respond ONLY as JSON of the form {"items":[{"prompt":"short case ending in a question","options":["best","worse","worse","worse"],"modelAnswer":"why the first option is best"}]}.';
   const user =
-    `Write ${count} new, distinct AI-math case questions within the scope above.\n` +
+    `Write ${count} new, distinct functional-intelligence case/puzzle questions within the scope above.\n` +
     `For style only (do NOT copy these): ${JSON.stringify(examplePrompts)}.`;
   const out = await chatJson<{
     items?: { prompt?: unknown; options?: unknown; modelAnswer?: unknown }[];

@@ -25,7 +25,7 @@ export function Scene4() {
           {/* Left Column: Lecture */}
           <div className="flex-[3] flex flex-col border-r border-[#E2E8F0] bg-white h-full relative">
             <div className="p-4 border-b border-[#E2E8F0] flex items-center justify-between">
-              <div className="text-sm font-medium text-[#718096]">1.2 Numbers as meaning: vectors and embeddings</div>
+              <div className="text-sm font-medium text-[#718096]">1.2 Number and letter series: spotting what comes next</div>
               <div className="flex items-center bg-[#EFECE6] rounded-md p-1">
                 <div className={`px-3 py-1 text-xs font-medium rounded ${phase === 0 ? 'bg-white shadow text-[#1A2B3D]' : 'text-[#718096]'}`}>Short</div>
                 <div className={`px-3 py-1 text-xs font-medium rounded ${phase === 1 ? 'bg-white shadow text-[#1A2B3D]' : 'text-[#718096]'}`}>Medium</div>
@@ -33,7 +33,7 @@ export function Scene4() {
               </div>
             </div>
             <div className="flex-1 p-10 overflow-hidden relative">
-              <motion.h1 className="text-3xl font-display font-bold text-[#1A2B3D] mb-6">Turning words into space</motion.h1>
+              <motion.h1 className="text-3xl font-display font-bold text-[#1A2B3D] mb-6">Spotting what comes next</motion.h1>
               
               <AnimatePresence mode="popLayout">
                 {phase === 0 ? (
@@ -44,8 +44,8 @@ export function Scene4() {
                     exit={{ opacity: 0, y: -10 }}
                     className="text-lg text-[#4A5568] leading-relaxed space-y-4"
                   >
-                    <p>A word becomes a list of numbers, and similar words land near each other.</p>
-                    <p>That's the core idea of an embedding. Instead of treating words as isolated symbols, we give them coordinates in a vast mathematical space.</p>
+                    <p>A series is an ordered sequence governed by a hidden rule, and your task is to recover that rule.</p>
+                    <p>That's the core idea behind series questions. Instead of guessing, you test each step for a consistent relationship — a difference, a ratio, or an alternating pattern.</p>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -54,12 +54,12 @@ export function Scene4() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-lg text-[#4A5568] leading-relaxed space-y-4"
                   >
-                    <p>A word becomes a list of numbers, and similar words land near each other.</p>
-                    <p>That's the core idea of an embedding. Instead of treating words as isolated symbols, we give them coordinates in a vast mathematical space.</p>
-                    <p>Think of it like a city map. If "king" and "queen" are close together, the system implicitly understands they are related concepts. The numbers aren't random; they encode <em>meaning</em>.</p>
+                    <p>A series is an ordered sequence governed by a hidden rule, and your task is to recover that rule.</p>
+                    <p>That's the core idea behind series questions. Instead of guessing, you test each step for a consistent relationship — a difference, a ratio, or an alternating pattern.</p>
+                    <p>Work it like an experiment. Compare adjacent terms, isolate the operation that holds across the whole sequence, then apply it once more. The rule isn't random; it encodes the <em>structure</em>.</p>
                     <div className="bg-[#FDFCFB] p-4 border border-[#E2E8F0] rounded-md font-mono text-sm mt-4 text-[#1A2B3D]">
-                      "apple" → [0.42, -0.11, 0.89, ...]<br/>
-                      "fruit" → [0.39, -0.15, 0.81, ...]
+                      2, 4, 8, 16, … → rule: ×2<br/>
+                      next term → 16 × 2 = 32
                     </div>
                   </motion.div>
                 )}

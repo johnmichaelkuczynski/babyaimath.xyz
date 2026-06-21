@@ -4,14 +4,12 @@ import { AppShell } from '../AppShell';
 
 export function Scene3() {
   const topics = [
-    "1.1 Why AI is really math",
-    "1.2 Numbers as meaning: vectors and embeddings",
-    "1.3 Measuring likeness: the dot product and distance",
-    "1.4 Matrices: how a network moves information",
-    "1.5 Slopes and gradients: which way is better?",
-    "1.6 Gradient descent: learning by rolling downhill",
-    "1.7 Probability: how AI handles uncertainty and guesses",
-    "1.8 Backpropagation: how the whole thing teaches itself (Capstone)"
+    "1.1 Pattern grids: finding the rule that fills the blank",
+    "1.2 Number and letter series: spotting what comes next",
+    "1.3 Analogies: how A-to-B locks onto C-to-what",
+    "1.4 Odd-one-out: what doesn't belong, and why",
+    "1.5 Spatial reasoning: rotating, folding, and seeing it in your head",
+    "1.6 Test-craft: timing, elimination, and smart guessing"
   ];
 
   return (
@@ -30,8 +28,8 @@ export function Scene3() {
             className="mb-8"
           >
             <div className="text-sm font-medium text-[#718096] mb-1">UNIT 1</div>
-            <h2 className="text-3xl font-display font-bold text-[#1A2B3D]">The math behind the machine</h2>
-            <p className="text-[#4A5568] mt-2">8 topics • Estimated time: 4 hours</p>
+            <h2 className="text-3xl font-display font-bold text-[#1A2B3D]">Functional Intelligence: How Reasoning Tests Work — and How to Beat Them</h2>
+            <p className="text-[#4A5568] mt-2">6 topics • Estimated time: 4 hours</p>
           </motion.div>
 
           <div className="flex-1 bg-white rounded-lg border border-[#E2E8F0] shadow-sm overflow-hidden flex flex-col relative">

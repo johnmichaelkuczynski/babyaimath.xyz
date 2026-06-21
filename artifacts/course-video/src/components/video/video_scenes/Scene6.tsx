@@ -25,7 +25,7 @@ export function Scene6() {
       <AppShell activeTab="Assignments">
         <div className="p-10 w-full h-full flex flex-col max-w-4xl mx-auto">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-display font-bold text-[#1A2B3D]">Practice: Dot Product</h2>
+            <h2 className="text-2xl font-display font-bold text-[#1A2B3D]">Practice: Number and letter series</h2>
             <div className="flex items-center gap-2 text-sm">
               <span className="text-[#718096]">Streak: 3</span>
               <div className="flex gap-1">
@@ -52,16 +52,16 @@ export function Scene6() {
             </AnimatePresence>
 
             <div className="text-lg text-[#1A2B3D] font-medium mb-6">
-              Calculate the dot product of vector A [2, 3] and vector B [4, -1]. Show your reasoning.
+              What comes next in the series 2, 4, 8, 16, …? Show your reasoning.
             </div>
 
             <div className="border border-[#1A2B3D] rounded-md p-4 mb-4 min-h-[150px] relative bg-[#FDFCFB]">
               <div className="font-mono text-[#1A2B3D]">
                 {phase >= 1 ? (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    A · B = (2 × 4) + (3 × -1)<br/>
-                    A · B = 8 - 3<br/>
-                    = 5
+                    Each term is the previous one × 2<br/>
+                    16 × 2 = 32<br/>
+                    = 32
                   </motion.div>
                 ) : (
                   <span className="text-[#718096] opacity-50">Type your answer here...</span>

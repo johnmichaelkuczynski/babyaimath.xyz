@@ -18,7 +18,7 @@ export default function Dashboard() {
           <h1 className="text-3xl font-serif font-bold text-primary mb-2">
             {overview ? overview.title : <Skeleton className="h-9 w-64" />}
           </h1>
-          <p className="text-muted-foreground">Welcome to your Basic AI Math course workspace.</p>
+          <p className="text-muted-foreground">Welcome to your Functional Intelligence course workspace.</p>
         </div>
 
         <ReasoningCallout phase="before" />

@@ -31,3 +31,13 @@ single-word concept-ID questions and was the one place that violated this.
 **How to apply:** Any new question-generation prompt must forbid definitions/one-word
 answers and demand a concrete case + reasoned answer. The semantic `gradeAnswer` grader
 already handles reasoned answers, so longer answers are safe to grade.
+
+## Easily-missed math-keyboard spot: tutor starter-question input
+The "all inputs incl tutor" keyboard mandate has a non-obvious hole: the per-lecture
+tutor *starter-question* "Try answering" inline input is a separate small component,
+not the main answer flow, and historically used a raw `<textarea>` with no keyboard.
+
+**Why:** It's the one tutor input that does NOT go through the shared `AnswerInput`
+component, so a grep for keyboard coverage can pass while this spot silently lacks it.
+**How to apply:** Route this input through `AnswerInput` (compact) too — never a bare
+textarea — so every tutor-adjacent input has the math keyboard.

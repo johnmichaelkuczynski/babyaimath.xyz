@@ -14,7 +14,7 @@ import { logger } from "./logger";
 // the value stored in seed_meta; a mismatch forces a full re-seed, so content
 // edits self-heal in every environment (including a republished production)
 // without a manual database wipe.
-const SEED_CONTENT_VERSION = "2026-06-16-basic-ai-math-v2";
+const SEED_CONTENT_VERSION = "2026-06-20-functional-intelligence-v1";
 
 type SeedTopic = {
   slug: string;
@@ -26,250 +26,186 @@ type SeedTopic = {
 };
 
 const TOPICS: SeedTopic[] = [
-  // Unit 1 — Basic AI Math: the math behind the machine
+  // Unit 1 — Functional Intelligence: how reasoning tests work, and how to beat them
   {
-    slug: "why-ai-is-really-math",
-    title: "Why AI is really math",
+    slug: "pattern-grids",
+    title: "Pattern grids",
     weekNumber: 1,
-    blurb: "When a chatbot writes a poem it feels like magic — but underneath it is all numbers and arithmetic, done at enormous scale.",
-    lectureTitle: "1.1 Why AI is really math (the idea behind the machine)",
-    body: `# Why AI is really math
+    blurb: "A grid of shapes with one cell missing isn't a memory test — it's a hunt for the single rule that governs every cell at once.",
+    lectureTitle: "1.1 Pattern grids: finding the rule that fills the blank",
+    body: `# Pattern grids
 
-You type a question and a chatbot answers in fluent, natural sentences — it really does feel like there's a mind inside the box. There isn't. Underneath the human-sounding words, an AI is doing one thing: an unimaginable amount of plain arithmetic on lists of numbers. This whole course is about that surprising truth — **AI is really math** — and the good news is the math behind it is far gentler than its reputation.
+The matrix puzzle — a grid of figures with one cell left blank and a row of candidate answers beneath it — is the signature item of almost every reasoning test, from the Raven's Progressive Matrices to the abstract sections of professional aptitude exams. It looks like a test of cleverness or visual memory. It is neither. It is a test of one disciplined habit: finding the **rule** that every filled cell obeys, then applying that rule to the empty one. This unit's first job is to make that habit explicit.
 
-## Everything becomes numbers
+## A grid is a system of rules, not a picture
 
-A computer can't think about the *word* "cat" or the *idea* of a sunset. The very first thing any AI does is turn whatever you give it — text, images, sound — into numbers. A word becomes a list of numbers; a photo becomes a giant grid of numbers (one per dot of color); a sound becomes numbers measuring the wave. Once the world is numbers, the machine can do the only thing it's good at: arithmetic. Every clever-looking thing AI does starts with this quiet translation step.
+When you first glance at a 3×3 grid of shapes, your eye tries to take it in as a whole image, and the whole image is overwhelming — too many shapes, colors, and positions at once. The move that unlocks the puzzle is to stop seeing a picture and start seeing a *system*: a set of cells whose contents are determined by hidden rules running across the rows and down the columns. The blank is not missing information; it is the one cell where the rules have not yet been carried out. Your task is to recover the rules from the cells you *can* see, then run them forward.
 
-## A giant pile of tunable dials
+## Read across, then read down
 
-Inside the model is a huge collection of numbers called **weights** — picture millions or billions of little dials. When numbers flow through the model, each dial multiplies and nudges them along the way. The exact settings of all those dials are what make one model good at writing code and another good at describing pictures. The model isn't a brain full of facts; it's a mountain of dials whose particular settings happen to produce useful answers.
+Almost every grid encodes its logic along two independent axes. **Across each row**, some feature changes in a consistent way — a shape rotates a fixed amount, a count goes up by one, a shading darkens step by step. **Down each column**, a second feature changes in its own consistent way. The reliable method is to pick one feature and trace it across a row: does it grow, rotate, alternate, accumulate? Then trace a second feature down a column. When you can state both the row rule and the column rule in a plain sentence, the missing cell is simply where the two rules intersect — and crucially, the correct answer must satisfy *both* at once.
 
-## Learning is just adjusting numbers
+## The recurring transformation families
 
-So where do the right dial settings come from? Nobody sets them by hand — there are far too many. Instead the model **learns** them: it makes a guess, sees how wrong it was, and nudges the dials a tiny bit toward "less wrong." Do that billions of times on billions of examples and the dials drift into settings that work. Everything people call "training" or "learning" is, at bottom, this patient adjusting of numbers — no understanding required, just relentless tuning.
+The transformations tests reuse are a small, learnable set. **Quantity:** a feature counts up or down (one dot, two dots, three). **Rotation:** a shape turns by a fixed angle each step. **Movement:** an element travels around the cell — corner to corner, clockwise. **Addition and subtraction:** the third cell in a row is the first combined with, or stripped of, the second (overlay two figures, or remove the shared parts). **Alternation:** a feature flips back and forth, on-off-on. Once you recognize you are looking at, say, "rotation across the row and addition down the column," the universe of possible answers collapses to one.
 
-## Why "math, not magic" matters
+## Isolate one feature at a time
 
-Seeing AI as math instead of magic changes how you treat it. Magic is mysterious and trustworthy; math is understandable and checkable. Because it's all arithmetic on numbers, AI has no secret wisdom — it can be confidently wrong, it reflects whatever examples it learned from, and it can be measured, tested, and improved. Knowing the machine is "just math" is exactly what lets us use it well and not be fooled by it.
+The single most common mistake is trying to track shape, count, shading, and orientation simultaneously and drowning in the combinations. Disciplined solvers decompose: hold every feature constant except one, work out that one feature's rule completely, then move to the next. Distractor answers are engineered to be right on three features and wrong on the fourth — they punish exactly the solver who stops checking after the first feature that matches. So once you predict what belongs in the blank, verify the candidate against *every* feature you identified before you commit.
 
 ## In the real world
 
-When you send one short message to a large chatbot, your words are turned into numbers and pushed through billions of multiply-and-add steps before a single word of the reply appears — a stack of arithmetic so tall it needs warehouse-sized computers to run. The astonishing part isn't that a mind is thinking; it's that *pure arithmetic, at a scale humans can't picture, can look so much like thinking.* That gap between "simple math" and "feels like magic" is the mystery this course is here to take apart.`,
+The matrix puzzle endures because the skill it isolates — extracting an unstated rule from a handful of examples and extending it to a new case — is the core move of nearly all professional reasoning. A radiologist reads a sequence of scans for the rule of how a shadow is changing; an analyst reads three quarters of data and infers the pattern that predicts the fourth; a scientist sees a few results and proposes the law behind them. The grid strips that skill of all domain knowledge so that what remains is pure inference: *given these instances, what rule produced them, and what does it demand here?*`,
   },
   {
-    slug: "vectors-and-embeddings",
-    title: "Vectors and embeddings",
+    slug: "series",
+    title: "Number and letter series",
     weekNumber: 1,
-    blurb: "AI turns every word and idea into a point in space — and where that point sits is what 'meaning' becomes for a machine.",
-    lectureTitle: "1.2 Numbers as meaning: vectors and embeddings",
-    body: `# Vectors and embeddings
+    blurb: "A sequence with a blank at the end hides exactly one operation, applied over and over — find the operation and the next term writes itself.",
+    lectureTitle: "1.2 Number and letter series: spotting what comes next",
+    body: `# Number and letter series
 
-We said AI turns everything into numbers. But a single number can't capture much — how would one number hold the meaning of the word "ocean"? The trick is to use a *whole list* of numbers at once. That list is called a **vector**, and the clever way AI arranges those vectors so they actually carry meaning is called an **embedding.** This is one of the most beautiful ideas in the whole field.
+"2, 6, 18, 54, ___." A series problem hands you the first few outputs of a hidden machine and asks for the next one. The machine is almost always simple — a single operation repeated — and the entire challenge is to identify that operation from the evidence. This is the most procedural skill in the unit, which is good news: with a fixed checklist, series problems go from intimidating to nearly mechanical.
 
-## A vector is just a list of numbers
+## A series is one repeated operation
 
-A vector sounds intimidating, but it's nothing more than an ordered list of numbers, like \`[2, 5, 1]\`. You can think of it as a location: \`[2, 5]\` is a spot on a map, two steps east and five steps north. AI uses much longer lists — hundreds of numbers — which is just a spot in a space with hundreds of directions instead of two. We can't picture that, but the math doesn't care; a location is a location whether it has 2 numbers or 500.
+The governing assumption is that some single, consistent rule turns each term into the next. So the first thing to compute is the relationship *between adjacent terms*. Subtract each term from the one after it and look at the gaps; if the gaps are not constant, divide instead and look at the ratios. You are interrogating the sequence: "What did you do to get from here to there — and did you do the same thing every time?" The moment one operation explains every step, you have the rule, and the next term is just one more turn of the same crank.
 
-## Meaning as a place in space
+## Arithmetic versus geometric, and how to tell
 
-Here's the leap. AI gives every word its own vector — its own location — and arranges them so that **words with similar meanings sit close together.** "Dog," "puppy," and "cat" land in the same neighborhood; "helicopter" is far away across town. The machine has no dictionary and no idea what a dog *is.* It just knows that the word "dog" lives near the word "puppy," and that nearness is what meaning becomes for a machine. An **embedding** is exactly this: a map where distance means similarity.
+The two workhorse patterns are **arithmetic** (a constant amount is *added* each step: 3, 7, 11, 15 — always +4) and **geometric** (a constant factor is *multiplied* each step: 2, 6, 18, 54 — always ×3). The diagnostic is quick: take differences first. If the differences are equal, it's arithmetic. If the differences themselves are growing fast, suspect a geometric rule and check the ratios — 6÷2, 18÷6, 54÷18 all equal 3, confirming ×3, so the next term is 162. Confirming with the *second* test (the ratios are constant *and* the differences are not) is what separates a guess from a justified answer.
 
-## Directions can carry meaning too
+## Alternating and interleaved series
 
-The map has an even more surprising feature: the *directions* between points mean something. The step that takes you from "man" to "woman" turns out to be roughly the same step that takes you from "king" to "queen." So you can do arithmetic on meaning: take the vector for "king," subtract "man," add "woman," and you land right next to "queen." Meaning isn't just stored as locations — it's woven into the geometry, so relationships become directions you can travel.
+When neither differences nor ratios are constant, the series is usually two patterns braided together. In an **alternating** series, one rule governs the odd positions and a different rule governs the even ones — "1, 10, 2, 20, 3, 30" is really "1, 2, 3" interleaved with "10, 20, 30." The tell is a sequence that lurches up and down, or whose differences alternate between two values. The fix is to physically split the series into its odd-indexed and even-indexed terms and analyze each strand on its own; each strand will be a clean arithmetic or geometric series.
 
-## Why this is so powerful
+## Letter series are number series in disguise
 
-Once meaning is a location, everything downstream gets easy. To find similar documents, look for nearby vectors. To translate, line up two languages' maps. To recommend a song, find the ones sitting near the ones you love. Turning fuzzy meaning into hard geometry is what lets a machine that only does arithmetic still handle something as slippery as language. Almost every modern AI rests on this one move.
+A series like "B, D, G, K, ___" looks different but isn't. Convert each letter to its position in the alphabet (A=1, B=2, …) and the letters become numbers: 2, 4, 7, 11 — differences of 2, 3, 4, so the next gap is 5, giving 16 = P. Every technique from numeric series transfers directly once you translate. Watch only for the wrap-around (after Z, count restarts at A) and for series that move *backward* through the alphabet. The lesson generalizes: when a puzzle wears an unfamiliar costume, the first move is to translate it into a representation you already know how to attack.
 
 ## In the real world
 
-When a search engine understands that "how to fix a flat tire" and "repairing a punctured wheel" are asking the same thing — despite sharing almost no words — it's because both phrases land in nearly the same spot on the embedding map. The old way matched keywords and missed it; the new way matches *locations* and nails it. That quiet shift, from matching words to matching places in space, is why search and chatbots suddenly got so much better at knowing what you actually meant.`,
+Extrapolating a sequence is forecasting in its purest form. A clinician watching a fever chart, an investor reading a revenue trend, an engineer monitoring a sensor — each is doing exactly what a series problem demands: infer the rule from the run so far and project the next value, while staying alert to the moment the rule changes. The discipline the puzzle trains — *test the simplest rule first, confirm it against every step, and split the problem when one rule won't fit* — is the same discipline that keeps real forecasts honest.`,
   },
   {
-    slug: "dot-product-and-distance",
-    title: "The dot product and distance",
+    slug: "analogies",
+    title: "Analogies",
     weekNumber: 1,
-    blurb: "If meaning is a location, AI needs a way to measure 'how alike' two locations are — that ruler is the dot product and distance.",
-    lectureTitle: "1.3 Measuring likeness: the dot product and distance",
-    body: `# The dot product and distance
+    blurb: "'A is to B as C is to ___' is solved not by what the words mean but by the precise relationship that binds the first pair — name it, then transfer it.",
+    lectureTitle: "1.3 Analogies: how A-to-B locks onto C-to-what",
+    body: `# Analogies
 
-In the last topic, meaning became a location — every word a point on a vast map. But a map is only useful if you can measure it. How does a machine actually *tell* that "dog" and "puppy" are close while "dog" and "helicopter" are far? It needs a ruler for comparing vectors. The two rulers AI reaches for constantly are **distance** and the **dot product** — and almost everything AI does involves measuring likeness with one of them.
+"Glove is to hand as sock is to ___." Analogy items test whether you can isolate the *relationship* between two things and transfer it cleanly to a third. They reward precision and punish vague association, which is why a confident, careless reader so often picks a wrong answer that merely "feels related." The skill is to convert a fuzzy sense of connection into an exact, statable rule.
 
-## Distance: how far apart
+## An analogy is a relationship, not a resemblance
 
-The most natural ruler is plain distance — the straight-line gap between two points, exactly like measuring between two cities on a map. Two vectors that sit close together have a small distance and are counted as similar; two that sit far apart have a large distance and are counted as different. It's the same intuition you already use: things near each other are alike, things far apart aren't. AI just does this in a space with hundreds of directions instead of two.
+The trap is to ask "what goes with a sock?" and grab the first associated word — shoe, foot, wool, drawer. All of those are *related* to socks; only one preserves the relationship in the first pair. The correct mental move is to ignore the words' meanings at first and focus entirely on the **link** between A and B. A glove is the close-fitting garment worn directly on a hand; a sock is the close-fitting garment worn directly on a foot. The answer is "foot" — and notice that "shoe," though strongly associated with both socks and feet, fails, because a shoe is not the snug cloth layer worn *on* the body part the way a glove and a sock are.
 
-## The dot product: do they point the same way
+## Name the relation in a precise sentence
 
-The **dot product** is a second, slightly different ruler, and it's the workhorse of AI. Instead of asking "how far apart are these points," it asks "**do these two arrows point in the same direction?**" You get it by multiplying the matching numbers of two vectors and adding the results up. When two vectors point the same way, the dot product is large and positive; when they point in opposite directions, it's negative; when they're unrelated, it's near zero. A big dot product is the machine's way of saying "these two things agree."
+The reliable technique is to build a "bridge sentence": a short, specific statement of how A relates to B, precise enough that you can plug C into it and read off the answer. "A glove is worn directly on a hand" is a good bridge; "a glove goes with a hand" is too loose and will admit several answers. The more exact your bridge, the more wrong options it eliminates. If two answer choices both seem to fit, your bridge is not specific enough yet — tighten it until exactly one choice survives.
 
-## Cosine similarity: direction over size
+## The common relation types
 
-Sometimes you care about *direction* but not *size.* A long document and a short one can be about the exact same thing, even though one vector is "bigger" just because there's more text. **Cosine similarity** fixes this: it's the dot product after ignoring length, so it only measures the angle between two vectors — are they pointing the same way, regardless of how long the arrows are? This is the most common likeness score in AI precisely because it focuses on meaning and shrugs off size.
+Analogy relationships fall into recurring families, and recognizing the family speeds the bridge. **Function** (knife : cut). **Part to whole** (petal : flower). **Category** (sparrow : bird). **Degree or intensity** (warm : hot, the same idea turned up). **Cause and effect** (rain : flood). **Opposite** (expand : contract). **Object to actor** (scalpel : surgeon). When you sense the link but can't phrase it, running through these families ("is this a function relation? a degree relation?") usually surfaces the exact wording you need.
 
-## Why AI measures likeness constantly
+## Defeating the engineered distractors
 
-This sounds like a small bit of bookkeeping, but it's everywhere. Search compares your question's vector to every document's vector and returns the closest. A recommender compares what you liked to everything available and ranks by similarity. Even inside a chatbot, deciding which earlier words to "pay attention" to is mostly a flurry of dot products. Measuring likeness is one of the handful of operations AI does over and over, billions of times.
+Strong analogy items always include a distractor that shares the *wrong* link — a word related to C by some relationship other than the one in the A–B pair. If your bridge is "A is a more intense version of B," a distractor will offer a synonym (same idea, not intensified) or an opposite (related, but the reverse link). The defense is twofold: state the bridge before you look hard at the options, and check the *direction* of the relationship (is it A-does-to-B or B-does-to-A?), because reversed-direction answers are the most seductive wrong choices of all.
 
 ## In the real world
 
-When a music app builds you a playlist of songs "you might like," it has turned every song into a vector and is quietly computing similarity between the songs you love and millions you've never heard. The ones with the highest similarity score float to the top of your recommendations. You experience it as the app "getting your taste" — but under the hood it's just a ruler being run across a map, again and again, asking the same humble question: *how alike are these two points?*`,
+Analogical reasoning is how expertise transfers across domains. A physician recognizes that a new patient's case "is to" its diagnosis as a remembered case "is to" its outcome; a lawyer argues that the present dispute stands to its precedent as one established case stood to its ruling; an engineer borrows a solution from one field because its structure mirrors a problem in another. Each is identifying a deep relationship and transferring it — and each can be misled by a surface resemblance that shares the wrong link. The puzzle trains the guard against exactly that error: insist on naming the relationship before you trust the match.`,
   },
   {
-    slug: "matrices",
-    title: "Matrices",
+    slug: "odd-one-out",
+    title: "Odd-one-out",
     weekNumber: 1,
-    blurb: "A matrix is a grid of numbers that takes one list of numbers in and reshapes it into another — it's how a network moves information.",
-    lectureTitle: "1.4 Matrices: how a network moves information",
-    body: `# Matrices
+    blurb: "To find the item that doesn't belong you must first find the rule that the others share — the exception is defined by the rule, never spotted on its own.",
+    lectureTitle: "1.4 Odd-one-out: what doesn't belong, and why",
+    body: `# Odd-one-out
 
-We have vectors (lists of numbers that carry meaning) and rulers for comparing them. But an AI doesn't just *store* vectors — it *transforms* them, step after step, turning the numbers for your question into the numbers for its answer. The tool that does that transforming is the **matrix.** If a vector is a single list of numbers, a matrix is a whole grid of them, and it's the engine that moves information through a network.
+"Which does not belong: violin, guitar, flute, cello?" Classification items ask you to spot the outlier in a set. The instinct is to look for the strange one directly, but that instinct fails, because strangeness is not a property of a single item — it is a property *relative to a rule*. You cannot say what doesn't belong until you have found what the others have in common. The task is really "find the shared rule, then the item that breaks it."
 
-## A matrix is a grid of numbers
+## Find the rule first, the exception second
 
-A matrix is simply numbers arranged in a rectangle — rows and columns, like a tiny spreadsheet. That's the whole definition; there's nothing mystical about it. What makes it interesting is what it *does:* a matrix is a machine for taking a vector in one end and producing a new, transformed vector out the other. Feed in a list of numbers, and the matrix hands you back a different list. It's a recipe for reshaping numbers.
+The disciplined order is fixed: survey the set, hunt for a property that most of the items share, then check which lone item lacks it. In the instruments set, three are string instruments and one — the flute — is a wind instrument; the shared rule is "produces sound from vibrating strings," and the flute is the exception. Notice you found the answer by characterizing the *majority*, not by staring at any one item hoping it would look odd. Whenever you feel stuck on an odd-one-out, it is almost always because you have not yet named the rule the group obeys.
 
-## Multiplying mixes and reshapes
+## Competing rules, and choosing the strongest
 
-How does the reshaping work? Each number that comes out is a **weighted blend** of all the numbers that went in — you multiply each input by a weight in the grid and add them up (yes, that's a pile of dot products again). One row of the matrix might mostly listen to the first two inputs; another might blend all of them differently. So a matrix lets every output number draw a little from every input number, in whatever proportions its weights specify. That's how information gets mixed and routed.
+Real items often admit more than one candidate rule, and a well-built puzzle exploits this. You might notice that the guitar is the only one usually played by plucking rather than bowing, which would make the guitar the odd one instead. When two rules each single out a different item, prefer the rule that is **cleaner and more fundamental** — the one that splits the set most decisively (three-versus-one on a basic category) over a rule that depends on a narrower or more arguable property. Test makers design the intended answer to sit under the strongest rule, so explicitly comparing the candidate rules is how you find it.
 
-## A layer of a network is a matrix
+## Beware the seductive surface feature
 
-This is the punchline that connects everything: **one layer of a neural network is basically one matrix multiply.** The "weights" — those millions of tunable dials from topic 1.1 — are exactly the numbers filling the matrices. When data flows through a layer, the layer's matrix blends and reshapes it into a more useful set of numbers. So a neural network isn't a brain; it's a stack of grids that each transform the numbers a little.
+Classification distractors lean on superficial similarities — color, size, first letter, visual shape — that feel like rules but cut across the real category. Three figures might all be shaded and one unshaded, tempting you toward shading, while the deeper rule is about the *number of sides*. The defense is to distinguish surface features (how things look) from structural features (what things are or do) and to give structural rules priority. When a surface rule and a structural rule disagree about which item is odd, the structural one is almost always intended.
 
-## Stacking transformations
+## When more than one answer "works"
 
-One matrix can only reshape so much, so networks chain many of them: the output of one becomes the input to the next, with a small non-linear "bend" added between them so the steps don't collapse into one. Layer after layer, the original numbers get refined — raw word-numbers near the bottom, rich meaning near the top. Depth is just lots of these transformations stacked, each handing its reshaped numbers to the next.
+Sometimes you will land on a defensible exception under one rule while sensing another rule lurks. Rather than agonize, make the comparison explicit: write the rule for each candidate, then ask which rule the other items satisfy most uniformly and unarguably. The intended answer is the one whose rule leaves the *fewest* loose ends — where the remaining items form the tightest, least contestable group. This habit of articulating and ranking competing rules is exactly the metacognition these items are built to reward.
 
 ## In the real world
 
-When a translation model turns an English sentence into Spanish, your words enter as vectors and then pass through layer after layer of matrices, each one blending and reshaping the numbers — gradually carrying information from "what these English words mean" toward "what Spanish words say the same thing." No single matrix knows Spanish; the translation emerges from dozens of humble grid-multiplications in a row. Moving information is what matrices do, and stacking them is how a network thinks its way from a question to an answer.`,
+Spotting what doesn't belong is the engine of quality control, fraud detection, and diagnosis. An auditor scans transactions for the one that breaks the pattern; a security analyst flags the login that doesn't fit the rule of normal behavior; a doctor notices the symptom that doesn't belong to the otherwise coherent picture. In every case the move is identical to the puzzle: establish what "normal" or "the group" means with a precise rule, and only then can the anomaly be named — and defended against the objection that some other rule would flag something else.`,
   },
   {
-    slug: "slopes-and-gradients",
-    title: "Slopes and gradients",
+    slug: "spatial-reasoning",
+    title: "Spatial reasoning",
     weekNumber: 1,
-    blurb: "Before an AI can improve, it needs to know which way is 'better' — a slope, generalized to a gradient, is the arrow that tells it.",
-    lectureTitle: "1.5 Slopes and gradients: which way is 'better'?",
-    body: `# Slopes and gradients
+    blurb: "Rotating a shape, folding a flat net into a cube, or tracing a punched hole through layers of paper — spatial items test whether you can run a transformation in your mind's eye and trust the result.",
+    lectureTitle: "1.5 Spatial reasoning: rotating, folding, and seeing it in your head",
+    body: `# Spatial reasoning
 
-So far we have a machine that turns inputs into outputs by pushing numbers through matrices. But out of the box, its millions of dials are set to nonsense and its answers are wrong. To learn, it has to figure out, for every single dial, *which way should I turn this to do better?* The mathematical idea that answers "which way is better" is the **slope**, and its higher-dimensional version — the **gradient** — is the compass that all of AI learning is built on.
+Spatial items ask you to transform a figure in your head and report the result: rotate this shape and pick the match; fold this flat pattern and choose the cube it makes; punch a hole through folded paper and say where the holes land when it opens. They feel like a fixed talent you either have or don't, but they are highly trainable once you replace vague visualization with a few precise procedures. The goal is to manipulate the figure deliberately rather than hope the answer "looks right."
 
-## Slope: how steep, and which way
+## Rotation: turning without changing
 
-You already know slopes from walking up a hill: the slope tells you how steep the ground is and which direction is up. In math it's the same — given a curve, the slope at a point says how fast things are changing and whether they're rising or falling. A big slope means a steep change; a slope of zero means you're on flat ground, at a peak or the bottom of a valley. That little "which way and how fast" number is the seed of everything in this topic.
+A rotation turns a figure around a point while preserving everything about it — its size, its shape, and critically the *handedness* of its parts. The reliable check is to fix on one distinctive feature (an arrow's tip, a marked corner) and track where that feature must go after the turn, rather than trying to spin the whole shape at once. Then verify a second feature. Distractors are built by rotating *almost* correctly or by sneaking in a change rotation can never make, so confirming two independent features defeats the near-miss option that fooled the careless eye.
 
-## A loss score: how wrong the AI is
+## Reflection is not rotation
 
-To use slopes for learning, AI first needs something to measure: a single number for **how wrong** the model currently is, called the **loss.** Good answers give a low loss; bad answers give a high loss. Now learning has a clear goal — make the loss as small as possible. Picture the loss as a landscape where height means error: the model is standing somewhere on it, and it wants to get downhill to the low ground where its answers are good.
+The most exploited confusion in spatial testing is between a rotation and a **reflection** (a mirror flip). A reflection reverses handedness — it turns a left-pointing structure into a right-pointing one, like the difference between your two hands, which can never be rotated into each other no matter how you turn them. When an answer looks correct in every respect but seems subtly "backwards," it is almost certainly a mirror image offered as a trap. Train the question "is this the same shape turned, or its mirror twin?" because that single distinction resolves a large share of hard spatial items.
 
-## The gradient points uphill
+## Folding and unfolding
 
-Here's where the slope earns its keep. A model doesn't have one dial; it has millions, so it needs a slope for *each* of them at once. That bundle of slopes — "if I nudge this dial, does the loss go up or down, and how fast?" for every dial — is the **gradient.** The gradient is an arrow pointing in the direction the loss increases *fastest* — straight uphill toward more error. Which is wonderfully convenient: to improve, you just go the **opposite** way.
+Two classic formats reward systematic tracking. In **net folding**, a flat cross-shaped pattern folds into a cube, and the task is which faces end up adjacent or opposite; the method is to fix one face as the base and fold the neighbors up one at a time, keeping track of which faces become opposite (opposite faces are never adjacent in the net once you account for the fold). In **paper folding with a punch**, treat each fold line as a *mirror*: every hole reflects across each crease when the paper opens. Fold a square once and punch one hole through both layers, and unfolding yields two holes, symmetric across that fold; each additional fold doubles the holes again.
 
-## Why slopes matter for learning
+## Strategies for the mind's eye
 
-The gradient turns a hopeless problem into a simple instruction. Instead of guessing settings for millions of dials, the model asks "which way is downhill?" and steps that way. Every dial gets its own little "turn me up a bit / turn me down a bit" from the gradient. Without this compass, training would be blind trial-and-error across an impossibly huge space; with it, the model always knows which way is *better* right now.
+When pure visualization strains, externalize. Track a single landmark instead of the whole figure. Use your hand to physically mimic a rotation or a fold. Reason by elimination: rather than constructing the answer, test each option against a rule the answer *must* satisfy (a face that can't be opposite itself, a count of holes that must be even after one fold) and discard those that violate it. And exploit symmetry — symmetric figures have fewer truly distinct orientations than they appear to, which shrinks the work.
 
 ## In the real world
 
-Think of a hiker caught in thick fog on a mountain, trying to reach the valley. They can't see the bottom, but they can feel the ground under their feet sloping one way or another — and as long as they keep stepping in the downhill direction, they make progress. The gradient is exactly that felt-slope for an AI: a local sense of "which way is down" computed for millions of dials at once. It can't see the whole error landscape, but it always knows which direction is better from right where it stands.`,
+Mental spatial transformation underlies a surprising range of expert work: a surgeon mapping a two-dimensional scan onto a three-dimensional body, an architect walking through an unbuilt building, a chemist rotating a molecule to see whether it is the same compound or its non-superimposable mirror image (a distinction that can decide whether a drug heals or harms). Each depends on the very skills these puzzles isolate — turning, reflecting, and folding shapes accurately in the mind, and knowing the difference between a rotation that preserves a figure and a reflection that secretly reverses it.`,
   },
   {
-    slug: "gradient-descent",
-    title: "Gradient descent",
+    slug: "test-craft",
+    title: "Test-craft (capstone)",
     weekNumber: 1,
-    blurb: "Learning, for an AI, is just rolling downhill: feel which way reduces error, take a small step, and repeat until you reach the valley.",
-    lectureTitle: "1.6 Gradient descent: learning by rolling downhill",
-    body: `# Gradient descent
+    blurb: "Knowing the patterns is only half the score — the other half is timing, elimination, and disciplined guessing, the craft that converts ability into points under pressure.",
+    lectureTitle: "1.6 Test-craft: timing, elimination, and smart guessing (Capstone)",
+    body: `# Test-craft (capstone)
 
-We now have the compass — the gradient tells the model which way is downhill toward less error. **Gradient descent** is simply the act of *using* that compass over and over: take a small step downhill, check the slope again, take another step, and keep going until you can't get any lower. It is, almost unbelievably, the core method by which essentially every modern AI learns. Learning is rolling downhill.
+You can recognize every pattern type in this unit and still underperform, because a timed reasoning test measures not just whether you *can* solve an item but whether you can solve enough of them *in the time allowed*. Test-craft is the discipline that converts raw reasoning ability into a score: budgeting time, eliminating wrong options, guessing intelligently, and managing your own mind under pressure. It is the capstone because it governs how every skill from the previous five topics actually gets deployed.
 
-## The error landscape
+## Timing: budget, and never sink
 
-Picture the loss from the last topic as a vast, hilly landscape, where high ground means "very wrong" and low valleys mean "very right." The model, with its current dial settings, is standing at one spot on this landscape. Training is the journey from wherever it starts — usually high up, since random dials give terrible answers — down into a low valley where its answers are good. The whole drama of learning is this descent.
+The first principle is a time budget. Divide the total time by the number of questions to get your per-item pace, and treat that pace as a contract — roughly one minute each for sixty items in an hour. The second principle is the more important one: **never sink** disproportionate time into a single hard item. Every test has a few items engineered to devour minutes, and the cost of fighting one is not just that minute but all the easier points elsewhere you fail to reach. When an item runs well past its budget, mark a provisional answer, flag it, and move on. Points are points; a hard item is worth no more than an easy one.
 
-## Take a step downhill, then repeat
+## Elimination: shrink the field before you choose
 
-The recipe is short. Compute the gradient (which way is downhill). Nudge every dial a small amount in the downhill direction. You're now standing a little lower — a little less wrong. Then do it again from the new spot, and again, thousands or millions of times. Each step alone is tiny and unimpressive, but repeated relentlessly they carry the model from nonsense down to genuinely useful behavior. Patience, not insight, is what does the work.
+On multiple-choice items, you rarely need to construct the answer from scratch — you need to find the one option that survives scrutiny. Eliminating even one or two clearly wrong options transforms the problem: it sharpens your thinking and, if you must guess, dramatically raises your odds. Use the rules you've learned as filters: in a series, an option that breaks the confirmed operation is out; in spatial items, a mirror image when a rotation is required is out; in analogies, an option with the reversed relationship is out. Often the *fastest* route to the answer is to delete the impossible rather than verify the correct.
 
-## Step size matters: the learning rate
+## Smart guessing: when and how
 
-How big each step should be is set by the **learning rate**, and it matters more than you'd think. Steps that are too big make the model leap right over the valley and bounce around — or fly off the mountain entirely — never settling. Steps that are too small make learning crawl, taking forever to get anywhere. Good training picks a step size that's brisk enough to make progress but careful enough not to overshoot the bottom. It's the difference between sprinting downhill in the dark and inching down one careful foot at a time.
+Whether to guess depends on the scoring rule, so know it before you start. When wrong answers are not penalized (the common case), you should answer *every* question — a blind guess has positive expected value and a blank is a guaranteed zero. When there is a penalty for wrong answers, guess only after eliminating enough options to tip the expected value in your favor. Either way, an *informed* guess after elimination beats a blind one, and a blind guess beats leaving a no-penalty item blank. Guessing well is not luck; it is applying the scoring rules and the elimination habit deliberately.
 
-## Getting stuck in local valleys
+## Managing the mind under pressure
 
-Real landscapes aren't a single smooth bowl; they're rugged, with lots of little dips. A roller can settle into a shallow **local valley** that isn't the true lowest point and get stuck, since every direction from there looks like "uphill." This is a genuine challenge in training, and much of the cleverness in modern AI is tricks — a bit of randomness, momentum, clever step sizes — to avoid getting trapped and keep finding deeper valleys.
+The last front is psychological. Nerves narrow attention and make careless errors more likely, so the antidotes are procedural: breathe and reset between hard items, do the easy items first to bank certain points and build momentum, and read each question once carefully rather than twice in a panic. Reserve a moment at the end to return to flagged items with whatever time remains and to confirm that every question has at least a guessed answer. The aim is a calm, repeatable routine that lets your trained pattern-recognition operate without interference.
 
 ## In the real world
 
-Imagine a ball set down on a bumpy hillside: it doesn't need a map or a plan, it just rolls in whatever direction is downhill and eventually comes to rest in a low spot. Training an AI is shockingly close to that — billions of dials all nudged a little downhill, step after step, until the whole system settles where its answers are good. The mind-bending part is that something as simple as "keep rolling downhill" is enough, given enough steps and examples, to produce a system that can write, translate, and converse.`,
-  },
-  {
-    slug: "probability",
-    title: "Probability",
-    weekNumber: 1,
-    blurb: "An AI never really 'knows' the answer — it assigns probabilities to many possibilities and goes with the likely ones.",
-    lectureTitle: "1.7 Probability: how AI handles uncertainty and guesses",
-    body: `# Probability
-
-It's tempting to imagine an AI looking up the one true answer and handing it to you. That's not what happens. Underneath, an AI deals in **probabilities** — it spreads its bet across many possible answers, scoring each by how likely it seems, and then picks from the top. Understanding that AI is fundamentally a *guessing machine that manages uncertainty* explains both why it's so flexible and why it sometimes gets things confidently wrong.
-
-## AI thinks in probabilities, not certainties
-
-Whenever an AI produces an output, it isn't choosing between "right" and "wrong" — it's producing a **probability for every option.** For a yes/no medical screen it might output "85% likely, 15% unlikely." For a photo it might say "70% cat, 20% fox, 10% dog." It almost never declares total certainty, because it's working from patterns in past examples, not from facts it knows to be true. Living in probabilities is what lets it handle a messy, ambiguous world instead of breaking on anything it hasn't seen exactly before.
-
-## Predicting the next word
-
-A chatbot is, at heart, a next-word probability machine. Given the words so far, it computes a probability for *every* word that could come next — after "The cat sat on the," words like "mat" or "floor" score high and "democracy" scores almost zero. It picks a likely word, adds it, and repeats, one word at a time. There's no sentence planned in advance; the fluent paragraph you read is just thousands of "what's the most likely next word?" guesses chained together.
-
-## Confidence — and being confidently wrong
-
-Because every answer is a probability, an AI always has a *confidence* attached, and here's the catch: high confidence is not the same as being right. A model can assign 95% to an answer that's flatly false, simply because that answer *looked* likely based on its training patterns. This is why AI can state a made-up "fact" in a calm, sure voice. The number reflects how well the answer fits learned patterns — not whether it's actually true — so confident-sounding output should never be mistaken for verified truth.
-
-## Why a little randomness helps
-
-If a chatbot always grabbed the single highest-probability word, it would sound stiff and repetitive. So AI usually adds a pinch of **randomness**, often called *temperature:* instead of always taking the top choice, it sometimes picks a slightly less likely word. Low temperature makes it safe and predictable; high temperature makes it surprising and creative (and sometimes weird). That deliberate dash of chance is why asking the same question twice can give two different, equally fluent answers.
-
-## In the real world
-
-The autocomplete that suggests your next word while texting is a small, visible cousin of what a big chatbot does constantly. It looks at what you've typed, ranks the likely next words by probability, and offers the top few — and you've surely seen it suggest something confidently wrong. A large language model is the same idea scaled up enormously: a probability-over-words guesser, chaining one likely guess after another. Once you see AI as managing uncertainty rather than knowing facts, both its fluency and its confident mistakes finally make sense.`,
-  },
-  {
-    slug: "backpropagation",
-    title: "Backpropagation (capstone)",
-    weekNumber: 1,
-    blurb: "Backpropagation is how a network figures out the blame for its mistakes and fixes itself — the idea that ties the whole course together.",
-    lectureTitle: "1.8 Backpropagation: how the whole thing teaches itself (Capstone)",
-    body: `# Backpropagation (capstone)
-
-We've collected all the pieces: numbers and vectors, matrices that transform them, a loss that scores how wrong the output is, gradients that point downhill, and gradient descent that steps that way. **Backpropagation** is the idea that snaps them together into a machine that teaches itself. It answers the one question we left open — *with millions of dials, how does the model know how much to turn each one?* — and so it's the perfect capstone for the whole course.
-
-## Putting the pieces together
-
-Learning runs as a loop with three beats: make a guess, measure how wrong it was, and adjust. Every idea in this course lives somewhere in that loop. The guess is numbers flowing forward through matrices (topics 1.2–1.4). The "how wrong" is the loss, and "which way to adjust" is the gradient (topic 1.5), applied by stepping downhill (topic 1.6). Backpropagation is the clever step that connects the mistake at the end back to every dial that helped cause it.
-
-## The forward pass: a guess
-
-It starts with a **forward pass.** Your input is turned into vectors and pushed through layer after layer of matrices, getting reshaped at each step, until the model produces an output and a confidence — a probability-flavored guess (topic 1.7). Then the loss measures the gap between that guess and the right answer. At this moment the model knows *that* it was wrong and by how much, but not yet *whose fault* it was among its millions of dials.
-
-## Assigning blame backward
-
-Now the magic. Backpropagation works **backward** from the mistake, layer by layer, asking at each step: "how much did each dial here contribute to the error?" Because every layer is just arithmetic, the blame can be passed back through it with the same slope idea from topic 1.5 — each layer hands the layer before it its share of responsibility. By the time this sweep reaches the front, every single dial has a gradient: a precise "you should turn up a little / down a little" to reduce the error. That's how blame gets fairly assigned across an enormous network.
-
-## The learning loop, millions of times
-
-With the blame assigned, gradient descent takes one small downhill step — every dial nudged the way its gradient says — and the model is now a hair less wrong. Then the loop runs again on the next example: guess, measure, blame backward, nudge. Repeat across billions of examples and the network slowly tunes itself from random nonsense into something that writes, translates, and reasons. No one programs the dials; the loop discovers them.
-
-## Tying the course together
-
-Step back and the whole course is one sentence: an AI turns things into **numbers**, arranges them so location means **meaning**, measures **likeness** with dot products, transforms them through **matrices**, scores its errors with a **loss**, finds "better" with a **gradient**, rolls downhill with **gradient descent**, expresses its guesses as **probabilities**, and assigns blame for its mistakes with **backpropagation** so it can fix itself. Every "intelligent" thing AI does is built from these humble, understandable parts.
-
-## The biggest questions stay open
-
-And plenty remains genuinely unsolved. Why do networks this simple work *so* well? How do we make their confident guesses more honest, their reasoning more reliable, their behavior safe and fair? Seeing that AI is "just math" doesn't make it small — it makes it *understandable*, which is exactly what we need to use it wisely. The single habit worth carrying out of this course is this: whenever AI seems like magic, ask, "what's the simple math underneath?" — because there always is some.`,
+Test-craft generalizes to any high-stakes performance under a clock: triaging a crowded emergency room, allocating a fixed research budget across competing projects, fielding questions in a timed oral defense. In each, raw competence is necessary but not sufficient; what distinguishes strong performers is the meta-skill of spending limited time and attention where they yield the most — refusing to sink into one hard problem, narrowing options decisively, and acting under uncertainty rather than freezing. This unit's final lesson is that intelligence you can actually *use* is intelligence paired with the craft to deploy it when it counts.`,
   },
 ];
 
@@ -292,227 +228,191 @@ type SeedAssignment = {
 const ASSIGNMENTS: SeedAssignment[] = [
   {
     kind: "homework",
-    title: "Homework 1.1 — Numbers, vectors, likeness, and matrices",
+    title: "Homework 1.1 — Grids, series, and analogies",
     weekNumber: 1,
     isTimed: false,
     timeLimitMinutes: null,
     instructions:
-      "Untimed practice covering sections 1.1–1.4. Answer each question in a few sentences (about 3–5) in your own words. You don't need to do any calculations — just explain the idea clearly. One-word answers won't receive credit.",
+      "Untimed practice covering sections 1.1–1.3. For each puzzle, give your answer AND explain the rule or relationship you used to get it, in a few sentences (about 3–5) in your own words. State your reasoning, not just the final answer. One-word answers won't receive credit.",
     problems: [
       {
-        topicSlug: "why-ai-is-really-math",
+        topicSlug: "pattern-grids",
         prompt:
-          "A friend says, 'AI must understand things — it answers my questions just like a person would, so there's clearly a little mind in there.' Using the idea that AI is really math, explain why this is a misunderstanding. (3–5 sentences.)",
+          "A 3×3 grid is filled with dots. The top row of cells contains 1, 2, and 3 dots (left to right). The middle row contains 2, 3, and 4 dots. The bottom row contains 3, 4, and a blank cell. How many dots belong in the blank, and what rule did you use? Explain how you can confirm the rule using BOTH the rows and the columns. (3–5 sentences.)",
         correctAnswer:
-          "There's no little mind inside; underneath the human-sounding words an AI is only doing an enormous amount of plain arithmetic on lists of numbers. It first turns the input (text, images, sound) into numbers, then pushes them through millions of tunable numbers called weights, multiplying and adding along the way. What looks like understanding is really patterns in those numbers producing a likely-looking output, not a mind grasping meaning. So the fluent answer is the result of math at huge scale, which can look like thinking without any thinking actually happening.",
+          "Five dots belong in the blank. Reading across each row, the count goes up by one (1,2,3 / 2,3,4 / 3,4,?), so the bottom row should end in 5. Reading down each column, the count also goes up by one (1,2,3 / 2,3,4 / 3,4,5), so the bottom-right cell is 5 by the column rule too. Because the row rule and the column rule independently both demand 5, the answer is confirmed from two directions — exactly the cross-check a grid is built to reward.",
         explanation:
-          "Full credit: explains AI is arithmetic on numbers (inputs become numbers, weights transform them) and that fluent output isn't genuine understanding/a mind.",
+          "Full credit: answer is 5, identifies the +1 rule across rows AND down columns, and confirms the missing cell satisfies both axes.",
       },
       {
-        topicSlug: "vectors-and-embeddings",
+        topicSlug: "series",
         prompt:
-          "An AI places the word 'puppy' very close to 'dog' on its map, and places 'helicopter' far away — even though it has no dictionary and doesn't know what a dog is. Explain how this can work, using the idea of vectors and embeddings. (3–5 sentences.)",
+          "Consider the series 2, 6, 18, 54, ___. What is the next term, what is the rule, and how would you confirm the series is geometric (multiplying) rather than arithmetic (adding)? (3–5 sentences.)",
         correctAnswer:
-          "Each word is given a vector — a list of numbers that acts like a location in space — and an embedding arranges those locations so that words with similar meanings sit close together. The machine doesn't need to know what a dog is; it just learned from lots of text that 'puppy' is used like 'dog,' so their locations end up near each other, while 'helicopter' lands far away. For a machine, that nearness IS meaning: distance on the map stands in for similarity of meaning. So it can act as if it understands relationships between words purely by where it has placed their points.",
+          "The next term is 162. The rule is to multiply by 3 each step (2×3=6, 6×3=18, 18×3=54, 54×3=162). To confirm it is geometric rather than arithmetic, take the differences first — 4, 12, 36 — which are not constant, ruling out a fixed addition. Then take the ratios — 6÷2, 18÷6, 54÷18 — which all equal 3, a constant factor, which is the signature of a geometric series, so multiplying by 3 is justified rather than guessed.",
         explanation:
-          "Full credit: explains a vector is a list of numbers/location, an embedding places similar-meaning words near each other, and nearness stands in for meaning (no real 'knowing' needed).",
-        hint: "What does 'close together on the map' represent for a machine that only handles numbers?",
+          "Full credit: next term 162, rule is ×3, and confirms geometric by noting differences are not constant while ratios are constant (=3).",
+        hint: "Try subtracting adjacent terms first; if the gaps aren't equal and they're growing fast, divide instead.",
       },
       {
-        topicSlug: "dot-product-and-distance",
+        topicSlug: "analogies",
         prompt:
-          "A music app builds a playlist of songs 'you might like.' Explain how measuring likeness between vectors (distance or the dot product) could let it do this, even though it has no idea what the songs sound like. (3–5 sentences.)",
+          "Complete the analogy and explain it: 'Glove is to hand as sock is to ___.' Give the answer, state the precise relationship that links the first pair, and explain why a tempting choice like 'shoe' is wrong. (3–5 sentences.)",
         correctAnswer:
-          "The app turns every song into a vector — a location in space — and then measures how alike two songs are by how close their vectors are (small distance) or by a large dot product, which checks whether two vectors point the same way. To build the playlist it compares the songs you already love to millions of others and ranks them by that similarity score, floating the closest ones to the top. It doesn't need to 'hear' anything; it just runs a ruler across a map of points. So the feeling that it 'gets your taste' is really just repeated likeness measurements between vectors.",
+          "The answer is 'foot.' The precise relationship is that a glove is the close-fitting garment worn directly on a hand, and a sock is the close-fitting garment worn directly on a foot — so the bridge sentence is 'X is the snug cloth covering worn directly on body part Y.' 'Shoe' is tempting because it is strongly associated with both socks and feet, but it breaks the relationship: a shoe is hard outer footwear, not the snug cloth layer worn against the body the way a glove and a sock are. Stating the bridge precisely is what rules 'shoe' out, since a loose bridge like 'goes with' would wrongly admit it.",
         explanation:
-          "Full credit: explains songs become vectors and the app ranks by similarity (small distance / large dot product) between your liked items and candidates, with no real understanding of the audio.",
-      },
-      {
-        topicSlug: "matrices",
-        prompt:
-          "Someone asks, 'If a neural network is so smart, what is actually happening inside one of its layers?' Using what you know about matrices, explain what a layer really does to information. (3–5 sentences.)",
-        correctAnswer:
-          "A layer is basically one matrix — a grid of numbers — and what it does is transform a vector into a new vector. Each number that comes out is a weighted blend of all the numbers that went in: you multiply each input by a weight in the grid and add them up, so information gets mixed and reshaped. Those weights are exactly the tunable dials the network learns. So a layer isn't 'thinking' — it's reshaping numbers, and stacking many such matrix steps is how the network gradually turns the numbers for a question into the numbers for an answer.",
-        explanation:
-          "Full credit: explains a layer is a matrix (grid of numbers) that reshapes a vector by taking weighted blends of inputs, and that stacking these transformations moves information through the network.",
+          "Full credit: answer 'foot,' names the precise relation (snug garment worn directly on the body part), and explains why 'shoe' fails by being outer footwear, not the snug layer.",
       },
     ],
   },
   {
     kind: "homework",
-    title: "Homework 1.2 — Slopes, descent, probability, and backpropagation",
+    title: "Homework 1.2 — Odd-one-out, spatial reasoning, and test-craft",
     weekNumber: 1,
     isTimed: false,
     timeLimitMinutes: null,
     instructions:
-      "Untimed practice covering sections 1.5–1.8. Answer each question in a few sentences (about 3–5) in your own words. No calculations are required — explain your reasoning. One-word answers won't receive credit.",
+      "Untimed practice covering sections 1.4–1.6. For each item, give your answer AND explain your reasoning in a few sentences (about 3–5) in your own words. Show the rule, transformation, or strategy you used. One-word answers won't receive credit.",
     problems: [
       {
-        topicSlug: "slopes-and-gradients",
+        topicSlug: "odd-one-out",
         prompt:
-          "A model just gave a very wrong answer, and it has millions of dials it could adjust. Explain how the ideas of a 'loss' and a 'gradient' tell it which way to change those dials to do better. (3–5 sentences.)",
+          "Which is the odd one out, and why: violin, guitar, flute, cello? Name the rule the others share, identify a second rule under which a DIFFERENT item could be the exception, and say which rule is stronger and why. (3–5 sentences.)",
         correctAnswer:
-          "First the model needs a single number for how wrong it is, called the loss — high loss means bad answers, low loss means good ones, so the goal becomes making the loss small. The gradient is the bundle of slopes that says, for each dial, whether nudging it makes the loss go up or down and how fast. The gradient actually points in the direction the loss increases fastest — straight uphill toward more error — so to improve, the model turns each dial the opposite way, downhill. That gives every one of the millions of dials a precise 'turn up a little / turn down a little' instruction instead of blind guessing.",
+          "The flute is the odd one out: violin, guitar, and cello all produce sound from vibrating strings, while the flute is a wind instrument, so the shared rule is 'string instrument' and the flute breaks it. A competing rule is that the guitar is the only one normally plucked while the violin and cello are bowed — under that rule the guitar would be the exception. The string-versus-wind rule is stronger because it splits the set cleanly three-against-one on a basic, unarguable category, whereas the plucked-versus-bowed rule is narrower and the guitar can also be bowed. So the intended answer is the flute, found by naming the majority rule first and choosing the most fundamental split.",
         explanation:
-          "Full credit: explains the loss measures how wrong the model is, the gradient gives a per-dial slope pointing uphill (toward more error), and the model moves the opposite way (downhill) to improve.",
+          "Full credit: answer is flute (others are string instruments), names a competing rule (e.g. plucked vs bowed → guitar), and justifies preferring the cleaner/more fundamental 3-vs-1 category split.",
       },
       {
-        topicSlug: "gradient-descent",
+        topicSlug: "spatial-reasoning",
         prompt:
-          "An AI starts out with random settings giving terrible answers, and after training it works well — yet each training step only makes a tiny change. Explain how gradient descent turns tiny steps into real learning, and why the step size matters. (3–5 sentences.)",
+          "A square sheet of paper is folded once, left half over right half. A single hole is then punched through both layers near the top of the folded sheet. When the paper is unfolded, how many holes are there and where are they? Explain your reasoning by treating the fold as a mirror. (3–5 sentences.)",
         correctAnswer:
-          "Gradient descent treats the model's error as a hilly landscape and repeatedly takes a small step downhill: compute which way reduces error, nudge every dial a little that way, then repeat thousands or millions of times. Each step is tiny and unimpressive, but relentlessly repeated they carry the model from high-up nonsense down into a low valley where its answers are good — patience, not insight, does the work. The step size (the learning rate) matters because steps too big make it leap over the valley and bounce around or fly off, while steps too small make learning crawl. Good training picks a size brisk enough to progress but careful enough not to overshoot the bottom.",
+          "When unfolded there are two holes, positioned symmetrically across the vertical center crease, both near the top — one in the left half and one in the right half, each the same distance from the fold line. The reasoning is to treat the fold line as a mirror: punching through two layers makes a hole in each layer, and when the paper opens, the second hole appears as the mirror image of the first reflected across the crease. Because there was one fold, the single punch doubles to two holes; each additional fold would double the count again.",
         explanation:
-          "Full credit: explains gradient descent repeats small downhill steps to reach a low-error valley, and that the learning rate must be balanced (too big overshoots/diverges, too small is too slow).",
-        hint: "Picture rolling downhill: what goes wrong if your steps are huge, and what goes wrong if they're tiny?",
+          "Full credit: answer is 2 holes, mirror-symmetric across the fold line near the top, with reasoning that the crease acts as a mirror and one fold doubles a single punch.",
+        hint: "Each fold line acts like a mirror; count how many layers the punch passes through.",
       },
       {
-        topicSlug: "probability",
+        topicSlug: "test-craft",
         prompt:
-          "A chatbot states a made-up 'fact' in a calm, confident voice, and it turns out to be false. Using what you know about how AI handles probability and uncertainty, explain why this happens. (3–5 sentences.)",
+          "You have 30 questions to answer in 30 minutes, and wrong answers are not penalized. At the 20-minute mark you have finished 15 questions and you are stuck on a hard spatial item you've already spent 3 minutes on. Walk through what you should do and why, using time-budgeting, elimination, and smart-guessing. (3–5 sentences.)",
         correctAnswer:
-          "An AI never looks up a known truth; it produces a probability for each possible output and goes with the likely ones, so it's fundamentally a guessing machine. A chatbot in particular predicts the next word by probability over and over, chaining likely guesses into fluent sentences. The confidence number reflects how well an answer fits the patterns it learned, not whether the answer is actually true — so it can assign high probability to something flatly false. That's why it can deliver a made-up fact in a sure, calm voice: the fluent confidence is about pattern-fit, not verified truth.",
+          "Your budget is one minute per question, so finishing 15 in 20 minutes means you are behind pace and have 15 questions for the last 10 minutes. You should stop sinking time into the hard item immediately, because the three minutes already spent are gone and each extra minute costs you easier points elsewhere. Before leaving it, eliminate any clearly impossible options — for a spatial item, discard mirror images when a rotation is required — and mark your best remaining guess, since with no penalty a guess can only help and a blank is a guaranteed zero. Then move on to bank the easier questions, and return to the flagged hard item only if time remains at the end.",
         explanation:
-          "Full credit: explains AI assigns probabilities rather than knowing facts, predicts likely words, and that high confidence reflects pattern-fit (not truth), so it can be confidently wrong.",
-      },
-      {
-        topicSlug: "backpropagation",
-        prompt:
-          "A network made a mistake, but it has millions of dials and no one tells it which ones were at fault. Explain how backpropagation figures out how much to change each dial. (3–5 sentences.)",
-        correctAnswer:
-          "After a forward pass produces a guess, the loss measures how wrong it was — but not whose fault it was among millions of dials. Backpropagation works backward from the mistake, layer by layer, asking at each step how much each dial contributed to the error, passing the blame back using the same slope idea behind gradients. By the time it reaches the front, every dial has its own gradient: a precise 'turn up a little / down a little' to reduce the error. Gradient descent then takes one small downhill step using all those instructions, and repeating the whole loop is how the network teaches itself.",
-        explanation:
-          "Full credit: explains backprop assigns blame backward through the layers to give each dial a gradient, which gradient descent then uses to nudge every dial — the self-teaching loop.",
+          "Full credit: recognizes being behind a ~1 min/question budget, says abandon/flag the sinking item, eliminate to improve the guess, answer everything because no penalty, and return only if time allows.",
       },
     ],
   },
   {
     kind: "test",
-    title: "Unit Test — Basic AI Math: The Math Behind the Machine",
+    title: "Unit Test — Functional Intelligence: How Reasoning Tests Work",
     weekNumber: 1,
     isTimed: true,
     timeLimitMinutes: 30,
     instructions:
-      "Timed. 30 minutes. Covers sections 1.1–1.8. Answer each question in a few sentences (about 4–6) in your own words. No calculations are required. Pasting is disabled; keystrokes are screened for AI use.",
+      "Timed. 30 minutes. Covers sections 1.1–1.6. For each item give your answer AND explain the rule, relationship, transformation, or strategy behind it, in a few sentences (about 4–6) in your own words. No answer earns full credit without the reasoning. Pasting is disabled; keystrokes are screened for AI use.",
     problems: [
       {
-        topicSlug: "why-ai-is-really-math",
+        topicSlug: "pattern-grids",
         prompt:
-          "Explain the claim at the heart of this course — that 'AI is really math, not magic' — covering how everything becomes numbers, what 'weights' are, and what 'learning' really means. Why does seeing AI as math (not magic) matter? (4–6 sentences.)",
+          "Explain the disciplined method for solving a 3×3 matrix puzzle where one cell is blank. Cover why you should treat the grid as a system of rules rather than a picture, how reading across rows and down columns helps, and why you must check a candidate answer against every feature. (4–6 sentences.)",
         correctAnswer:
-          "The core claim is that an AI, however human it sounds, is only doing an enormous amount of plain arithmetic on lists of numbers. First it turns whatever you give it — text, images, sound — into numbers, because that's the only thing a computer can actually work with. Those numbers flow through millions or billions of tunable numbers called weights (think of dials) that multiply and nudge them along the way, and the particular dial settings are what make a model useful. 'Learning' is just adjusting those numbers: the model guesses, sees how wrong it was, and nudges the dials toward 'less wrong,' billions of times. Seeing this as math rather than magic matters because math is understandable, checkable, and fallible — so we know AI has no secret wisdom, can be confidently wrong, and can be measured and improved rather than blindly trusted.",
+          "A matrix puzzle should be treated as a system of hidden rules, not a single image, because trying to absorb the whole grid at once is overwhelming and the blank is simply the one cell where the rules haven't been applied yet. The method is to isolate one feature at a time and trace how it changes across a row (it might count up, rotate, or alternate) and then how a second feature changes down a column. The missing cell is where the row rule and the column rule intersect, and the correct answer must satisfy both at once. Crucially, you must verify a candidate against every feature you identified — count, shape, shading, orientation — because distractors are engineered to be correct on most features and wrong on one. Checking only the first matching feature is the most common way to fall for a trap answer.",
         explanation:
-          "Full credit: explains inputs become numbers, weights are tunable numbers/dials, learning is repeatedly adjusting them toward less error, and why 'math not magic' matters (understandable, checkable, can be wrong).",
+          "Full credit: explains grid-as-rules, isolating features across rows and down columns, the answer satisfying both axes, and verifying against all features to beat near-miss distractors.",
       },
       {
-        topicSlug: "vectors-and-embeddings",
+        topicSlug: "series",
         prompt:
-          "Explain what a vector and an embedding are, how 'meaning' becomes a location in space, and what it means that directions (like king − man + woman ≈ queen) can carry meaning too. (4–6 sentences.)",
+          "Describe how to attack a number or letter series problem. Explain the checklist (differences, then ratios), how to tell arithmetic from geometric, what to do when neither fits, and how letter series reduce to number series. (4–6 sentences.)",
         correctAnswer:
-          "A vector is just an ordered list of numbers, which you can picture as a location — a spot in a space with as many directions as there are numbers. An embedding gives every word its own vector and arranges them so that words with similar meanings sit close together, so 'dog,' 'puppy,' and 'cat' land in one neighborhood while 'helicopter' is far away. For a machine that only does arithmetic, that nearness IS meaning: it has no dictionary, it just knows which points sit near which. Even more surprising, the directions between points carry meaning too — the step from 'man' to 'woman' is about the same as the step from 'king' to 'queen,' so you can do arithmetic on meaning and land near 'queen.' This turns slippery meaning into hard geometry, which is what lets an arithmetic machine handle language at all.",
+          "A series hides one repeated operation, so the first step is to compute the relationship between adjacent terms: subtract to get the differences, and if the differences are constant the series is arithmetic (a fixed amount added each step). If the differences are not constant but growing fast, take the ratios instead; a constant ratio means the series is geometric (a fixed factor multiplied each step). When neither differences nor ratios are constant, the series is probably two patterns interleaved, so split it into its odd-position and even-position terms and analyze each strand separately. Letter series reduce to number series by converting each letter to its alphabet position (A=1, B=2, …), solving as numbers, and converting back, watching for wrap-around past Z. The guiding habit is to test the simplest rule first and confirm it holds for every step.",
         explanation:
-          "Full credit: defines a vector (list of numbers/location) and an embedding (similar meanings placed near each other), explains nearness = meaning, and that directions encode relationships (king−man+woman≈queen).",
+          "Full credit: differences-then-ratios checklist, arithmetic (constant difference) vs geometric (constant ratio), split interleaved series into strands, and convert letters to alphabet positions.",
       },
       {
-        topicSlug: "dot-product-and-distance",
+        topicSlug: "analogies",
         prompt:
-          "Explain how AI measures 'likeness' between two vectors using distance and the dot product, why cosine similarity ignores size, and why AI needs to measure likeness so constantly. (4–6 sentences.)",
+          "Explain how to solve analogy items of the form 'A is to B as C is to ___.' Cover why relationship beats resemblance, the 'bridge sentence' technique, and how to defeat a distractor that shares the wrong link or reverses the direction. (4–6 sentences.)",
         correctAnswer:
-          "Once meaning is a location, AI compares vectors with a ruler. Distance is the plain straight-line gap between two points — small distance means similar, large means different — just like measuring between two cities. The dot product is a second ruler that asks whether two vectors point the same way: multiply matching numbers and add them up, and you get a large positive number when they agree, near zero when unrelated, and negative when opposed. Cosine similarity is the dot product after ignoring length, so it measures only the angle (direction) between vectors — useful because a long and a short document can mean the same thing even though one vector is 'bigger.' AI needs this constantly because search, recommendations, and even a chatbot deciding which earlier words to attend to all come down to measuring likeness, billions of times.",
+          "An analogy tests a relationship, not a resemblance, so the trap is grabbing a word merely associated with C instead of one that preserves the A-to-B link. The reliable technique is a bridge sentence: state precisely how A relates to B (for example, 'A is the tool used to perform action B'), then plug C into the same sentence to read off the answer. The more specific the bridge, the more wrong options it eliminates; if two choices both fit, the bridge is too loose and must be tightened until exactly one survives. Distractors are built to share the wrong link — a synonym when the link is intensity, or an opposite — so naming the bridge before looking at the options is the defense. You must also check the direction of the relationship, because a choice that reverses A-does-to-B into B-does-to-A is the most seductive wrong answer.",
         explanation:
-          "Full credit: explains distance (gap between points), the dot product (same-direction agreement), cosine similarity (direction not size), and that likeness-measuring underlies search/recommendation/attention.",
+          "Full credit: relationship over resemblance, the precise bridge sentence that eliminates options, and guarding against wrong-link and reversed-direction distractors.",
       },
       {
-        topicSlug: "matrices",
+        topicSlug: "odd-one-out",
         prompt:
-          "Explain what a matrix is, how multiplying a vector by it 'mixes and reshapes' information, why one layer of a neural network is basically a matrix, and what stacking many of them achieves. (4–6 sentences.)",
+          "Explain the correct approach to an odd-one-out (classification) item. Cover why you must find the shared rule before the exception, how to choose between competing rules, and why structural features beat surface features. (4–6 sentences.)",
         correctAnswer:
-          "A matrix is just numbers arranged in a grid of rows and columns, and what makes it useful is that it transforms a vector into a new vector. Each output number is a weighted blend of all the input numbers — you multiply each input by a weight in the grid and add them up — so every output can draw a little from every input, mixing and reshaping the information. Those grid weights are exactly the tunable dials the network learns, which is why one layer of a neural network is basically one matrix multiply. A single matrix can only reshape so much, so networks stack many of them, with a small non-linear 'bend' between layers so the steps don't collapse into one. Layer after layer, the numbers get refined — raw word-numbers near the bottom, rich meaning near the top — which is how information moves from a question to an answer.",
+          "Strangeness is not a property of a single item but of an item relative to a rule, so you cannot find the outlier until you have named what the others share. The disciplined order is to survey the set, find a property most items share, then identify the one item that lacks it. When more than one rule each singles out a different item, prefer the cleaner, more fundamental rule — the one that splits the set most decisively, such as a three-versus-one on a basic category — over a narrow or arguable property. You should also distinguish surface features (color, size, how things look) from structural features (what things are or do) and give structural rules priority, because distractors lean on superficial similarities that cut across the real category. The intended answer is the one whose rule leaves the remaining items as the tightest, least contestable group.",
         explanation:
-          "Full credit: defines a matrix (grid of numbers) that reshapes vectors via weighted blends, identifies a layer as a matrix of learned weights, and explains stacking (with non-linearities) refines information.",
+          "Full credit: find the shared rule first, rank competing rules by cleanness/decisiveness, and prefer structural over surface features.",
       },
       {
-        topicSlug: "slopes-and-gradients",
+        topicSlug: "spatial-reasoning",
         prompt:
-          "Explain how AI uses a 'loss' and a 'gradient' to know which way is 'better.' Include what the loss measures, what the gradient is, and why the model moves opposite to the gradient. (4–6 sentences.)",
+          "Explain the key ideas for spatial items. Cover what a rotation preserves, why a reflection (mirror flip) is the classic trap, and the 'fold as a mirror' method for a paper-punch problem. Include one strategy for when visualization is hard. (4–6 sentences.)",
         correctAnswer:
-          "To improve, a model first needs a single number for how wrong it is, called the loss — low loss means good answers, high loss means bad ones, so learning becomes 'make the loss small.' It helps to picture the loss as a landscape where height means error and the model is standing somewhere on it. A slope tells you how steep something is and which way is up; since the model has millions of dials, it needs a slope for each one at once, and that bundle is the gradient. The gradient points in the direction the loss increases fastest — straight uphill toward more error. So to get better, the model steps the opposite way, downhill, giving every dial a precise 'turn up or down a bit' instruction instead of blind trial-and-error.",
+          "A rotation turns a figure around a point while preserving its size, shape, and handedness, so the reliable check is to track one distinctive feature to where it must go after the turn and then confirm a second feature. The classic trap is a reflection, a mirror flip that reverses handedness — turning a left-pointing structure into a right-pointing one, like two hands that can never be rotated onto each other — so an option that looks right but subtly 'backwards' is almost certainly a mirror image. For a paper-folding-and-punch problem, treat each fold line as a mirror: every hole reflects across each crease when the paper opens, so one fold turns a single punch into two symmetric holes and each further fold doubles the count. When visualization strains, externalize — track a single landmark, use your hand to mimic the motion, or eliminate options that violate a rule the answer must satisfy (such as an odd hole count after one fold).",
         explanation:
-          "Full credit: explains the loss measures error, the gradient is the per-dial slope pointing uphill (toward more error), and moving opposite (downhill) reduces error for all dials at once.",
+          "Full credit: rotation preserves shape/handedness (track a feature), reflection reverses handedness (the trap), fold-as-mirror doubling for punches, and an externalize/eliminate strategy.",
       },
       {
-        topicSlug: "gradient-descent",
+        topicSlug: "test-craft",
         prompt:
-          "Explain gradient descent as 'learning by rolling downhill': the error landscape, why tiny repeated steps work, why the learning rate matters, and the problem of local valleys. (4–6 sentences.)",
+          "Explain the core of test-craft on a timed reasoning test. Cover the time budget and the 'never sink' rule, how elimination helps even when you can't construct the answer, and how the scoring rule decides whether to guess. (4–6 sentences.)",
         correctAnswer:
-          "Gradient descent pictures the model's error as a hilly landscape where high ground is 'very wrong' and low valleys are 'very right,' with the model starting high up because random dials give terrible answers. The method is short: compute which way is downhill (the gradient), nudge every dial a small amount that way, then repeat from the new spot thousands or millions of times. Each step is tiny, but relentlessly repeated they carry the model from nonsense down into a good valley — patience, not insight, does the work. The step size, called the learning rate, matters because too-big steps leap over the valley and bounce around or diverge, while too-small steps make learning crawl. A further problem is local valleys: the landscape is bumpy, so the model can settle in a shallow dip that isn't the true lowest point, which is why training uses tricks like randomness and momentum to avoid getting stuck.",
+          "Test-craft converts reasoning ability into a score, and it starts with a time budget: divide total time by the number of questions to set a per-item pace and treat it as a contract. The most important rule is never to sink disproportionate time into one hard item, because the cost is not just that minute but all the easier points elsewhere you fail to reach — when an item runs past its budget, mark a guess, flag it, and move on. Elimination matters even when you cannot build the answer outright: deleting one or two impossible options sharpens your thinking and, if you must guess, sharply raises your odds. Whether to guess depends on the scoring rule, so know it first: with no penalty for wrong answers you should answer every question, since a guess can only help and a blank is a guaranteed zero, while with a penalty you guess only after eliminating enough options to make the expected value positive. An informed guess after elimination beats a blind one, and a blind guess beats a blank on a no-penalty test.",
         explanation:
-          "Full credit: explains the error landscape, repeated small downhill steps reaching a low-error valley, the learning-rate tradeoff, and local valleys/getting stuck.",
-      },
-      {
-        topicSlug: "probability",
-        prompt:
-          "Explain how AI handles uncertainty with probability: that it assigns probabilities rather than knowing facts, how a chatbot predicts the next word, why it can be confidently wrong, and why a little randomness ('temperature') is used. (4–6 sentences.)",
-        correctAnswer:
-          "An AI doesn't look up a true answer; for any output it produces a probability for each possibility and goes with the likely ones, so it's really a guessing machine that manages uncertainty. A chatbot in particular is a next-word probability machine: given the words so far, it scores every possible next word, picks a likely one, adds it, and repeats, so the fluent paragraph is thousands of 'most likely next word' guesses chained together — nothing is planned in advance. Because every answer is a probability, it always has a confidence attached, but confidence reflects how well an answer fits learned patterns, not whether it's true — so it can assign high probability to something false and state it calmly. A little randomness, often called temperature, is added so it doesn't always grab the single top word and sound stiff: low temperature is safe and predictable, high temperature is more creative (and sometimes weird), which is why the same question can give different answers.",
-        explanation:
-          "Full credit: explains probabilities over options (not knowing facts), next-word prediction, confidence ≠ truth (confidently wrong), and temperature/randomness and its effect.",
-      },
-      {
-        topicSlug: "backpropagation",
-        prompt:
-          "Explain how backpropagation lets a network 'teach itself': the forward pass, how blame is assigned backward, how it connects to gradient descent, and how repeating the loop produces learning. (4–6 sentences.)",
-        correctAnswer:
-          "Learning runs as a loop: guess, measure how wrong, and adjust. The guess is the forward pass — the input becomes vectors and flows through layer after layer of matrices until the model produces an output and a confidence — and the loss then measures the gap from the right answer, telling the model that it was wrong but not whose fault it was among millions of dials. Backpropagation works backward from the mistake, layer by layer, asking how much each dial contributed to the error and passing the blame back using the same slope idea behind gradients. By the time it reaches the front, every dial has its own gradient, a precise 'turn up or down a little' to reduce the error. Gradient descent then takes one small downhill step using all those instructions, and repeating the whole loop across billions of examples slowly tunes the network from random nonsense into something useful — no one programs the dials, the loop discovers them.",
-        explanation:
-          "Full credit: explains the forward pass produces a guess + loss, backprop assigns blame backward to give each dial a gradient, gradient descent steps downhill, and repeating the loop is self-teaching.",
+          "Full credit: time budget + never-sink rule, elimination to raise guessing odds, and using the scoring rule to decide whether/when to guess (answer all if no penalty).",
       },
     ],
   },
   {
     kind: "final",
-    title: "Final — Basic AI Math: The Math Behind the Machine",
+    title: "Final — Functional Intelligence: How Reasoning Tests Work",
     weekNumber: 1,
     isTimed: true,
     timeLimitMinutes: 45,
     instructions:
-      "Timed cumulative final. 45 minutes. Covers the whole course (sections 1.1–1.8). Answer each question in a paragraph (about 5–7 sentences) in your own words. No calculations are required. Pasting is disabled; keystrokes are screened for AI use.",
+      "Timed cumulative final. 45 minutes. Covers the whole course (sections 1.1–1.6). Answer each question in a paragraph (about 5–7 sentences) in your own words, giving both your answer and the reasoning behind it. No answer earns full credit without the reasoning. Pasting is disabled; keystrokes are screened for AI use.",
     problems: [
       {
-        topicSlug: "backpropagation",
+        topicSlug: "test-craft",
         prompt:
-          "Using ideas from across the whole course, trace how a single piece of input becomes an answer and how the model learns from its mistake. Show how at least four different topics fit together (for example: numbers/vectors, embeddings, matrices, loss/gradient, gradient descent, probability, backpropagation). (5–7 sentences.)",
+          "Using ideas from across the whole course, describe how you would work through a mixed, timed reasoning test efficiently. Show how at least four different topics fit together — for example, recognizing a pattern type quickly (grids, series, analogies, odd-one-out, or spatial), using elimination, budgeting time, and guessing wisely. (5–7 sentences.)",
         correctAnswer:
-          "It starts by turning the input into numbers — specifically vectors, lists of numbers arranged by an embedding so that location stands for meaning, with similar things placed near each other. Those vectors flow forward through layer after layer of matrices, grids of weights that mix and reshape the numbers, carrying information from 'what the question means' toward 'what the answer should be.' The model's output is really a set of probabilities — for a chatbot, a likely next word — so its answer is a confident guess, not a looked-up fact. To learn, a loss scores how wrong that guess was, and the gradient gives a per-dial slope pointing toward more error, so the model knows which way is 'better.' Backpropagation passes the blame for the mistake backward through the layers so every weight gets its own gradient, and gradient descent nudges them all a small step downhill. Repeat this guess-measure-blame-nudge loop across billions of examples and the network tunes itself from random nonsense into something that works. Every 'intelligent' step is really one of these humble math operations chained together.",
+          "I would start by setting a time budget — total time divided by the number of items — and commit to a roughly even pace, doing the easier items first to bank certain points and build momentum. As I read each item I would classify it: a grid is a system of rules to read across rows and down columns, a series hides one repeated operation found by checking differences then ratios, an analogy needs a precise bridge sentence, an odd-one-out needs the shared rule before the exception, and a spatial item needs me to track a feature through a rotation while watching for a mirror-flip trap. On multiple-choice items I would eliminate impossible options using those very rules — a term that breaks a confirmed series operation, a reversed-direction analogy, a mirror image when a rotation is required — which both speeds the choice and raises my odds if I must guess. If any item runs well past its budget I would mark a best guess, flag it, and move on rather than sink time, because every item is worth the same and a hard one costs me easier points elsewhere. Knowing wrong answers usually aren't penalized, I would make sure every question has at least a guess and never leave a blank. Finally I would reserve the last minutes to revisit flagged items. This ties together pattern recognition, elimination, time-budgeting, and smart guessing into one repeatable routine.",
         explanation:
-          "Full credit: traces input → numbers/vectors/embeddings → matrices → probabilistic output → loss/gradient → backprop → gradient descent loop, correctly connecting at least four distinct topics.",
+          "Full credit: integrates at least four topics — fast pattern-type recognition (grids/series/analogies/odd-one-out/spatial), elimination, time budgeting + never-sink, and scoring-aware guessing — into a coherent routine.",
       },
       {
-        topicSlug: "vectors-and-embeddings",
+        topicSlug: "pattern-grids",
         prompt:
-          "Someone insists, 'A search engine can only match the exact words you type — if you use different words, it can't possibly know what you mean.' Using the course's ideas about vectors, embeddings, and measuring likeness, argue why modern systems can do better. Use a concrete example. (5–7 sentences.)",
+          "Someone says, 'Matrix grid puzzles are just about being naturally good at seeing pictures — you either get it or you don't.' Using the course, argue why this is wrong, and explain the systematic method that makes grids solvable. Use a concrete example of a rule. (5–7 sentences.)",
         correctAnswer:
-          "The 'only exact words' view describes the old way of searching, which did just match keywords and missed anything phrased differently. Modern systems instead turn each phrase into a vector — a location in space — using an embedding that places similar meanings close together, regardless of the exact words used. So 'how to fix a flat tire' and 'repairing a punctured wheel' land in nearly the same spot even though they share almost no words. To find matches, the system measures likeness between vectors — small distance, or a large dot product / high cosine similarity — and returns the closest ones, which is comparing locations rather than spellings. That's why search and chatbots got dramatically better at understanding what you meant rather than just what you typed. The key shift was treating meaning as geometry: once meaning is a place in space, different words for the same idea sit in the same neighborhood.",
+          "The 'you either get it or you don't' view is wrong because grids reward a learnable procedure, not innate picture-sense. The key shift is to stop seeing the grid as one overwhelming image and treat it as a system of hidden rules, where the blank is just the cell where the rules haven't been carried out yet. The method is to isolate one feature at a time and trace how it changes across a row and then down a column — for example, if the number of dots increases by one across each row and also by one down each column, the bottom-right blank is fixed by both rules at once. Because the transformations come from a small, recognizable set — quantity, rotation, movement, addition/subtraction, alternation — naming the family collapses the possible answers to one. Finally, the answer must be checked against every feature, since distractors are built to match on most features and fail on one. None of that depends on talent; it depends on decomposing the grid and verifying systematically.",
         explanation:
-          "Full credit: explains embeddings place similar meanings near each other and likeness is measured by distance/dot product/cosine, so different words for the same idea match — with a concrete example.",
+          "Full credit: rejects the innate-talent claim, explains grid-as-system, isolate-and-trace across rows/columns with a concrete rule, the small set of transformation families, and verifying against all features.",
       },
       {
-        topicSlug: "gradient-descent",
+        topicSlug: "analogies",
         prompt:
-          "A skeptic says, 'There's no way a machine could learn to write and translate just by doing arithmetic — something smarter must be going on.' Using the ideas of loss, gradients, and gradient descent, explain why simple 'rolling downhill' really can produce capable AI. Use a concrete image or example. (5–7 sentences.)",
+          "A test-taker reads 'Thermometer is to temperature as ___' and immediately picks an answer that just 'feels related' to thermometers. Using the course, explain why this approach is risky and how the bridge-sentence method and a direction check would lead to a better answer. Use a concrete example. (5–7 sentences.)",
         correctAnswer:
-          "It really is mostly arithmetic, and the engine is gradient descent. The model first measures how wrong it is with a single number, the loss, which you can picture as height on a hilly error landscape where it starts high up because random settings give terrible answers. The gradient tells it, for every one of its millions of dials, which way is downhill toward less error, and it takes a small step that way, then recomputes and steps again. Like a ball set on a bumpy hillside that simply rolls downhill until it rests in a low spot, the model needs no map or plan — just 'keep going downhill.' Each step is tiny, but repeated across billions of examples those steps carry it from nonsense to genuinely useful behavior, which is why patience, not insight, does the work. Nothing 'smarter' is required: capable writing and translation emerge from an immense number of humble downhill nudges, which is exactly the surprising lesson of the course.",
+          "Picking what 'feels related' is risky because an analogy tests a specific relationship, not loose association, and many words are associated with a thermometer without preserving its link to temperature. The better approach is to state a precise bridge sentence: a thermometer is the instrument used to measure temperature, so the second pair must be 'an instrument used to measure its quantity' — for example, clock is to time, or scale is to weight. A loose bridge like 'goes with temperature' would wrongly admit associated words such as 'heat' or 'fever,' so the bridge must be tightened until exactly one choice fits. You also have to check direction: the link runs instrument-measures-quantity, so a choice that reverses it (a quantity and the thing it is measured by, in the wrong order) is a classic trap. Applying the precise bridge plus a direction check turns a vague impression into a defensible single answer. That discipline — name the relationship exactly, then transfer it in the right direction — is the whole skill of analogies.",
         explanation:
-          "Full credit: explains the loss as an error landscape, the gradient as the downhill direction over many dials, and repeated small steps (rolling downhill) producing capable behavior, with a concrete image/example.",
+          "Full credit: explains relationship-over-association risk, builds a precise bridge (instrument measures quantity) with a concrete parallel (clock:time / scale:weight), tightens it to one answer, and checks direction.",
       },
       {
-        topicSlug: "probability",
+        topicSlug: "spatial-reasoning",
         prompt:
-          "A user says, 'The chatbot sounded so confident, so I trusted it — but it was wrong. Isn't that a glitch?' Using the course, explain why confident-but-wrong is expected, not a glitch, and what it means about how AI 'knows' things. Use a concrete example. (5–7 sentences.)",
+          "A test-taker keeps choosing answers on spatial items that look almost right but are 'subtly backwards,' and keeps getting them wrong. Using the course, diagnose what is going wrong and explain the rotation-versus-reflection distinction and a reliable checking method. Use a concrete example. (5–7 sentences.)",
         correctAnswer:
-          "It's not a glitch — it follows directly from how AI works. An AI never looks up a known fact; it assigns probabilities to many possibilities and goes with the likely ones, so it's fundamentally a guessing machine. A chatbot predicts the next word by probability over and over, chaining likely guesses into fluent sentences, which is why it sounds smooth even when it's making something up. The confidence attached to an answer reflects how well that answer fits the patterns it learned, not whether it's actually true, so it can assign high probability to a flat falsehood and state it in a calm, sure voice — much like phone autocomplete confidently suggesting the wrong word. That means 'sounding confident' is about pattern-fit, not verified truth, so it should never be mistaken for being right. The practical lesson is to treat fluent, confident AI output as a plausible guess to be checked, not as authority.",
+          "The diagnosis is that the test-taker is falling for reflections — mirror images offered as traps — when the item calls for a rotation. A rotation turns a figure while preserving its size, shape, and handedness, whereas a reflection reverses handedness, turning a left-pointing structure into a right-pointing one, the way your left and right hands are mirror twins that can never be rotated onto each other. That is exactly why a trap option can look correct in every respect yet feel 'subtly backwards.' The reliable method is to fix on one distinctive feature — say an arrow's tip or a marked corner — and track where it must go under the rotation, then confirm a second feature, rather than spinning the whole shape at once. Asking explicitly 'is this the same shape turned, or its mirror twin?' resolves a large share of hard spatial items. The fix, then, is to add a deliberate handedness check before committing, instead of trusting that an option simply looks right.",
         explanation:
-          "Full credit: explains AI assigns probabilities rather than knowing facts, confidence reflects pattern-fit not truth (so confident-wrong is expected), with a concrete example and the takeaway to verify output.",
+          "Full credit: diagnoses reflection-vs-rotation confusion, explains rotation preserves handedness while reflection reverses it (hands example), and gives the track-a-feature + explicit handedness check method.",
       },
     ],
   },
@@ -523,29 +423,29 @@ type SeedPrimer = SeedTopic;
 const REASONING_PRIMERS: SeedPrimer[] = [
   {
     slug: "reasoning-primer-subject",
-    title: "How to reason about AI-math cases",
+    title: "How to reason about functional-intelligence cases",
     weekNumber: 1,
     blurb:
-      "Diagnostic primer: applying the course's ideas to concrete situations about how AI really works.",
-    lectureTitle: "Primer: How to reason about AI-math cases",
-    body: `# How to reason about AI-math cases
+      "Diagnostic primer: applying the course's reasoning-test skills to concrete puzzles and situations.",
+    lectureTitle: "Primer: How to reason about functional-intelligence cases",
+    body: `# How to reason about functional-intelligence cases
 
-This short primer prepares you for the **AI Math** diagnostic. That check is *ungraded practice* — it never affects your course grade. It is drawn from the eight topics of this unit and asks you to *apply* what you have learned to a specific situation, not to recite a definition.
+This short primer prepares you for the **Functional Intelligence** diagnostic. That check is *ungraded practice* — it never affects your course grade. It is drawn from the six topics of this unit and asks you to *apply* what you have learned to a specific puzzle or situation, not to recite a definition.
 
 ## It tests application, not memorization
 
-A diagnostic question gives you a small, concrete scene — a search engine matching two differently-worded phrases, a chatbot answering confidently but wrongly, a model overshooting because its steps are too big — and asks what the course's ideas tell you about it. Knowing the words "embedding" or "gradient descent" is not enough; the question wants you to recognize *when* you are looking at one and *why* it matters here.
+A diagnostic question gives you a small, concrete case — a grid whose cells change by a rule, a series with one hidden operation, an analogy that hinges on a precise relationship, a set with one outlier, a shape to rotate or fold, or a timing decision under pressure — and asks what the course's skills tell you about it. Knowing the words "geometric series" or "reflection" is not enough; the question wants you to recognize *when* you are looking at one and *what move it demands here*.
 
 ## What the questions reward
 
-- **Naming the right idea** — match the situation to the concept that fits it: whether something is about turning things into numbers, meaning as location (embeddings), measuring likeness (distance/dot product), reshaping with matrices, finding "better" with a gradient, learning by rolling downhill, handling uncertainty with probability, or self-teaching with backpropagation.
-- **Using evidence from the scene** — point to the detail in the situation that supports your answer, rather than answering from a general impression.
-- **Avoiding the "magic" story** — the course replaces "AI just understands" with careful explanation. The best answers resist "there's a mind in there" or "it must know the truth," and stay grounded in the math.
+- **Naming the right skill** — match the case to the technique that fits it: reading a grid across rows and down columns, taking differences then ratios on a series, building a precise bridge sentence for an analogy, finding the shared rule before the odd one out, distinguishing a rotation from a mirror reflection, or budgeting time and guessing wisely.
+- **Using evidence from the case** — point to the detail that decides it (the constant ratio, the reversed relationship, the backwards-looking mirror image) rather than answering from a general impression.
+- **Avoiding the surface trap** — the best answers resist the option that merely *looks* related or "feels right," and instead apply the exact rule the case calls for.
 
 ## How to do this activity well
 
-1. **Read the situation first**, then ask which topic it belongs to.
-2. **Find the detail that decides it** — what in the scene makes one answer better than another.
+1. **Read the case first**, then ask which topic's skill it belongs to.
+2. **Find the detail that decides it** — what in the case makes one answer better than the others.
 3. For written items, **give the core idea in a sentence or two** — clear and correct beats long and padded.
 
 Take it as often as you like; the questions are freshly generated every time, and there is no penalty for any answer.`,
@@ -559,7 +459,7 @@ Take it as often as you like; the questions are freshly generated every time, an
     lectureTitle: "Primer: Core reasoning skills",
     body: `# Core reasoning skills
 
-This short primer prepares you for the **General Reasoning** diagnostic — an *ungraded* check that tests five genuine reasoning skills. These are the same skills you use to decide what a set of facts really shows, so they matter directly for thinking clearly about how AI works.
+This short primer prepares you for the **General Reasoning** diagnostic — an *ungraded* check that tests five genuine reasoning skills. These are the same skills you use to decide what a set of facts really shows, so they reinforce the disciplined thinking the rest of this course trains.
 
 ## The five skills
 
@@ -571,7 +471,7 @@ This short primer prepares you for the **General Reasoning** diagnostic — an *
 
 ## A recurring trap: things that move together
 
-Most wrong answers are statements that *sound* reasonable but are **not actually backed up by what you were told**. The discipline this check rewards is the same one careful thinking about technology demands: keep apart what the facts **show**, what you're **assuming**, and what only *sounds* right. Two things happening together does not prove one causes the other.
+Most wrong answers are statements that *sound* reasonable but are **not actually backed up by what you were told**. The discipline this check rewards is the same one careful reasoning always demands: keep apart what the facts **show**, what you're **assuming**, and what only *sounds* right. Two things happening together does not prove one causes the other.
 
 ## How to do this activity well
 
@@ -640,15 +540,15 @@ export async function seedReasoningPrimersIfMissing(): Promise<void> {
 }
 
 export async function seedIfEmpty(): Promise<void> {
-  // The course was migrated to the Basic AI Math syllabus. Detect the marker
-  // topic; if present and the content version matches, the content is current
-  // and we skip. This makes the seed self-healing across environments: a
+  // The course was migrated to the Functional Intelligence syllabus. Detect the
+  // marker topic; if present and the content version matches, the content is
+  // current and we skip. This makes the seed self-healing across environments: a
   // database that still holds older content (e.g. a previous curriculum) is
   // detected and replaced on boot.
   const markerTopic = await db
     .select({ id: topicsTable.id })
     .from(topicsTable)
-    .where(eq(topicsTable.slug, "why-ai-is-really-math"));
+    .where(eq(topicsTable.slug, "pattern-grids"));
   // Read the stored content version. Tolerate the seed_meta table not yet
   // existing (e.g. a boot that races ahead of schema migration): treat that as
   // "no version recorded", which forces a reseed once the table is present.
@@ -689,7 +589,7 @@ export async function seedIfEmpty(): Promise<void> {
     const row = (existing.rows[0] ?? {}) as { n?: number };
     if ((row.n ?? 0) > 0) {
       logger.warn(
-        "Seed: stale course content detected — replacing with the Basic AI Math curriculum",
+        "Seed: stale course content detected — replacing with the Functional Intelligence curriculum",
       );
       await tx.execute(
         sql`TRUNCATE TABLE answers, attempts, practice_attempts, practice_problems, practice_sessions, problems, assignments, lectures, topics, diagnostic_responses, diagnostic_attempts, diagnostic_items, diagnostic_assessments RESTART IDENTITY CASCADE`,

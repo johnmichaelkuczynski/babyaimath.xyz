@@ -64,7 +64,7 @@ router.get("/diagnostics/system", async (_req, res) => {
       const l = await db.select().from(lecturesTable);
       const a = await db.select().from(assignmentsTable);
       const p = await db.select().from(problemsTable);
-      if (t.length < 8) throw new Error(`only ${t.length} topics`);
+      if (t.length < 6) throw new Error(`only ${t.length} topics`);
       if (l.length < 1) throw new Error("no lectures");
       if (a.length < 1) throw new Error("no assignments");
       if (p.length < 1) throw new Error("no problems");
@@ -331,7 +331,7 @@ router.post("/diagnostics/synthetic-run", async (_req, res) => {
           correctAnswer: string;
           explanation: string;
         }>(
-          `You generate a single introductory AI math practice problem on "${topic.title}" at easy difficulty, with a short answer (a word, term, "yes"/"no", or short phrase). Respond as strict JSON: {"prompt": string, "correctAnswer": string, "explanation": string}.`,
+          `You generate a single functional-intelligence (reasoning-test skills) practice problem on "${topic.title}" at easy difficulty, with a short answer (a word, term, "yes"/"no", or short phrase). Respond as strict JSON: {"prompt": string, "correctAnswer": string, "explanation": string}.`,
           `New problem on ${topic.title}.`,
         );
         const [stored] = await db
@@ -547,7 +547,7 @@ router.post("/diagnostics/quality-control", async (_req, res) => {
           // The course is grounded in a specific source text, whose framework and
           // terminology can differ from mainstream treatments. The check judges
           // keys against what the course actually teaches — not generic textbook
-          // AI math. Homework is scoped to its own topic's lecture, but
+          // reasoning-test material. Homework is scoped to its own topic's lecture, but
           // cumulative assessments (test/midterm/final) draw on examples from
           // across the whole unit, so they are grounded in every lecture in the
           // unit; otherwise a correct key citing a sibling topic's example
@@ -565,7 +565,7 @@ router.post("/diagnostics/quality-control", async (_req, res) => {
           // course's own lecture material, blind to the seeded key, so the
           // verdict can't just rubber-stamp the key.
           const derived = await chatText(
-            "You are a strong introductory AI math student answering a short-answer problem. " +
+            "You are a strong functional-intelligence (reasoning-test skills) student answering a short-answer problem. " +
               `Base your answer on ${sourceLabel} provided, using its framework and terminology rather than outside theories. ` +
               "Answer the prompt directly and concisely (one or two sentences, or just the requested word). " +
               "Do not restate the prompt or add commentary.\n\n=== COURSE LECTURE MATERIAL ===\n" +
@@ -581,7 +581,7 @@ router.post("/diagnostics/quality-control", async (_req, res) => {
             confidence: number;
             rationale: string;
           }>(
-            "You are an academic quality-control reviewer for an introductory AI math course. " +
+            "You are an academic quality-control reviewer for a functional-intelligence (reasoning-test skills) course. " +
               `You are given ${sourceLabel} the problem is drawn from, a problem prompt, the SHORT answer key the course grades students against, and an independently derived answer produced without seeing the key. ` +
               "Judge the key ONLY against what the provided course material teaches — its definitions, framework, terminology, and examples — not against outside or mainstream treatments that the course does not use. " +
               "When the provided material contains multiple lectures, an example or term taught in ANY of them counts as taught by the course; do not flag a key merely because the example appears in a different lecture than the one most associated with the prompt. " +
@@ -688,7 +688,7 @@ router.post("/diagnostics/expand-lectures", async (req, res) => {
       : "Noticeably more explanation: clarify each definition, motivate each rule, and add a short 'why this works' note where useful.";
 
   const sys =
-    `You are an introductory AI math lecturer producing the ${level.toUpperCase()} version of a lecture. ` +
+    `You are a functional-intelligence (reasoning-test skills) lecturer producing the ${level.toUpperCase()} version of a lecture. ` +
     "You are given the SHORT version of the lecture. Rewrite it as a longer teaching version. RULES, no exceptions:\n" +
     "1. KEEP every heading and every concept from the SHORT version, in the same order, with the same names. You may add new sub-sections only when needed to introduce additional examples — but no new top-level topics.\n" +
     `2. ${moreExplanation}\n` +

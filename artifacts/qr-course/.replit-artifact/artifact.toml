@@ -1,6 +1,6 @@
 kind = "web"
 previewPath = "/"
-title = "Basic AI Math"
+title = "Functional Intelligence"
 version = "1.0.0"
 id = "artifacts/qr-course"
 router = "path"

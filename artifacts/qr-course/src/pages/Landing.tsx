@@ -37,20 +37,18 @@ const features = [
   },
   {
     icon: BarChart3,
-    title: "One Unit, 8 Topics",
-    body: "From why AI is really math all the way to how it teaches itself.",
+    title: "One Unit, 6 Topics",
+    body: "From pattern grids all the way to test-craft and smart guessing.",
   },
 ];
 
 const topics = [
-  { n: "1.1", title: "Why AI is really math (the idea behind the machine)" },
-  { n: "1.2", title: "Numbers as meaning: vectors and embeddings" },
-  { n: "1.3", title: "Measuring likeness: the dot product and distance" },
-  { n: "1.4", title: "Matrices: how a network moves information" },
-  { n: "1.5", title: "Slopes and gradients: which way is better?" },
-  { n: "1.6", title: "Gradient descent: learning by rolling downhill" },
-  { n: "1.7", title: "Probability: how AI handles uncertainty and guesses" },
-  { n: "1.8", title: "Backpropagation: how the whole thing teaches itself (Capstone)" },
+  { n: "1.1", title: "Pattern grids: finding the rule that fills the blank" },
+  { n: "1.2", title: "Number and letter series: spotting what comes next" },
+  { n: "1.3", title: "Analogies: how A-to-B locks onto C-to-what" },
+  { n: "1.4", title: "Odd-one-out: what doesn't belong, and why" },
+  { n: "1.5", title: "Spatial reasoning: rotating, folding, and seeing it in your head" },
+  { n: "1.6", title: "Test-craft: timing, elimination, and smart guessing" },
 ];
 
 export default function Landing() {
@@ -62,7 +60,7 @@ export default function Landing() {
             <Search className="w-4 h-4" />
           </div>
           <span className="font-serif font-semibold text-lg tracking-tight">
-            Basic AI Math
+            Functional Intelligence
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -89,16 +87,16 @@ export default function Landing() {
         <section className="max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium mb-6">
             <BarChart3 className="w-3.5 h-3.5" />
-            A focused, one-unit course on the mathematics behind AI
+            A focused, one-unit course on how reasoning tests work
           </div>
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-primary leading-tight mb-5">
-            AI isn't magic — it's mathematics. Learn how it really works.
+            Boost Your Functional Intelligence
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
             A rigorous, self-paced course that teaches, tutors, drills, and grades
-            you on the mathematics behind modern AI — eight topics from vectors to
-            backpropagation, each built up from first principles for newcomers to
-            the discipline.
+            you on how reasoning tests work — and how to beat them — across six
+            topics from pattern grids to test-craft, each built up from first
+            principles for newcomers to the discipline.
           </p>
           <div className="flex items-center justify-center gap-3">
             <Link href="/sign-up">
@@ -163,7 +161,7 @@ export default function Landing() {
       </main>
 
       <footer className="border-t border-border px-6 py-6 text-center text-sm text-muted-foreground">
-        Basic AI Math — where the curriculum, the tutor, the grader, and the
+        Functional Intelligence — where the curriculum, the tutor, the grader, and the
         integrity check all live in one room.
       </footer>
     </div>

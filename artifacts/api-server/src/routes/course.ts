@@ -21,9 +21,9 @@ const router: IRouter = Router();
 
 const WEEK_TITLES: Record<number, { title: string; summary: string }> = {
   1: {
-    title: "Basic AI Math: The Math Behind the Machine",
+    title: "Functional Intelligence: How Reasoning Tests Work — and How to Beat Them",
     summary:
-      "What the math behind AI really is and why a chatbot's reply is just numbers and arithmetic at huge scale, how words and images become lists of numbers (vectors and embeddings), how AI measures likeness with the dot product and distance, how matrices move information through a network, what slopes and gradients tell us, how gradient descent learns by rolling downhill, how probability lets AI handle uncertainty, and how backpropagation ties it all together — each idea built up from first principles, one step at a time.",
+      "How the puzzle types behind reasoning and aptitude tests actually work and how to solve them by method rather than talent: pattern grids and the hidden rule that fills the blank, number and letter series and the operation that comes next, analogies and the precise relationship that links the pair, odd-one-out and the shared rule that names the exception, spatial reasoning and the difference between a rotation and a mirror image, and test-craft — the timing, elimination, and smart guessing that convert ability into a score — each skill built up from first principles, one step at a time.",
   },
 };
 
@@ -112,7 +112,7 @@ router.get("/course/overview", async (_req, res) => {
 
   res.json(
     GetCourseOverviewResponse.parse({
-      title: "Basic AI Math",
+      title: "Functional Intelligence",
       weeks,
       totals: { assignmentsCompleted, assignmentsTotal, practiceCount },
     }),
@@ -203,13 +203,13 @@ router.post(
     const sourceBody = (base && base.trim().length > 0 ? base : lecture.body).trim();
 
     const sys =
-      "You are an introductory AI math lecturer revising your own lecture at a student's request. " +
+      "You are a functional-intelligence (reasoning-test skills) lecturer revising your own lecture at a student's request. " +
       "You are given the CURRENT lecture and ONE instruction from the student about how to revise it. " +
       "Apply the instruction faithfully. ABSOLUTE RULES, no exceptions:\n" +
       "1. KEEP every concept, claim, and learning objective from the current lecture. Never drop material or change what the lecture teaches — only adjust how it is presented per the instruction.\n" +
       "2. Preserve the existing examples; you may add to or clarify them, but do not silently replace them with different ones unless the instruction explicitly asks you to.\n" +
       "3. Keep headings and section order intact. You may add sub-sections (e.g. extra examples) when the instruction calls for it.\n" +
-      "4. Stay accurate to the source material and to the math behind AI as a discipline. Do not invent fake facts, citations, or quotations.\n" +
+      "4. Stay accurate to the source material and to reasoning-test methods as a discipline. Do not invent fake facts, citations, or quotations.\n" +
       "5. Use clear Markdown. Use $...$ for any inline math.\n" +
       "6. Return ONLY the rewritten Markdown lecture body — no preface, no commentary, no surrounding code fences.";
     const user =
@@ -314,12 +314,12 @@ router.post(
     const sourceBody = (base && base.trim().length > 0 ? base : lecture.body).trim();
 
     const sys =
-      "You are an introductory AI math lecturer adding illustrations to your own lecture. " +
+      "You are a functional-intelligence (reasoning-test skills) lecturer adding illustrations to your own lecture. " +
       "You are given the CURRENT lecture. Return the SAME lecture, unchanged in what it teaches, but with vivid illustrations added. ABSOLUTE RULES, no exceptions:\n" +
       "1. KEEP every concept, claim, heading, section, and learning objective exactly as they are, in the same order. Do not remove, reorder, or rewrite the existing explanation — only ADD to it.\n" +
       "2. For EVERY distinct point the lecture makes, add AT LEAST ONE concrete, vivid illustration that makes the point easy to picture: a short scenario, a real-to-life case sketch, an everyday analogy, or a worked example. Keep illustrations tasteful and age-appropriate — never graphic or sensational.\n" +
       "3. Set off each illustration so it reads as an example (e.g. a short *Example:* sentence or a brief italicized vignette) rather than blending into the original text.\n" +
-      "4. Stay accurate to the source material and to the math behind AI as a discipline. Do not invent fake facts, statistics, citations, or quotations; keep examples plausibly illustrative, not presented as documented cases.\n" +
+      "4. Stay accurate to the source material and to reasoning-test methods as a discipline. Do not invent fake facts, statistics, citations, or quotations; keep examples plausibly illustrative, not presented as documented cases.\n" +
       "5. Use clear Markdown. Use $...$ for any inline math.\n" +
       "6. Return ONLY the augmented Markdown lecture body — no preface, no commentary, no surrounding code fences.";
     const user =

@@ -1,12 +1,12 @@
-# Basic AI Math — App Blueprint
+# Functional Intelligence — App Blueprint
 
-A complete architectural blueprint for the Basic AI Math one-unit intro course on the math behind AI. This document is the single reference for what the app does, how it's wired, and the contracts between pieces. For day-to-day commands and gotchas see `replit.md`.
+A complete architectural blueprint for the Functional Intelligence one-unit intro course on how reasoning and aptitude tests work — and how to beat them. This document is the single reference for what the app does, how it's wired, and the contracts between pieces. For day-to-day commands and gotchas see `replit.md`.
 
 ---
 
 ## 1. Product summary
 
-Basic AI Math is a self-paced, single-user, no-login web course covering a one-unit, plain-language intro to the math behind artificial intelligence (8 topics, from "why AI is really math" through backpropagation). Students read AI-rewritten lecture notes at three lengths, ask an AI tutor scoped to the section they're reading, drill on adaptive practice problems, and submit homework / a unit test / a final that are AI-graded and AI-detection-screened.
+Functional Intelligence is a self-paced, single-user, no-login web course covering a one-unit, plain-language intro to how reasoning and aptitude tests work (6 topics, from "pattern grids: finding the rule that fills the blank" through "test-craft: timing, elimination, and smart guessing"). Students read AI-rewritten lecture notes at three lengths, ask an AI tutor scoped to the section they're reading, drill on adaptive practice problems, and submit homework / a unit test / a final that are AI-graded and AI-detection-screened.
 
 The product surface is two deployable artifacts in one pnpm monorepo:
 
@@ -178,7 +178,7 @@ Steps:
 
 1. **Environment** — `DATABASE_URL` present.
 2. **Database** — `SELECT 1` round-trip.
-3. **Database** — course content is seeded (≥8 topics, ≥1 lecture / assignment / problem).
+3. **Database** — course content is seeded (≥6 topics, ≥1 lecture / assignment / problem).
 4. **OpenAI** — fast-model chat completion returns non-empty text.
 5. **OpenAI** — JSON mode returns `{ ok: true }`.
 6. **Detection** — heuristic+scoring pipeline returns numbers for a benign sentence.

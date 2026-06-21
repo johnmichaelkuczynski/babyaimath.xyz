@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
+import { AnswerInput } from "@/components/AnswerInput";
 
 interface Props {
   index: number;
@@ -22,7 +23,6 @@ export function StarterQuestionCard({
 }: Props) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-  const taRef = useRef<HTMLTextAreaElement | null>(null);
 
   function submit() {
     if (!value.trim()) return;
@@ -66,22 +66,15 @@ export function StarterQuestionCard({
       </div>
       {open && (
         <div className="px-2 pb-2 flex flex-col gap-2">
-          <textarea
-            ref={taRef}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
-                e.preventDefault();
-                submit();
-              }
-            }}
-            placeholder="Type your answer…"
-            rows={3}
-            className="bg-secondary border-none rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary resize-y min-h-[72px]"
-            data-testid={`input-attempt-${index}`}
-            autoFocus
-          />
+          <div data-testid={`input-attempt-${index}`}>
+            <AnswerInput
+              value={value}
+              onChange={(val) => setValue(val)}
+              placeholder="Type your answer…"
+              disabled={pending}
+              compact
+            />
+          </div>
           <div className="flex justify-end">
             <Button
               size="sm"
